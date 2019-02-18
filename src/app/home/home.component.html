@@ -1,3 +1,9 @@
-<div class="content">
-    <app-card-container></app-card-container>
+<div class="categories">
+    <a [routerLink]="['/home/men']" [routerLinkActive]="['active']">men</a>
+    <a [routerLink]="['/home/women']" [routerLinkActive]="['active']">women</a>
+    <a [routerLink]="['/home/kids']" [routerLinkActive]="['active']">kids</a>
+</div>
+<div class="clearfix"></div>
+<div class="category-content">
+    <router-outlet></router-outlet>
 </div>

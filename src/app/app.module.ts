@@ -2,14 +2,20 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
+//routing
+import { AppRoutingModule } from './app-routing.module';
+//services
+import { ProductService } from './product.service';
+//components
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { AppRoutingModule } from './app-routing.module';
 import { CartComponent } from './cart/cart.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CardComponent } from './card/card.component';
-import { CardContainerComponent } from './card-container/card-container.component';
 import { ProductComponent } from './product/product.component';
+import { MenComponent } from './men/men.component';
+import { WomenComponent } from './women/women.component';
+import { KidsComponent } from './kids/kids.component';
 
 @NgModule({
     declarations: [
@@ -18,15 +24,19 @@ import { ProductComponent } from './product/product.component';
         CartComponent,
         ProfileComponent,
         CardComponent,
-        CardContainerComponent,
-        ProductComponent
+        ProductComponent,
+        MenComponent,
+        WomenComponent,
+        KidsComponent
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         HttpClientModule
     ],
-    providers: [],
+    providers: [
+        ProductService
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

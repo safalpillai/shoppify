@@ -1,5 +1,8 @@
 @import './assets/scss/base';
 
+a:hover{
+    text-decoration: none;
+}
 header{
     padding: 15px 30px;
     background: $blue;
@@ -41,8 +44,9 @@ header{
         }
     }
 }
-.content{
-    padding: 30px;
+.category-content{
+    padding-left: 15px;
+    padding-right: 15px;
 }
 .card-wrapper{
     @include boxshadow(0, 0, 10px, 0, 0, 0, 0.2);
@@ -121,6 +125,23 @@ header{
         background-position: center;
     }
 }
+.categories{
+    a{
+        @include reg(14);
+        display: block;
+        width: calc(100% / 3);
+        float: left;
+        padding: 15px 0;
+        text-align: center;
+        background: darken($blue, 10%);
+        color: $w;
+        text-transform: uppercase;
+
+        &.active{
+            background: rgba(0, 0, 0, 0.05);
+        }
+    }
+}
 @media only screen and (min-width: 480px){
     header{
         .logo{
@@ -144,6 +165,13 @@ header{
 
         &:hover{
             @include boxshadow(0, 0, 10px, 0, 0, 0, 0.4);
+        }
+    }
+    .categories{
+        a{
+            &:hover{
+                background: rgba(0, 0, 0, 0.05);
+            }
         }
     }
 }
