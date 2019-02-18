@@ -1,1 +1,149 @@
-/* You can add global styles to this file, and also import other style files */
+@import './assets/scss/base';
+
+header{
+    padding: 15px 30px;
+    background: $blue;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .logo{
+        display: inline-block;
+
+        .site-title{
+            display: none;
+        }
+    }
+    .header-extras{
+        a{
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            margin-right: 15px;
+
+            &.search{
+                @include svg(search);
+                background-size: 20px;
+                background-position: center;
+            }
+            &.profile{
+                @include svg(user);
+                background-size: 20px;
+                background-position: center;
+            }
+            &.cart{
+                @include svg(cart);
+                background-size: 23px;
+                background-position: center;
+                margin-right: 0;
+            }
+        }
+    }
+}
+.content{
+    padding: 30px;
+}
+.card-wrapper{
+    @include boxshadow(0, 0, 10px, 0, 0, 0, 0.2);
+    @include radius(6px);
+    overflow: hidden;
+    position: relative;
+    background: $w;
+    margin-bottom: 25px;
+
+    .card{
+        display: block;
+        padding-top: 50px;
+
+        img{
+            max-width: 100%;
+            margin: auto;
+            width: auto;
+            padding: 0 20px;
+        }
+        &:hover{
+            text-decoration: none;
+        }
+        .inner{
+            padding: 20px;
+
+            span{
+                @include reg(14);
+                color: $text;
+                display: block;
+                text-transform: uppercase;
+                margin-bottom: 10px;
+
+                &.title{
+                    @include reg(22);
+                    text-transform: capitalize;
+                    color: $text2;
+                    margin-bottom: 5px;
+                }
+                &.price{
+                    @include light(24);
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+    .wishlist{
+        @include boxshadow(0, 0, 10px, 0, 0, 0, 0.5);
+        @include radius(50%);
+        @include tr(20px, 20px);
+        width: 30px;
+        height: 30px;
+
+        &.true{
+            @include svg(heart-true);
+            background-size: 14px;
+            background-color: $w;
+            background-position: center;
+        }
+        &.false{
+            @include svg(heart-false);
+            background-size: 14px;
+            background-color: $w;
+            background-position: center;
+        }
+    }
+}
+.price{
+    display: inline-block;
+    position: relative;
+    padding-left: 25px;
+
+    &:before{
+        @include basvg(rupee, 20px, 20px, 18px);
+        @include tl(50%, 0);
+        margin-top: -8px;
+        background-position: center;
+    }
+}
+@media only screen and (min-width: 480px){
+    header{
+        .logo{
+            .site-title{
+                @include reg(22);
+                color: $w;
+                display: inline-block;
+                color: $w;
+                margin-left: 10px;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 1200px){
+    a, button, input[type="submit"]{
+        @include transition;
+    }
+    .card-wrapper{
+        @include transition;
+
+        &:hover{
+            @include boxshadow(0, 0, 10px, 0, 0, 0, 0.4);
+        }
+    }
+}

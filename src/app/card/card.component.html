@@ -1,0 +1,11 @@
+<div class="card-wrapper">
+    <a [routerLink]="['/product', product.id]" class="card">
+        <img [src]="product.imgSrc" alt="">
+        <div class="inner">
+            <span class="brand">{{ product.brand }}</span>
+            <span class="title">{{ product.title }}</span>
+            <span class="price">{{ product.price }}</span>
+        </div>
+    </a>
+    <a class="wishlist false" href="#"></a>
+</div>
