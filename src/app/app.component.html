@@ -1,13 +1,21 @@
-<header>
-    <a class="logo" [routerLink]="['/home']">
-        <img src="../assets/images/logo.png" alt="">
-        <div class="site-title">shoppify</div>
-    </a>
-    <div class="header-extras">
-        <a class="search" href="javasvript:void(0)"></a>
-        <a class="profile" [routerLink]="['/profile']"></a>
-        <a class="cart" [routerLink]="['/cart']"></a>
-    </div>
-</header>
-<router-outlet></router-outlet>
+<!-- LOADING BAR -->
+<ng2-slim-loading-bar [color]="'#F7A200'" [height]="'3px'"></ng2-slim-loading-bar>
+
+<!-- APP -->
+<div id="root-container">
+    <!-- HEADER -->
+    <header>
+        <a class="logo" [routerLink]="['/home']">
+            <img src="../assets/images/logo.png" alt="">
+            <div class="site-title">shopify</div>
+        </a>
+        <div class="header-extras">
+            <a class="search" href="javascript:void(0)"></a>
+            <a class="profile" [routerLink]="['/profile']"></a>
+            <a class="cart" [routerLink]="['/cart']"></a>
+        </div>
+    </header>
+    <!-- ROUTER OUTLET -->
+    <router-outlet></router-outlet>
+</div>
     

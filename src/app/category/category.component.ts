@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostListener } from '@angular/core';
 import { IProduct } from '../models';
 import { ProductService } from '../product.service';
 
@@ -11,9 +11,14 @@ export class CategoryComponent implements OnInit {
     @Input() loadCategory: string;
     products: IProduct[];
     dataReceived: boolean = false;
+    windowWidth: any;
+    @HostListener('window: resize', ['event']) onresize(event) {
+        this.windowWidth = window.innerWidth;
+        console.log(`viewport width - ${this.windowWidth}`);
+    }
 
     constructor(private productService: ProductService) { 
-        
+        this.windowWidth = window.innerWidth;
     }
 
     ngOnInit() {
