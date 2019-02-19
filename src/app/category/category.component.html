@@ -1,0 +1,6 @@
+<div *ngIf="dataReceived; else nodata">
+    <app-card *ngFor="let p of products" [product]="p"></app-card>
+</div>
+<ng-template #nodata>
+    <div class="no-data"><span>no products found</span></div>
+</ng-template>

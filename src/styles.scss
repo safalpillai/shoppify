@@ -1,15 +1,25 @@
 @import './assets/scss/base';
 
-a:hover{
-    text-decoration: none;
+button::-moz-focus-inner {
+    border: 0;
+}  
+a{
+    outline: 0;
+
+    &:hover, &:active, &:visited, &:focus{
+        text-decoration: none;
+    }
 }
 header{
+    @include boxshadow(0, 0, 6px, 0, 0, 0, 0.35);
     padding: 15px 30px;
     background: $blue;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    position: relative;
+    z-index: 10;
 
     .logo{
         display: inline-block;
@@ -126,6 +136,9 @@ header{
     }
 }
 .categories{
+    overflow: hidden;
+    margin-bottom: 15px;
+
     a{
         @include reg(14);
         display: block;
@@ -133,12 +146,12 @@ header{
         float: left;
         padding: 15px 0;
         text-align: center;
-        background: darken($blue, 10%);
+        background: $blue;
         color: $w;
         text-transform: uppercase;
 
         &.active{
-            background: rgba(0, 0, 0, 0.05);
+            background: darken($blue, 5%);
         }
     }
 }
@@ -170,7 +183,7 @@ header{
     .categories{
         a{
             &:hover{
-                background: rgba(0, 0, 0, 0.05);
+                background: darken($blue, 5%);
             }
         }
     }

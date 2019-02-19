@@ -13,6 +13,7 @@ import { CartComponent } from './cart/cart.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CardComponent } from './card/card.component';
 import { ProductComponent } from './product/product.component';
+import { CategoryComponent } from './category/category.component';
 import { MenComponent } from './men/men.component';
 import { WomenComponent } from './women/women.component';
 import { KidsComponent } from './kids/kids.component';
@@ -25,9 +26,10 @@ import { KidsComponent } from './kids/kids.component';
         ProfileComponent,
         CardComponent,
         ProductComponent,
+        CategoryComponent,
         MenComponent,
         WomenComponent,
-        KidsComponent
+        KidsComponent,
     ],
     imports: [
         BrowserModule,

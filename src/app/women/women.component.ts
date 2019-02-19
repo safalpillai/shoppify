@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-women',
-  templateUrl: './women.component.html',
-  styleUrls: ['./women.component.scss']
+    selector: 'app-women',
+    templateUrl: './women.component.html',
+    styleUrls: ['./women.component.scss']
 })
 export class WomenComponent implements OnInit {
+    category: string;
 
-  constructor() { }
+    constructor() { 
+        this.category = 'women';
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
 }

@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-kids',
-  templateUrl: './kids.component.html',
-  styleUrls: ['./kids.component.scss']
+    selector: 'app-kids',
+    templateUrl: './kids.component.html',
+    styleUrls: ['./kids.component.scss']
 })
 export class KidsComponent implements OnInit {
+    category: string;
 
-  constructor() { }
+    constructor() { 
+        this.category = 'kids';
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
 }
