@@ -1,0 +1,58 @@
+<div class="profile-children form-wrapper">
+    <div *ngIf="loading" class="loader"></div>   
+    <form *ngIf="hideForm" [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm.value)">
+        <div class="title">register</div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="relative">
+                    <input type="text" placeholder="Enter Name" [formControl]="registerForm.controls['name']">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="relative">
+                    <input type="text" placeholder="Enter Username" [formControl]="registerForm.controls['username']">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="relative">
+                    <input type="text" placeholder="Enter Email" [formControl]="registerForm.controls['email']">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="relative">
+                    <input type="text" placeholder="Enter Contact No." [formControl]="registerForm.controls['contactNumber']">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="relative">
+                    <input type="text" placeholder="Enter Address" [formControl]="registerForm.controls['address']">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="relative">
+                    <input type="password" placeholder="Enter Password" [formControl]="registerForm.controls['password']">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="relative">
+                    <input type="password" placeholder="Confirm Password" [formControl]="registerForm.controls['confirmPassword']">
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <button class="action">register</button>
+        </div>
+    </form>
+    <ng-container *ngIf="userRegistered">
+        <div class="user-registered">
+            <span>user registration successful</span>
+            <a [routerLink]="['/profile/login']">Login using new credentials</a>
+        </div>
+    </ng-container>
+</div>

@@ -1,4 +1,41 @@
-<div *ngIf="productReceived">
-    <span style="display: block;">brand {{ productDetails.brand }}</span>
-    <span style="display: block;">title {{ productDetails.title }}</span>
+<div class="product-container padding">
+    <div class="col-xs-12" *ngIf="productReceived">
+        <div class="product">
+            <div class="text-center">
+                <img [src]="productDetails.imgSrc" alt="">
+            </div>
+            <div class="desktop-block">
+                <div class="card-inner">
+                    <span class="brand">{{ productDetails.brand }}</span>
+                    <span class="title">{{ productDetails.title }}</span>
+                    <span class="category">category: {{ productDetails.category }}</span>
+                    <span class="price">{{ productDetails.price }}</span>
+                    <div class="rating">
+                        <em>{{ productDetails.rating }}</em>
+                    </div>
+                </div>
+                <div class="size">
+                    <div class="title">sizes available</div>
+                    <div class="size-flex">
+                        <ng-container *ngIf="sizes.length > 1; else nosize">
+                            <a *ngFor="let s of sizes" href="javascript:void(0)">{{ s }}</a>
+                        </ng-container>
+                        <ng-template #nosize>
+                            <span>NA</span>
+                        </ng-template>
+                    </div>
+                </div>
+                <div class="details">
+                    <div class="title">product details</div>
+                    <p><span>color</span><i>{{ productDetails.color }}</i></p>
+                    <p><span>material</span><i>{{ productDetails.material }}</i></p>
+                    <p><span>details</span>{{ productDetails.sizesAvailable }}</p>
+                    <button [disabled]="productDetails.sizesAvailable == undefined || productDetails.sizesAvailable == ''" class="cart">
+                        {{ sizes.length > 1 ? "add to cart" : "sold out" }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
 </div>

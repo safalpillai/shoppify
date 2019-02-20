@@ -12,6 +12,7 @@ export class ProductComponent implements OnInit {
     productId: string;
     productDetails: IProduct;
     productReceived: boolean = false;
+    sizes: Array<string> = new Array<string>();
 
     constructor(private activatedRoute: ActivatedRoute, private productService: ProductService) { 
         //get id parameter from url
@@ -26,6 +27,8 @@ export class ProductComponent implements OnInit {
         this.productService.getProduct(this.productId).subscribe((res) => {
             console.log(`product.component - received response - ${res}`);
             this.productDetails = res;
+            this.sizes = this.productDetails.sizesAvailable.split(",");
+            console.log('sizes - ', this.sizes);
             this.productReceived = true;
         });
     }
