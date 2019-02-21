@@ -9,14 +9,16 @@ import { UserService } from '../user.service';
 })
 export class RegisterComponent implements OnInit {
     registerForm: FormGroup;
-    userRegistered: boolean;
-    loading: boolean;
+    isUserRegistered: boolean;
+    isLoading: boolean;
+    isUserFailed: boolean;
     hideForm: boolean;
     
     constructor(private formBuilder: FormBuilder, private userService: UserService) {
+        this.isUserRegistered = false;
+        this.isLoading = false;
+        this.isUserFailed = false;
         this.hideForm = true;
-        this.userRegistered = false;
-        this.loading = false;
         this.registerForm = this.formBuilder.group({
             'name': ['safal', Validators.required],
             'username': ['safal', Validators.required],
@@ -33,12 +35,19 @@ export class RegisterComponent implements OnInit {
 
     onSubmit(value: any) {
         console.log('form input - ', value);
-        this.loading = true;
+        this.isLoading = true;
         this.userService.registerUser(value).subscribe(
             (res) => {
-                res ? this.userRegistered = true : this.userRegistered = false;
-                this.loading = false;
-                this.hideForm = false;
+                if(res) {
+                    this.hideForm = false;
+                    this.isUserRegistered = true;
+                } else {
+                    this.isUserFailed = true;
+                    setTimeout(() => {
+                        this.isUserFailed = false;
+                    }, 3000);
+                }
+                this.isLoading = false;
             }
         );
     }

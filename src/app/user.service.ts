@@ -23,7 +23,10 @@ export class UserService {
         };
         console.log('user.service.registerUser() - form input - ', formInput);
         return this.http.post(`${UserService.API_URL}/register`, model).pipe(
-            map(res => { return res = true })
+            map(res => { 
+                if(res) return true;
+                return false;
+             })
         )
     }
 }

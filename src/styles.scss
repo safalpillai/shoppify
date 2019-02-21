@@ -412,21 +412,31 @@ header{
     text-align: center;
 
     span{
-        @include light(32);
+        @include light(20);
         display: block;
         color: $text2;
         text-transform: capitalize;
         margin-bottom: 30px;
+
+        &.sub{
+            font-size: 16px;
+            color: $b;
+        }
     }
     a{
         @include radius(20px);
-        @include reg(14);
+        @include reg(12);
         background: $blue;
         color: $w;
         position: relative;
         display: inline-block;
-        padding: 5px 40px;
+        padding: 5px 10px;
         border: 1px solid $t;
+    }
+    &.failed{
+        @include tl(0, 0);
+        width: 100%;
+        height: 100%;
     }
 }
 //responsive
@@ -465,6 +475,15 @@ header{
     .profile-children{
         width: 650px;
         margin: auto;
+    }
+    .user-registered{
+        span{
+            font-size: 32px;
+        }
+        a{
+            padding-left: 40px;
+            padding-right: 40px;
+        }
     }
 }
 

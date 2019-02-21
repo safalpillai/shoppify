@@ -1,5 +1,5 @@
 <div class="profile-children form-wrapper">
-    <div *ngIf="loading" class="loader"></div>   
+    <div *ngIf="isLoading" class="loader"></div>   
     <form *ngIf="hideForm" [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm.value)">
         <div class="title">register</div>
         <div class="row">
@@ -49,10 +49,16 @@
             <button class="action">register</button>
         </div>
     </form>
-    <ng-container *ngIf="userRegistered">
+    <ng-container *ngIf="isUserRegistered">
         <div class="user-registered">
-            <span>user registration successful</span>
+            <span>user registration successful!</span>
             <a [routerLink]="['/profile/login']">Login using new credentials</a>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="isUserFailed">
+        <div class="user-registered failed">
+            <span>user registration failed!</span>
+            <span class="sub">Please try again.</span>
         </div>
     </ng-container>
 </div>
