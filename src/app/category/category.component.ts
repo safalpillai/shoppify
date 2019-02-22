@@ -11,6 +11,7 @@ export class CategoryComponent implements OnInit {
     @Input() loadCategory: string;
     products: IProduct[];
     dataReceived: boolean = false;
+    isLoading: boolean;
     windowWidth: any;
     @HostListener('window: resize', ['event']) onresize(event) {
         this.windowWidth = window.innerWidth;
@@ -18,6 +19,7 @@ export class CategoryComponent implements OnInit {
     }
 
     constructor(private productService: ProductService) { 
+        this.isLoading = true;
         this.windowWidth = window.innerWidth;
     }
 
@@ -25,6 +27,7 @@ export class CategoryComponent implements OnInit {
         this.productService.getProducts(this.loadCategory).subscribe(res => {
             this.products = res;
             this.dataReceived = true;
+            this.isLoading = false;
         });
     }
 

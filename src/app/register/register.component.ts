@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
             'username': ['', Validators.required],
             'email': ['', Validators.required],
             'contactNumber': ['', Validators.compose([
-                Validators.required, this.numberValidator
+                Validators.required, Validators.minLength(10)
             ])],
             'address': ['', Validators.required],
             'password': ['', Validators.compose([
@@ -53,9 +53,9 @@ export class RegisterComponent implements OnInit {
     }
     
     //number validation
-    numberValidator(fc: FormControl): { [s: string]: boolean } {
-        return fc.value.match(/[0-9\+\-\ ]/) ? null : { numberValidation: true };
-    }
+    // numberValidator(fc: FormControl): { [s: string]: boolean } {
+    //     return fc.value.match(/[0-9\+\-\ ]/) ? null : { numberValidation: true };
+    // }
 
     onSubmit(value: any) {
         console.log('form input - ', value);

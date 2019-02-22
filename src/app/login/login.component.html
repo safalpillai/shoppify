@@ -19,4 +19,5 @@
             If you don't have an account, register <a [routerLink]="['/profile/register']">here</a>.
         </div>
     </form>
+    <div *ngIf="isLoading" class="loader"></div>
 </div>

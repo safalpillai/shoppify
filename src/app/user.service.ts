@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IUser } from './models';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -21,6 +20,23 @@ export class UserService {
                 return false;
             })
         );
+    }
+
+    //on login 
+    loggedIn(username: string) {
+        localStorage.setItem('username', username);
+        console.log(`localstorage - ${localStorage.getItem('username')}`);
+    }
+
+    //check if user is loggedIn
+    isAuthenticated(): boolean {
+        if(localStorage.getItem('username') !== '') return true;
+        else return false;
+    }
+
+    //on logout
+    loggedOut() {
+        localStorage.setItem('username', '');
     }
 
     //register user

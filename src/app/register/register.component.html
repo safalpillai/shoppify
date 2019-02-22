@@ -29,9 +29,12 @@
             <div class="col-lg-6">
                 <div class="relative text-box">
                     <em class="caption">contact no.</em>
-                    <input appCustomTextbox type="text" [formControl]="registerForm.controls['contactNumber']">
+                    <input appCustomTextbox appNumbersOnly type="text" [formControl]="registerForm.controls['contactNumber']" maxlength="12">
                     <div *ngIf="registerForm.controls['contactNumber'].dirty && registerForm.controls['contactNumber'].hasError('numberValidation')" class="field-error">
                         only numbers allowed
+                    </div>
+                    <div *ngIf="registerForm.controls['contactNumber'].dirty && registerForm.controls['contactNumber'].hasError('minlength')" class="field-error">
+                        minimum 10 numbers
                     </div>
                 </div>
             </div>

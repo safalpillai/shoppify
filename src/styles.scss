@@ -90,14 +90,27 @@ header{
             }
             &.active{
                 @include radius(3px);
-                background-color: rgba(0, 0, 0, 0.15);
-                border-color: rgba(255, 255, 255, 0.25);
+                border-color: rgba(255, 255, 255, 0.45);
+
+                &.profile{
+                    @include svg(user-active);
+                    background-size: 20px;
+                    background-position: center;
+                    background-color: rgba(0, 0, 0, 0.15);
+                }
+                &.cart{
+                    @include svg(cart-active);
+                    background-size: 23px;
+                    background-position: center;
+                    background-color: rgba(0, 0, 0, 0.15);
+                }
             }
         }
     }
 }
 .category-content{
     padding: 30px;
+    position: relative;
 }
 .card-wrapper{
     @include boxshadow(0, 0, 10px, 0, 0, 0, 0.15);
@@ -456,8 +469,7 @@ header{
     @include radius(3px);
     padding: 15px 0;
     text-align: center;
-    text-transform: uppercase;
-    margin-bottom: 35px;
+    margin: 35px 0 15px;
     background: #ff5959;
     color: $w;
 }
@@ -504,10 +516,33 @@ header{
         color: #ff0000;
         margin: 5px 0 0;
         display: block;
+        position: relative;
+        padding-left: 10px;
+        text-transform: capitalize;
 
-        &:first-letter{
-            text-transform: uppercase;
+        &:before{
+            @include bold(12);
+            @include tl(0, 0);
+            content: '*';
         }
+    }
+}
+.dashboard-flex{
+    display: flex;
+    flex-direction: column;
+
+    a{
+        @include light(18);
+        @include boxshadow(0, 0, 10px, 0, 0, 0, 0.35);
+        @include radius(3px);
+        display: block;
+        margin-bottom: 20px;
+        background: darken($yellow, 25%);
+        color: $b;
+        border: 1px solid $t;
+        text-transform: capitalize;
+        text-align: center;
+        padding: 30px 0;
     }
 }
 //responsive
@@ -554,6 +589,18 @@ header{
         a{
             padding-left: 40px;
             padding-right: 40px;
+        }
+    }
+    .dashboard-flex{
+        margin-bottom: 20px;
+        flex-direction: row;
+        align-items: stretch;
+        justify-content: space-between;
+
+        a{
+            padding: 50px 0;
+            width: 24%;
+            margin-bottom: 0;
         }
     }
 }
@@ -650,6 +697,12 @@ header{
             background: $t;
             border-color: $blue;
             color: $blue;
+        }
+    }
+    .dashboard-flex{
+        a:hover{
+            background: $yellow;
+            border-color: $blue;
         }
     }
 }
