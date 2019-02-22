@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IUser } from './models';
 import { map } from 'rxjs/operators';
@@ -12,6 +12,18 @@ export class UserService {
 
     constructor(private http: HttpClient) { }
 
+    //login
+    login(value): Observable<boolean> {
+        const params = new HttpParams().set('username', value.username).set('password', value.password);
+        return this.http.get(`${UserService.API_URL}/login`, {params}).pipe(
+            map(res => {
+                if(res) return true;
+                return false;
+            })
+        );
+    }
+
+    //register user
     registerUser(formInput): Observable<boolean>{
         let model = {
             name: formInput.name,

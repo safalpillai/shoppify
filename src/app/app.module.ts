@@ -8,6 +8,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 //services
 import { ProductService } from './product.service';
+//directives
+import { CustomTextboxDirective } from './custom-textbox.directive';
 //components
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -23,6 +25,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UserService } from './user.service';
 
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -37,6 +40,7 @@ import { UserService } from './user.service';
         KidsComponent,
         LoginComponent,
         RegisterComponent,
+        CustomTextboxDirective,
     ],
     imports: [
         BrowserModule,

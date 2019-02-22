@@ -67,9 +67,10 @@ header{
     .header-extras{
         a{
             display: inline-block;
-            width: 35px;
-            height: 35px;
+            width: 45px;
+            height: 45px;
             margin-right: 15px;
+            border: 1px solid $t;
 
             &.search{
                 @include svg(search);
@@ -86,6 +87,11 @@ header{
                 background-size: 23px;
                 background-position: center;
                 margin-right: 0;
+            }
+            &.active{
+                @include radius(3px);
+                background-color: rgba(0, 0, 0, 0.15);
+                border-color: rgba(255, 255, 255, 0.25);
             }
         }
     }
@@ -387,7 +393,7 @@ header{
         margin-bottom: 20px;
     }
     .relative{
-        padding: 20px 0;
+        padding: 20px 0 0;
         margin-bottom: 20px;
     }
     input[type="text"], input[type="password"]{
@@ -404,6 +410,12 @@ header{
         border: 1px solid $t;
         padding: 10px 80px;
         text-transform: capitalize;
+        margin-top: 20px;
+        
+        &.disabled{
+            background: #ccc;
+            pointer-events: none;
+        }
     }
 }
 .user-registered{
@@ -437,6 +449,65 @@ header{
         @include tl(0, 0);
         width: 100%;
         height: 100%;
+    }
+}
+.login-failed{
+    @include reg(14);
+    @include radius(3px);
+    padding: 15px 0;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 35px;
+    background: #ff5959;
+    color: $w;
+}
+.switch{
+    @include reg(13);
+    color: $text2;
+    text-align: center;
+    margin: 35px 0 15px;
+
+    a{
+        color: $blue;
+        position: relative;
+
+        &:after{
+            @include bl(0, 0);
+            width: 100%;
+            height: 1px;
+            background: $blue;
+            content: '';
+        }
+    }
+}
+.text-box{
+    position: relative;
+
+    .caption{
+        @include transit(0.1s);
+        @include tl(30px, 0);
+        @include reg(14);
+        pointer-events: none;
+        font-style: normal;
+        text-transform: capitalize;
+        color: $text2;
+    }
+    &.filled{
+        .caption{
+            font-size: 12px;
+            color: $blue;
+            top: 0;
+        }
+    }
+    .field-error{
+        @include reg(12);
+        color: #ff0000;
+        margin: 5px 0 0;
+        display: block;
+
+        &:first-letter{
+            text-transform: uppercase;
+        }
     }
 }
 //responsive

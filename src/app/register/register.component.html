@@ -4,49 +4,69 @@
         <div class="title">register</div>
         <div class="row">
             <div class="col-lg-6">
-                <div class="relative">
-                    <input type="text" placeholder="Enter Name" [formControl]="registerForm.controls['name']">
+                <div class="relative text-box">
+                    <em class="caption">name</em>
+                    <input appCustomTextbox type="text" [formControl]="registerForm.controls['name']">
                 </div>
             </div>
             <div class="col-lg-6">
-                <div class="relative">
-                    <input type="text" placeholder="Enter Username" [formControl]="registerForm.controls['username']">
+                <div class="relative text-box">
+                    <em class="caption">username</em>
+                    <input appCustomTextbox type="text" [formControl]="registerForm.controls['username']">
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6">
-                <div class="relative">
-                    <input type="text" placeholder="Enter Email" [formControl]="registerForm.controls['email']">
+                <div class="relative text-box">
+                    <em class="caption">email</em>
+                    <input appCustomTextbox type="text" [formControl]="registerForm.controls['email']" email pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                    <div *ngIf="registerForm.controls['email'].dirty && registerForm.controls['email'].invalid" class="field-error">
+                        email not valid
+                    </div>
                 </div>
             </div>
             <div class="col-lg-6">
-                <div class="relative">
-                    <input type="text" placeholder="Enter Contact No." [formControl]="registerForm.controls['contactNumber']">
+                <div class="relative text-box">
+                    <em class="caption">contact no.</em>
+                    <input appCustomTextbox type="text" [formControl]="registerForm.controls['contactNumber']">
+                    <div *ngIf="registerForm.controls['contactNumber'].dirty && registerForm.controls['contactNumber'].hasError('numberValidation')" class="field-error">
+                        only numbers allowed
+                    </div>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-xs-12">
-                <div class="relative">
-                    <input type="text" placeholder="Enter Address" [formControl]="registerForm.controls['address']">
+                <div class="relative text-box">
+                    <em class="caption">address</em>
+                    <input appCustomTextbox type="text" [formControl]="registerForm.controls['address']">
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6">
-                <div class="relative">
-                    <input type="password" placeholder="Enter Password" [formControl]="registerForm.controls['password']">
+                <div class="relative text-box">
+                    <em class="caption">password</em>
+                    <input appCustomTextbox type="password" [formControl]="registerForm.controls['password']">
+                    <div *ngIf="registerForm.controls['password'].dirty && registerForm.controls['password'].invalid" class="field-error">
+                        password must be 6 characters long
+                    </div>
                 </div>
             </div>
             <div class="col-lg-6">
-                <div class="relative">
-                    <input type="password" placeholder="Confirm Password" [formControl]="registerForm.controls['confirmPassword']">
+                <div class="relative text-box">
+                    <em class="caption">confirm password</em>
+                    <input appCustomTextbox type="password" [formControl]="registerForm.controls['confirmPassword']">
+                    <div *ngIf="(registerForm.controls['password'].dirty && registerForm.controls['confirmPassword'].dirty) 
+                    && registerForm.controls['confirmPassword'].hasError('matchingPasswordValidation')" class="field-error">
+                        passwords don't match
+                    </div>
                 </div>
             </div>
         </div>
         <div class="text-center">
-            <button class="action">register</button>
+            <button [class.disabled]="registerForm.invalid" class="action">register</button>
         </div>
     </form>
     <ng-container *ngIf="isUserRegistered">
@@ -61,4 +81,7 @@
             <span class="sub">Please try again.</span>
         </div>
     </ng-container>
+    <div class="switch">
+        Already have an account? <a [routerLink]="['/profile/login']">Login</a>.
+    </div>
 </div>

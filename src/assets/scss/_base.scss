@@ -43,7 +43,7 @@ $border: #888;
     -moz-transition: all $time ease-out;
     transition: all $time ease-out;
 }
-@mixin transit($time, $easing){
+@mixin transitEase($time, $easing){
     -webkit-transition: all $time $easing;
     -moz-transition: all $time $easing;
     transition: all $time $easing;

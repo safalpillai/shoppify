@@ -1,12 +1,22 @@
 <div class="profile-children form-wrapper">
     <div class="title">login</div>
-    <div class="relative">
-        <input type="text" placeholder="Enter Username">
-    </div>
-    <div class="relative">
-        <input type="password" placeholder="Enter Password">
-    </div>
-    <div class="text-center">
-        <button class="action">login</button>
-    </div>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+        <div class="relative text-box">
+            <em class="caption">username</em>
+            <input appCustomTextbox type="text" [formControl]="loginForm.controls['username']">
+        </div>
+        <div class="relative text-box">
+            <em class="caption">password</em>
+            <input appCustomTextbox type="password" [formControl]="loginForm.controls['password']">
+        </div>
+        <div *ngIf="loginFailed" class="login-failed">
+            {{ loginFailed }}
+        </div>
+        <div class="text-center">
+            <input [class.disabled]="!loginForm.valid" type="submit" value="login" class="action">
+        </div>
+        <div class="switch">
+            If you don't have an account, register <a [routerLink]="['/profile/register']">here</a>.
+        </div>
+    </form>
 </div>

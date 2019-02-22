@@ -20,7 +20,7 @@ const categoryRoutes: Routes = [
 ];
 //profile routes
 const profileChildren = [
-    { path: '', redirectTo: 'register', pathMatch: 'full' },
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent }
 ];

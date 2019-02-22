@@ -20,17 +20,41 @@ export class RegisterComponent implements OnInit {
         this.isUserFailed = false;
         this.hideForm = true;
         this.registerForm = this.formBuilder.group({
-            'name': ['safal', Validators.required],
-            'username': ['safal', Validators.required],
-            'email': ['safal', Validators.required],
-            'contactNumber': ['344343', Validators.required],
-            'address': ['safal', Validators.required],
-            'password': ['safal', Validators.required],
-            'confirmPassword': ['safal', Validators.required]
-        });
+            'name': ['', Validators.required],
+            'username': ['', Validators.required],
+            'email': ['', Validators.required],
+            'contactNumber': ['', Validators.compose([
+                Validators.required, this.numberValidator
+            ])],
+            'address': ['', Validators.required],
+            'password': ['', Validators.compose([
+                Validators.required, Validators.minLength(6)
+            ])],
+            'confirmPassword': ['', Validators.compose([
+                Validators.required
+            ])]
+        }, { validator: this.matchingPasswordValidator('password', 'confirmPassword') });
+    }
+    
+    //matching password
+    matchingPasswordValidator(p1: string, p2: string) {
+        return (group: FormGroup) => {
+            let p1Input = group.controls[p1];
+            let p2Input = group.controls[p2];
+            if(p1Input.value !== p2Input.value){
+                p2Input.setErrors({ matchingPasswordValidation: true })
+            } else {
+                return p2Input.setErrors(null);
+            }
+        }
     }
 
     ngOnInit() {
+    }
+    
+    //number validation
+    numberValidator(fc: FormControl): { [s: string]: boolean } {
+        return fc.value.match(/[0-9\+\-\ ]/) ? null : { numberValidation: true };
     }
 
     onSubmit(value: any) {
