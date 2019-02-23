@@ -531,9 +531,9 @@ header{
     display: flex;
     flex-direction: column;
 
-    a{
+    a, div{
         @include light(18);
-        @include boxshadow(0, 0, 10px, 0, 0, 0, 0.35);
+        @include boxshadow(0, 0, 10px, 0, 0, 0, 0.15);
         @include radius(3px);
         display: block;
         margin-bottom: 20px;
@@ -543,6 +543,50 @@ header{
         text-transform: capitalize;
         text-align: center;
         padding: 30px 0;
+    }
+}
+.dashboard-title{
+    @include bold(20);
+    padding: 40px 0 20px;
+    text-transform: capitalize;
+    display: block;
+    position: relative;
+
+    &:after{
+        @include bl(16px, 0);
+        width: 60px;
+        height: 1px;
+        background: $blue;
+        content: '';
+    }
+}
+.user-details{
+    div{
+        font-size: 14px;
+        color: $text2 !important;
+        background: $w;
+        color: $blue;
+        padding: 100px 30px 50px !important;
+        position: relative;
+
+        &.email{
+            text-transform: lowercase;
+        }
+        &:before{
+            @include tl(50px, 50%);
+            margin-left: -15px;
+            content: '';
+            width: 30px;
+            height: 30px;
+        }
+        @each $item in $user{
+            $index: index($user, $item);
+            &:nth-child(#{$index}):before{
+                @include svg(#{$item}-blue);
+                background-size: 30px;
+                background-position: center;
+            }
+        }
     }
 }
 //responsive
@@ -597,7 +641,7 @@ header{
         align-items: stretch;
         justify-content: space-between;
 
-        a{
+        a, div{
             padding: 50px 0;
             width: 24%;
             margin-bottom: 0;

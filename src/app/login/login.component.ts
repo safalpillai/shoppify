@@ -16,8 +16,8 @@ export class LoginComponent implements OnInit {
     constructor(private userService: UserService, private router: Router, private formBuilder: FormBuilder) {
         this.isLoading = false;
         this.loginForm = this.formBuilder.group({
-            'username': ['', Validators.required],
-            'password': ['', Validators.required]
+            'username': ['zumo', Validators.required],
+            'password': ['123456', Validators.required]
         });
         this.loginFailed = '';
     }
@@ -31,7 +31,8 @@ export class LoginComponent implements OnInit {
         console.log('form input - ', value);
         this.userService.login(value).subscribe((res) => {
             if(res) {
-                this.userService.loggedIn('test');
+                // console.log(`username saved - ${value.username}`);
+                this.userService.loggedIn(value.username);
                 this.router.navigate(['/profile/dashboard']);
             } else {
                 this.loginFailed = 'Username & password doesn\'t match. Try again!';

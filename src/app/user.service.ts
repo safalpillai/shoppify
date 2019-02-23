@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { IUser } from './models';
 
 @Injectable({
     providedIn: 'root'
@@ -10,6 +11,17 @@ export class UserService {
     static API_URL = 'http://localhost:4000/user';
 
     constructor(private http: HttpClient) { }
+
+    //get user details for dashboard
+    getUserDetails(name: string): Observable<any> {
+        const params = new HttpParams().set('username', name);
+        return this.http.get(`${UserService.API_URL}/getdetails`, {params}).pipe(
+            map(res => {
+                console.log('user.service.getDetails() - response returned - ', res);
+                return res;
+            })
+        )
+    }
 
     //login
     login(value): Observable<boolean> {
@@ -32,6 +44,11 @@ export class UserService {
     isAuthenticated(): boolean {
         if(localStorage.getItem('username') !== '') return true;
         else return false;
+    }
+
+    //get user
+    getUser(): string {
+        return localStorage.getItem('username');
     }
 
     //on logout

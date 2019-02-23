@@ -4,3 +4,10 @@
     <a [routerLink]="['/orders']">my orders</a>
     <a href="javascript:void(0)" (click)="logout()">logout</a>
 </div>
+<span class="dashboard-title">account info</span>
+<div *ngIf="userDetails" class="dashboard-flex user-details">
+    <div>{{ userDetails.name }}</div>
+    <div class="email">{{ userDetails.email }}</div>
+    <div>{{ userDetails.contactNumber }}</div>
+    <div>{{ userDetails.address }} </div>
+</div>
