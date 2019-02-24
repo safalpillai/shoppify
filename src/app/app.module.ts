@@ -1,8 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+//loading bar
+import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
+//ng6-toastr-notifications
+import { ToastrModule } from 'ng6-toastr-notifications';
 //routing
 import { AppRoutingModule } from './app-routing.module';
 //services
@@ -27,6 +31,9 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UserService } from './user.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { NotificationService } from './notification.service';
+import { WishlistComponent } from './wishlist/wishlist.component';
+import { OrdersComponent } from './orders/orders.component';
 
 @NgModule({
     declarations: [
@@ -45,6 +52,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
         CustomTextboxDirective,
         NumbersOnlyDirective,
         DashboardComponent,
+        WishlistComponent,
+        OrdersComponent,
     ],
     imports: [
         BrowserModule,
@@ -52,9 +61,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
         HttpClientModule,
         SlimLoadingBarModule,
         ReactiveFormsModule,
-        FormsModule
+        FormsModule,
+        BrowserAnimationsModule,
+        ToastrModule.forRoot()
     ],
     providers: [
+        NotificationService,
         ProductService,
         UserService,
         AuthGuard

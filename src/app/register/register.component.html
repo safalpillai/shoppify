@@ -29,7 +29,7 @@
             <div class="col-lg-6">
                 <div class="relative text-box">
                     <em class="caption">contact no.</em>
-                    <input appCustomTextbox appNumbersOnly type="text" [formControl]="registerForm.controls['contactNumber']" maxlength="12">
+                    <input appCustomTextbox appNumbersOnly type="text" [formControl]="registerForm.controls['contactNumber']" maxlength="10">
                     <div *ngIf="registerForm.controls['contactNumber'].dirty && registerForm.controls['contactNumber'].hasError('numberValidation')" class="field-error">
                         only numbers allowed
                     </div>
@@ -76,12 +76,6 @@
         <div class="user-registered">
             <span>user registration successful!</span>
             <a [routerLink]="['/profile/login']">Login using new credentials</a>
-        </div>
-    </ng-container>
-    <ng-container *ngIf="isUserFailed">
-        <div class="user-registered failed">
-            <span>user registration failed!</span>
-            <span class="sub">Please try again.</span>
         </div>
     </ng-container>
     <div class="switch">

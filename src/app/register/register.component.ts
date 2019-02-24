@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { UserService } from '../user.service';
+import { NotificationService } from '../notification.service';
 
 @Component({
     selector: 'app-register',
@@ -11,13 +12,11 @@ export class RegisterComponent implements OnInit {
     registerForm: FormGroup;
     isUserRegistered: boolean;
     isLoading: boolean;
-    isUserFailed: boolean;
     hideForm: boolean;
     
-    constructor(private formBuilder: FormBuilder, private userService: UserService) {
+    constructor(private formBuilder: FormBuilder, private userService: UserService, private notify: NotificationService) {
         this.isUserRegistered = false;
         this.isLoading = false;
-        this.isUserFailed = false;
         this.hideForm = true;
         this.registerForm = this.formBuilder.group({
             'name': ['', Validators.required],
@@ -65,11 +64,9 @@ export class RegisterComponent implements OnInit {
                 if(res) {
                     this.hideForm = false;
                     this.isUserRegistered = true;
+                    this.notify.showInfo('Login using new credentials', 'User registered!');
                 } else {
-                    this.isUserFailed = true;
-                    setTimeout(() => {
-                        this.isUserFailed = false;
-                    }, 3000);
+                    this.notify.showError('Please try again', 'User registration failed');
                 }
                 this.isLoading = false;
             }

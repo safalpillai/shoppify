@@ -12,6 +12,8 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from './auth.guard';
+import { WishlistComponent } from './wishlist/wishlist.component';
+import { OrdersComponent } from './orders/orders.component';
 
 //category routes
 const categoryRoutes: Routes = [
@@ -35,6 +37,8 @@ const routes: Routes = [
     { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
     { path: 'product/:id', component: ProductComponent },
     { path: 'category/:category', component: CategoryComponent },
+    { path: 'wishlist', component: WishlistComponent, canActivate: [AuthGuard] },
+    { path: 'orders', component: OrdersComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
