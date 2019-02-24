@@ -10,14 +10,17 @@ import { NotificationService } from '../notification.service';
     styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-    username: string;
-    userDetails: IUser;
+    userDetails: any;
 
     constructor(private router: Router, private userService: UserService, private notify: NotificationService) { 
-        this.username = this.userService.getUser();
-        this.userService.getUserDetails(this.username).subscribe(res => {
-            this.userDetails = res;
-        });
+        let _person = JSON.parse(localStorage.getItem('user'));
+        this.userDetails = {
+            username: _person.username,
+            name: _person.name,
+            contactNumber: parseInt(_person.contactNumber),
+            address: _person.address,
+            email: _person.email
+        }
     }
 
     ngOnInit() {
@@ -25,6 +28,7 @@ export class DashboardComponent implements OnInit {
     }
     
     logout(){
+        this.userDetails = null;
         this.userService.loggedOut();
         this.router.navigate(['/home/men']);
         this.notify.showInfo('Logged out successfully', 'Info');

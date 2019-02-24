@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { IUser } from '../models';
 
 @Component({
     selector: 'app-login',
@@ -30,15 +31,13 @@ export class LoginComponent implements OnInit {
         this.loginFailed = '';
         console.log('form input - ', value);
         this.userService.login(value).subscribe((res) => {
-            if(res) {
-                // console.log(`username saved - ${value.username}`);
-                this.userService.loggedIn(value.username);
-                this.router.navigate(['/profile/dashboard']);
-            } else {
-                this.loginFailed = 'Username & password doesn\'t match. Try again!';
-                this.loginForm.controls['password'].reset();
-                this.isLoading = false;
-            }
+            console.log(`login.component.onSubmit() - result returned - ${res.username}`);
+            this.userService.loggedIn(res);
+            this.router.navigate(['/profile/dashboard']);
+        }, (err) => {
+            this.loginFailed = 'Username & password doesn\'t match. Try again!';
+            this.loginForm.controls['password'].reset();
+            this.isLoading = false;
         });
     }
 }

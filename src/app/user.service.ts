@@ -24,36 +24,36 @@ export class UserService {
     }
 
     //login
-    login(value): Observable<boolean> {
+    login(value): Observable<any> {
         const params = new HttpParams().set('username', value.username).set('password', value.password);
         return this.http.get(`${UserService.API_URL}/login`, {params}).pipe(
             map(res => {
-                if(res) return true;
-                return false;
+                // console.log(`user.service.login() - result return - ${res}`);
+                return res;
             })
         );
     }
 
     //on login 
-    loggedIn(username: string) {
-        localStorage.setItem('username', username);
-        console.log(`localstorage - ${localStorage.getItem('username')}`);
+    loggedIn(person: IUser) {
+        localStorage.setItem('user', JSON.stringify(person));
+        console.log(`user.service.loggedIn() - localStorage user item - ${localStorage.getItem('user')}`);
     }
 
     //check if user is loggedIn
     isAuthenticated(): boolean {
-        if(localStorage.getItem('username') !== '') return true;
-        else return false;
+        if(localStorage.getItem('user') === null) return false;
+        else return true;
     }
 
-    //get user
+    //get username
     getUser(): string {
-        return localStorage.getItem('username');
+        return (JSON.parse(localStorage.getItem('user'))).username;
     }
 
     //on logout
     loggedOut() {
-        localStorage.setItem('username', '');
+        localStorage.removeItem('user');
     }
 
     //register user
