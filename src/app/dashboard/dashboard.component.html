@@ -1,9 +1,4 @@
-<div class="dashboard-flex">
-    <a [routerLink]="['/cart']">my cart</a>
-    <a [routerLink]="['/wishlist']">my wishlist</a>
-    <a [routerLink]="['/orders']">my orders</a>
-    <a href="javascript:void(0)" (click)="logout()">logout</a>
-</div>
+<app-dash-links></app-dash-links>
 <span class="dashboard-title">account info</span>
 <div *ngIf="userDetails" class="dashboard-flex user-details">
     <div>{{ userDetails.name }}</div>

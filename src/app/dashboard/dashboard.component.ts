@@ -26,11 +26,4 @@ export class DashboardComponent implements OnInit {
     ngOnInit() {
     
     }
-    
-    logout(){
-        this.userDetails = null;
-        this.userService.loggedOut();
-        this.router.navigate(['/home/men']);
-        this.notify.showInfo('Logged out successfully', 'Info');
-    }
 }

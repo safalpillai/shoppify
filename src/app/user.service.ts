@@ -29,7 +29,8 @@ export class UserService {
         return this.http.get(`${UserService.API_URL}/login`, {params}).pipe(
             map(res => {
                 // console.log(`user.service.login() - result return - ${res}`);
-                return res;
+                if(res) return res;
+                else throw Error();
             })
         );
     }

@@ -34,6 +34,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { NotificationService } from './notification.service';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { OrdersComponent } from './orders/orders.component';
+import { DashLinksComponent } from './dash-links/dash-links.component';
 
 @NgModule({
     declarations: [
@@ -54,6 +55,7 @@ import { OrdersComponent } from './orders/orders.component';
         DashboardComponent,
         WishlistComponent,
         OrdersComponent,
+        DashLinksComponent,
     ],
     imports: [
         BrowserModule,
