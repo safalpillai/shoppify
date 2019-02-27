@@ -17,8 +17,8 @@ export class LoginComponent implements OnInit {
     constructor(private userService: UserService, private router: Router, private formBuilder: FormBuilder, private notify: NotificationService) {
         this.isLoading = false;
         this.loginForm = this.formBuilder.group({
-            'username': ['zumo', Validators.required],
-            'password': ['123456', Validators.required]
+            'username': ['', Validators.required],
+            'password': ['', Validators.required]
         });
     }
 
