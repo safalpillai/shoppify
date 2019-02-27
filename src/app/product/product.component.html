@@ -30,6 +30,7 @@
                     <p><span>color</span><i>{{ productDetails.color }}</i></p>
                     <p><span>material</span><i>{{ productDetails.material }}</i></p>
                     <p><span>details</span>{{ productDetails.sizesAvailable }}</p>
+                    <p><span>description</span>{{ productDetails.description }}</p>
                     <button [disabled]="productDetails.sizesAvailable == undefined || productDetails.sizesAvailable == ''" class="cart">
                         {{ sizes.length > 1 ? "add to cart" : "sold out" }}
                     </button>

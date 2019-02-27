@@ -12,6 +12,17 @@ export interface IProduct{
     rating: string;
 }
 
+export interface ICartProduct {
+    productId: number;
+    quantity: number;
+    size: number;
+    price: number;
+}
+
+export interface IWishlist{
+    productId: string;
+}
+
 export interface IUser{
     name: string;
     username: string;
@@ -22,4 +33,18 @@ export interface IUser{
     cart?: string;
     wishlist?: string;
     orders?: string;
+}
+
+export interface IAppState{
+    username: string;
+    cartProducts: ICartProduct[];
+    wishlist: IWishlist[],
+    isFetching: boolean,
+    isError: boolean,
+    error: string
+}
+
+export interface Action {
+    type: string, 
+    payload: any
 }

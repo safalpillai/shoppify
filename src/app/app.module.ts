@@ -16,6 +16,10 @@ import { CustomTextboxDirective } from './custom-textbox.directive';
 import { NumbersOnlyDirective } from './numbers-only.directive';
 //guards
 import { AuthGuard } from './auth.guard';
+//store
+import { NgReduxModule, NgRedux } from '@angular-redux/store';
+import { IAppState } from './models';
+import { store, ThunkWrapper } from './store';
 //components
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -65,14 +69,20 @@ import { DashLinksComponent } from './dash-links/dash-links.component';
         ReactiveFormsModule,
         FormsModule,
         BrowserAnimationsModule,
-        ToastrModule.forRoot()
+        ToastrModule.forRoot(),
+        NgReduxModule,
     ],
     providers: [
         NotificationService,
         ProductService,
         UserService,
-        AuthGuard
+        AuthGuard,
+        ThunkWrapper
     ],
     bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+    constructor(ngRedux: NgRedux<IAppState>) {
+        ngRedux.provideStore(store);
+    }
+}
