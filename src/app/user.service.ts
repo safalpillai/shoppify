@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { IUser } from './models';
+import { IUser, ICartProduct } from './models';
 
 @Injectable({
     providedIn: 'root'
@@ -11,6 +11,21 @@ export class UserService {
     static API_URL = 'http://localhost:4000/user';
 
     constructor(private http: HttpClient) { }
+    
+    //insert cart product into user
+    updateCartOfUser(cartProduct: ICartProduct): Observable<any> {
+        let cartModel = {
+            productId: cartProduct.productId,
+            quantity: 1,
+            size: 7,
+            price: cartProduct.price,
+            imgSrc: cartProduct.imgSrc
+        };
+        let user = this.getUser();
+        return this.http.post(`${UserService.API_URL}/updatecart`, {user, cartModel}).pipe(
+            map(res => { return res })
+        );
+    }
 
     //get user details for dashboard
     getUserDetails(name: string): Observable<any> {
@@ -38,7 +53,7 @@ export class UserService {
     //on login 
     loggedIn(person: IUser) {
         localStorage.setItem('user', JSON.stringify(person));
-        console.log(`user.service.loggedIn() - localStorage user item - ${localStorage.getItem('user')}`);
+        // console.log(`user.service.loggedIn() - localStorage user item - ${localStorage.getItem('user')}`);
     }
 
     //check if user is loggedIn
@@ -55,6 +70,7 @@ export class UserService {
     //on logout
     loggedOut() {
         localStorage.removeItem('user');
+        localStorage.removeItem('app-state');
     }
 
     //register user

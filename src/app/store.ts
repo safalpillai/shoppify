@@ -17,20 +17,27 @@ export const initialState: IAppState = {
 };
 
 export const store: Store<IAppState> = createStore(rootReducer, initialState, applyMiddleware(thunk, createLogger({collapsed: true})));
+store.subscribe(() => {
+    console.log(`app-state set`);
+    localStorage.setItem('app-state', JSON.stringify(store.getState()));
+});
+
 
 //reducer
 export function rootReducer(state: IAppState = initialState, action: Action): IAppState {
     switch(action.type) {
         case Actions.LOGIN_FULFILLED:
-            console.log(`login fulfilled user - ${action.payload}`);
-            return {...state, username: action.payload}
+            console.log(`LOGIN_FULFILLED - ${action.payload}`);
+            return Object.assign({}, state, {
+                username: action.payload
+            });
         case Actions.LOGOUT:
             return initialState;
-        case Actions.FETCH_CART:
-            return {...state, isFetching: true}
         case Actions.FETCH_CART_SUCCESS:
+            // console.log(`FETCH_CART_SUCCESS - ${JSON.stringify(action.payload, null, 3)}`);
             return Object.assign({}, state, {
-                cartProducts: action.payload,
+                cartProducts: action.payload[0].cart,
+                wishlist: action.payload.wishlist,
                 isFetching: false
             });
         case Actions.FETCH_CART_FAILED:
@@ -48,20 +55,17 @@ export function rootReducer(state: IAppState = initialState, action: Action): IA
     providedIn: 'root'
 })
 export class ThunkWrapper{
-    static api_url = 'http://localhost:4000/products/';
+    static api_url = 'http://localhost:4000/user/';
 
-    initializeStore() {
-        
-    }
-    
-    fetchCartProducts(username: string) {
-        store.dispatch(Actions.fetchCart());
+    initializeStore(username: string) {
+        console.log('store initialized with - ', username);
+        store.dispatch(Actions.loginFulfilled(username));
         return dispatch => {
             axios.get(`${ThunkWrapper.api_url}/getcart?user=${store.getState().username}`)
             .then(res => {
-                if(!res) console.log(`initialize store no response`);
+                if(!res) console.log(`thunk initializeStore() - response error`);
                 else {
-                    console.log(`initialize store response received - ${res}`);
+                    console.log(`thunk initializeStore() - response received - ${res}`);
                     dispatch(Actions.fetchCartSuccess(res.data));
                 }
             })

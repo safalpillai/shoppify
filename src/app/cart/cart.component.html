@@ -1,4 +1,28 @@
 <div class="default-content">
     <app-dash-links class="tablet"></app-dash-links>
-    cart works!
+    <!-- cart products -->
+    <section *ngIf="cartProducts">
+        <table id="cart-container" class="table table-responsive table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>title</th>
+                    <th>quantity</th>
+                    <th>size</th>
+                    <th>price</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let p of cartProducts">
+                    <td><img src="{{p.imgSrc}}" alt=""></td>
+                    <td>{{p.title}}</td>
+                    <td>{{p.quantity}}</td>
+                    <td>{{p.size}}</td>
+                    <td>{{p.price}}</td>
+                    <td><button (click)="removeFromCart(p)">remove</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
 </div>

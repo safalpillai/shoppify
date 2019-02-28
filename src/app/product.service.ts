@@ -23,11 +23,11 @@ export class ProductService {
 
     //get products by category
     getProducts(category: string): Observable<any> {
-        console.log(`product.service.getproducts() - query url - ${ProductService.API_URL}/getproducts?category=${category}`);
+        // console.log(`product.service.getproducts() - query url - ${ProductService.API_URL}/getproducts?category=${category}`);
         return this.http.get(`${ProductService.API_URL}/getproducts?category=${category}`).pipe(
             map(res => {
                 let products = <any>res;
-                console.log(`product.service - response received - ${products}`)
+                // console.log(`product.service - response received - ${products}`)
                 return products;
             })
         )

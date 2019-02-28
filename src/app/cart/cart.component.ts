@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { select, NgRedux } from '@angular-redux/store';
+import { ICartProduct, IAppState } from '../models';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-cart',
@@ -6,10 +9,15 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
+    cartProducts: any;
 
-    constructor() { }
+    constructor(private ngRedux: NgRedux<IAppState>) {
+        console.log(`cart.component initialized - state - ${this.ngRedux.getState().cartProducts}`);
+        this.cartProducts = this.ngRedux.getState().cartProducts;
+    }
 
     ngOnInit() {
+        
     }
 
 }

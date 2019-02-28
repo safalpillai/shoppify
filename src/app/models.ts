@@ -14,9 +14,11 @@ export interface IProduct{
 
 export interface ICartProduct {
     productId: number;
+    title: string;
     quantity: number;
     size: number;
     price: number;
+    imgSrc: string;
 }
 
 export interface IWishlist{
@@ -30,8 +32,8 @@ export interface IUser{
     email: string;
     contactNumber: number;
     address: string;
-    cart?: string;
-    wishlist?: string;
+    cart?: ICartProduct[];
+    wishlist?: IWishlist[];
     orders?: string;
 }
 

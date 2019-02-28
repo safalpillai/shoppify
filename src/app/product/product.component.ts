@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../product.service';
-import { IProduct } from '../models';
+import { IProduct, ICartProduct } from '../models';
+import { UserService } from '../user.service';
 
 @Component({
     selector: 'app-product',
@@ -13,8 +14,9 @@ export class ProductComponent implements OnInit {
     productDetails: IProduct;
     productReceived: boolean = false;
     sizes: Array<string> = new Array<string>();
+    @ViewChild('cartButton') cartButton: ElementRef;
 
-    constructor(private activatedRoute: ActivatedRoute, private productService: ProductService) { 
+    constructor(private activatedRoute: ActivatedRoute, private productService: ProductService, private userService: UserService) { 
         //get id parameter from url
         this.activatedRoute.params.subscribe((params) => {
             this.productId = params['id'];
@@ -33,4 +35,17 @@ export class ProductComponent implements OnInit {
         });
     }
     
+    //add to cart
+    addToCart(cartProduct: ICartProduct){
+        console.log(`product.component - cartProduct sent - ${cartProduct}`);
+        this.userService.updateCartOfUser(cartProduct).subscribe(res => {
+            if(res) {
+                console.log(`product.component - cart updation response - ${res}`);
+                this.cartButton.nativeElement.innerHTML = 'added to cart';
+            }
+        },
+        err => {
+            console.log(`product.component - error updating cart column of user - ${err}`);
+        });
+    }
 }
