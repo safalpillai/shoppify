@@ -1,28 +1,36 @@
 <div class="default-content">
     <app-dash-links class="tablet"></app-dash-links>
     <!-- cart products -->
-    <section *ngIf="cartProducts">
-        <table id="cart-container" class="table table-responsive table-striped">
+    <section class="cart-section" *ngIf="cartProducts.length > 0; else nocart">
+        <div *ngIf="isFetching | async" class="loader"></div>
+        <table id="cart-table" class="table table-responsive table-striped">
             <thead>
                 <tr>
-                    <th></th>
+                    <th>product</th>
                     <th>title</th>
                     <th>quantity</th>
                     <th>size</th>
                     <th>price</th>
-                    <th></th>
+                    <th>remove</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let p of cartProducts">
                     <td><img src="{{p.imgSrc}}" alt=""></td>
                     <td>{{p.title}}</td>
-                    <td>{{p.quantity}}</td>
+                    <td class="choose-wrapper">
+                        <div><button [class.hiddden]="p.quantity === 1" (click)="decrement(p)" class="min">-</button></div>
+                        <span>{{p.quantity}}</span>
+                        <div><button (click)="increment(p)" class="max">+</button></div>
+                    </td>
                     <td>{{p.size}}</td>
                     <td>{{p.price}}</td>
-                    <td><button (click)="removeFromCart(p)">remove</button></td>
+                    <td><button (click)="removeFromCart(p)" class="delete-cart"></button></td>
                 </tr>
             </tbody>
         </table>
     </section>
+    <ng-template #nocart>
+        <div class="no-data"><span>no products in cart!</span></div>
+    </ng-template>
 </div>

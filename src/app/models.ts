@@ -43,7 +43,8 @@ export interface IAppState{
     wishlist: IWishlist[],
     isFetching: boolean,
     isError: boolean,
-    error: string
+    error: string,
+    cartQuantity: number,
 }
 
 export interface Action {
