@@ -22,6 +22,9 @@ body{
 #root-container{
     min-height: 102vh;
 }
+textarea:focus, input:focus, button:focus{
+    outline: none;
+}
 .slim-loading-bar{
     position: fixed;
     top: 0;
@@ -605,7 +608,10 @@ header{
 #cart-table{
     table-layout: fixed;
     word-break: break-all;
-
+    
+    &.table{
+        border-color: grey;
+    }
     &.table > thead > tr > th{
         border-bottom: none;
     }
@@ -653,7 +659,7 @@ header{
     }
     tr{
         th{
-            background: #f5f5f5;
+            background: #eeeeee;
             padding: 30px 0;
         }
         td{
@@ -774,7 +780,6 @@ header{
     #cart-table{
         @include radius(4px);
         @include boxshadow(0, 0, 15px, 0, 0, 0, 0.15);
-        border: 1px solid #f5f5f5;
         overflow: hidden;
 
         .choose-wrapper{
@@ -789,7 +794,7 @@ header{
         }
         tr{
             th{
-                font-size: 18px;
+                font-size: 16px;
             }
             th, td{
                 &:first-child{

@@ -11,21 +11,6 @@ export class UserService {
     static API_URL = 'http://localhost:4000/user';
 
     constructor(private http: HttpClient) { }
-    
-    //insert cart product into user
-    updateCartOfUser(cartProduct: ICartProduct): Observable<any> {
-        let cartModel = {
-            productId: cartProduct.productId,
-            quantity: 1,
-            size: 7,
-            price: cartProduct.price,
-            imgSrc: cartProduct.imgSrc
-        };
-        let user = this.getUser();
-        return this.http.post(`${UserService.API_URL}/updatecart`, {user, cartModel}).pipe(
-            map(res => { return res })
-        );
-    }
 
     //get user details for dashboard
     getUserDetails(name: string): Observable<any> {

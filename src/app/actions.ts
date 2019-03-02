@@ -11,8 +11,27 @@ export const QUANTITY_UPDATE_FAILED = 'QUANTITY_UPDATE_FAILED';
 export const DECREMENT_START = 'DECREMENT_START';
 export const DECREMENT_SUCCESS = 'DECREMENT_SUCCESS';
 export const LOGOUT = 'LOGOUT';
+export const REMOVE_CART_START = 'REMOVE_CART_START';
+export const REMOVE_CART_SUCCESS = 'REMOVE_CART_SUCCESS';
+export const REMOVE_CART_FAILED = 'REMOVE_CART_FAILED';
 
 //action creators
+export const removeCartStart = () => {
+    return {
+        type: REMOVE_CART_START
+    }
+}
+export const removeCartSuccess = productId => {
+    return {
+        type: REMOVE_CART_SUCCESS,
+        payload: productId
+    }
+}
+export const removeCartFailed = () => {
+    return {
+        type: REMOVE_CART_FAILED
+    }
+}
 export const decrementStart = () => {
     return {
         type: DECREMENT_START
@@ -57,16 +76,15 @@ export const fetchCartFailed = () => {
         type: FETCH_CART_FAILED
     }
 }
-export const addToCartStart = productId => {
+export const addToCartStart = () => {
     return {
-        type: ADD_TO_CART_START,
-        payload: productId
+        type: ADD_TO_CART_START
     }
 }
-export const addToCartSuccess = id => {
+export const addToCartSuccess = productId => {
     return {
         type: ADD_TO_CART_SUCCESS,
-        payload: id
+        payload: productId
     }
 }
 export const addToCartFailed = () => {

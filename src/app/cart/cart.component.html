@@ -3,7 +3,7 @@
     <!-- cart products -->
     <section class="cart-section" *ngIf="cartProducts.length > 0; else nocart">
         <div *ngIf="isFetching | async" class="loader"></div>
-        <table id="cart-table" class="table table-responsive table-striped">
+        <table id="cart-table" class="table table-responsive">
             <thead>
                 <tr>
                     <th>product</th>

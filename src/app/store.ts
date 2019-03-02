@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Store, createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
-import { IAppState, Action, IProduct } from './models';
+import { IAppState, Action, IProduct, ICartProduct } from './models';
 import axios from 'axios';
 import * as Actions from './actions';
 
@@ -72,6 +72,33 @@ export function rootReducer(state: IAppState = initialState, action: Action): IA
             _newState.cartProducts[index].quantity = _newState.cartProducts[index].quantity - 1;
             return {..._newState, isFetching: false};
         }
+        case Actions.REMOVE_CART_START:
+            return {...state, isFetching: true};
+        case Actions.REMOVE_CART_FAILED:
+            return {...state, isFetching: false, isError: true, error: 'Item deletion failed'};
+        case Actions.REMOVE_CART_SUCCESS: {
+            let _newState = {...state};
+            let index = state.cartProducts.findIndex(item => item.productId === action.payload);
+            _newState.cartProducts.splice(index, 1);
+            return {..._newState, isFetching: false};
+        }
+        case Actions.ADD_TO_CART_START:
+            return {...state, isFetching: true};
+        case Actions.ADD_TO_CART_SUCCESS: {
+            let _newState = {...state};
+            let duplicate = state.cartProducts.filter(item => item.productId === action.payload.productId);
+            let index = state.cartProducts.findIndex(item => item.productId === action.payload.productId);
+            if(duplicate.length) {
+                _newState.cartProducts[index].quantity = _newState.cartProducts[index].quantity + 1;
+                return {..._newState, isFetching: false};
+            }
+            return Object.assign({}, state, {
+                cartProducts: state.cartProducts.concat(action.payload),
+                isFetching: false
+            });
+        }
+        case Actions.ADD_TO_CART_FAILED:
+            return {...state, isFetching: false, isError: true, error: 'Error adding product to cart'};
     }
     return state;
 }
@@ -142,6 +169,49 @@ export class ThunkWrapper{
             .catch(err => {
                 console.log(`thunk decrementCart() - error caught while decrementing quantity - ${err}`);
                 dispatch(Actions.quantityUpdateFailed());
+            });
+        }
+    }
+
+    //remove from cart
+    removeFromCart(product: IProduct) {
+        store.dispatch(Actions.removeCartStart());
+        return dispatch => {
+            axios.delete(`${ThunkWrapper.api_url}/removefromcart?user=${store.getState().username}&productid=${product.productId}`)
+            .then(res => {
+                if(res) {
+                    console.log(`thunk removeFromCart() - product removal failed - ${res}`);
+                    dispatch(Actions.removeCartSuccess(product.productId));
+                } else {
+                    console.log(`thunk removeFromCart() - decrement failed - ${res}`);
+                    dispatch(Actions.removeCartFailed());
+                }
+            })
+            .catch(err => {
+                console.log(`thunk removeFromCart() - error caught while removing product - ${err}`);
+                dispatch(Actions.removeCartFailed());
+            });
+        }
+    }
+
+    //add to cart
+    addToCart(cartProduct: ICartProduct) {
+        store.dispatch(Actions.addToCartStart());
+        let _user = store.getState().username;
+        return dispatch => {
+            axios.post(`${ThunkWrapper.api_url}/addtocart`,{_user, cartProduct})
+            .then(res => {
+                if(res){
+                    console.log(`thunk addToCart() - added to cart - ${res}`);
+                    dispatch(Actions.addToCartSuccess(cartProduct));
+                } else {
+                    console.log(`thunk addToCart() - add to cart failed - ${res}`);
+                    dispatch(Actions.addToCartFailed());
+                }
+            })
+            .catch(err => {
+                console.log(`thunk addToCart() - error caught while adding to cart - ${err}`);
+                dispatch(Actions.addToCartFailed());
             });
         }
     }

@@ -30,4 +30,8 @@ export class CartComponent implements OnInit {
     decrement(product: IProduct) {
         this.ngRedux.dispatch<any>(this.thunk.decrementCart(product));
     }
+
+    removeFromCart(product: IProduct) {
+        this.ngRedux.dispatch<any>(this.thunk.removeFromCart(product));
+    }
 }

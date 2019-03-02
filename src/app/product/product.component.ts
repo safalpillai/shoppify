@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../product.service';
-import { IProduct, ICartProduct } from '../models';
+import { IProduct, ICartProduct, IAppState } from '../models';
 import { UserService } from '../user.service';
 import { NotificationService } from '../notification.service';
+import { NgRedux } from '@angular-redux/store';
+import { ThunkWrapper } from '../store';
 
 @Component({
     selector: 'app-product',
@@ -18,7 +20,8 @@ export class ProductComponent implements OnInit {
     @ViewChild('cartButton') cartButton: ElementRef;
 
     constructor(private activatedRoute: ActivatedRoute, private productService: ProductService, 
-        private userService: UserService, private router: Router, private notify: NotificationService) { 
+        private userService: UserService, private router: Router, private notify: NotificationService, 
+        private ngRedux: NgRedux<IAppState>, private thunk: ThunkWrapper) { 
         //get id parameter from url
         this.activatedRoute.params.subscribe((params) => {
             this.productId = params['id'];
@@ -38,18 +41,18 @@ export class ProductComponent implements OnInit {
     }
     
     //add to cart
-    addToCart(cartProduct: ICartProduct){
+    addToCart(product: IProduct){
+        let _cartProduct: ICartProduct = {
+            productId: parseInt(product.productId),
+            title: product.title,
+            quantity: 1,
+            size: 7,
+            price: product.price,
+            imgSrc: product.imgSrc
+        };
         if(this.userService.isAuthenticated()) {
-            console.log(`product.component - cartProduct sent - ${cartProduct}`);
-            this.userService.updateCartOfUser(cartProduct).subscribe(res => {
-                if(res) {
-                    console.log(`product.component - cart updation response - ${res}`);
-                    this.cartButton.nativeElement.innerText = 'added to cart';
-                }
-            },
-            err => {
-                console.log(`product.component - error updating cart column of user - ${err}`);
-            });
+            this.ngRedux.dispatch<any>(this.thunk.addToCart(_cartProduct));
+
         } else {
             this.router.navigate(['/profile/login']);
             this.notify.showInfo('Login to continue', 'Login');
