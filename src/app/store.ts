@@ -44,7 +44,6 @@ export function rootReducer(state: IAppState = initialState, action: Action): IA
             // console.log(`FETCH_CART_SUCCESS - ${JSON.stringify(action.payload, null, 3)}`);
             return Object.assign({}, state, {
                 cartProducts: action.payload[0].cart,
-                wishlist: action.payload.wishlist,
                 isFetching: false
             });
         case Actions.FETCH_CART_FAILED:
@@ -115,7 +114,7 @@ export class ThunkWrapper{
         console.log('store initialized with - ', username);
         store.dispatch(Actions.loginFulfilled(username));
         return dispatch => {
-            axios.get(`${ThunkWrapper.api_url}/getcart?user=${store.getState().username}`)
+            axios.get(`${ThunkWrapper.api_url}/getcart?user=${username}`)
             .then(res => {
                 if(!res) console.log(`thunk initializeStore() - response error`);
                 else {
