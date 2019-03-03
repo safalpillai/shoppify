@@ -156,7 +156,7 @@ export class ThunkWrapper{
     decrementCart(product: IProduct) {
         store.dispatch(Actions.decrementStart());
         return dispatch => {
-            axios.post(`${ThunkWrapper.api_url}/decrement?user=${store.getState().username}&productId=${product.productId}`)
+            axios.post(`${ThunkWrapper.api_url}/decrement?user=${store.getState().username}&productid=${product.productId}`)
             .then(res => {
                 if(res) {
                     console.log(`thunk decrementCart() - decrement done successfully - ${res}`);
@@ -177,7 +177,7 @@ export class ThunkWrapper{
     removeFromCart(product: IProduct) {
         store.dispatch(Actions.removeCartStart());
         return dispatch => {
-            axios.delete(`${ThunkWrapper.api_url}/removefromcart?user=${store.getState().username}&productid=${product.productId}`)
+            axios.post(`${ThunkWrapper.api_url}/removefromcart?user=${store.getState().username}&productid=${product.productId}`)
             .then(res => {
                 if(res) {
                     console.log(`thunk removeFromCart() - product removal failed - ${res}`);
