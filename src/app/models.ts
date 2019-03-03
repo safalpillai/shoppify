@@ -1,5 +1,5 @@
 export interface IProduct{
-    productId: string,
+    productId: number,
     brand: string;
     title: string;
     price: number;
@@ -22,7 +22,11 @@ export interface ICartProduct {
 }
 
 export interface IWishlist{
-    productId: string;
+    productId: number;
+    title: string;
+    size: number;
+    price: number;
+    imgSrc: string;
 }
 
 export interface IUser{
@@ -45,6 +49,7 @@ export interface IAppState{
     isError: boolean,
     error: string,
     cartQuantity: number,
+    cartAmount: number
 }
 
 export interface Action {

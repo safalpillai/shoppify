@@ -1,4 +1,29 @@
-<div class="default-content">
+<!-- <div class="default-content">
     <app-dash-links class="tablet"></app-dash-links>
-    wishlist works!
-</div>
+    <section class="cart-section" *ngIf="(wishlist | async)?.length > 0; else nocart">
+        <div *ngIf="isFetching | async" class="loader"></div>
+        <table id="cart-table" class="table table-responsive">
+            <thead>
+                <tr>
+                    <th>product</th>
+                    <th>title</th>
+                    <th>size</th>
+                    <th>price</th>
+                    <th>remove</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let p of wishlist | async">
+                    <td><img src="{{p.imgSrc}}" alt=""></td>
+                    <td>{{p.title}}</td>
+                    <td>{{p.size}}</td>
+                    <td>{{p.price}}</td>
+                    <td><button (click)="removeFromWishlist(p)" class="delete-cart"></button></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <ng-template #nocart>
+        <div class="no-data"><span>no products in wishlist!</span></div>
+    </ng-template>
+</div> -->

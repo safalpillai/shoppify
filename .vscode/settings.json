@@ -1,0 +1,24 @@
+{
+    "workbench.colorCustomizations": {
+        "[One Dark Pro Vivid]": {
+            "activityBar.background": "#0c0c0c",
+            "editor.background": "#000000",
+            "editorGroupHeader.tabsBackground": "#0c0c0c",
+            "tab.inactiveBackground": "#000000",
+            "tab.activeBackground": "#111111",
+            "sideBar.background": "#050505",
+            "sideBarSectionHeader.background": "#111111",
+            "list.hoverBackground": "#22283b",
+            "terminal.foreground": "#c8c8c8"
+        },
+        "titleBar.activeBackground": "#333333",
+        "titleBar.activeForeground": "#e7e7e7",
+        "titleBar.inactiveBackground": "#333333",
+        "titleBar.inactiveForeground": "#e7e7e7",
+        "activityBar.background": "#333333",
+        "activityBar.foreground": "#e7e7e7",
+        "activityBar.inactiveForeground": "#e7e7e7",
+        "statusBar.background": "#333333",
+        "statusBar.foreground": "#e7e7e7"
+    }
+}

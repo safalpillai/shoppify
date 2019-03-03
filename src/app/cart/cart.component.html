@@ -1,7 +1,7 @@
 <div class="default-content">
     <app-dash-links class="tablet"></app-dash-links>
     <!-- cart products -->
-    <section class="cart-section" *ngIf="cartProducts.length > 0; else nocart">
+    <section class="cart-section" *ngIf="(cartProducts | async)?.length > 0; else nocart">
         <div *ngIf="isFetching | async" class="loader"></div>
         <table id="cart-table" class="table table-responsive">
             <thead>
@@ -15,7 +15,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let p of cartProducts">
+                <tr *ngFor="let p of cartProducts | async">
                     <td><img src="{{p.imgSrc}}" alt=""></td>
                     <td>{{p.title}}</td>
                     <td class="choose-wrapper">
@@ -29,6 +29,10 @@
                 </tr>
             </tbody>
         </table>
+        <div class="amount-flex">
+            <div class="title">amount payable</div>
+            <span>{{ cartAmount | async }}</span>
+        </div>
     </section>
     <ng-template #nocart>
         <div class="no-data"><span>no products in cart!</span></div>

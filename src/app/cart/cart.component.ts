@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { select, NgRedux } from '@angular-redux/store';
-import { IAppState, IProduct } from '../models';
+import { IAppState, IProduct, ICartProduct } from '../models';
 import { ThunkWrapper } from '../store';
 
 @Component({
@@ -10,16 +10,14 @@ import { ThunkWrapper } from '../store';
 })
 export class CartComponent implements OnInit {
     @select() isFetching;
-    cartProducts: any;
+    @select() cartProducts;
+    @select() cartAmount;
 
     constructor(private ngRedux: NgRedux<IAppState>, private thunk: ThunkWrapper) {
-        // console.log(`cart.component initialized - state - ${this.ngRedux.getState().cartProducts}`);
-        this.cartProducts = this.ngRedux.getState().cartProducts;
-        // console.log(`cart.component - cart products - ${JSON.stringify(this.cartProducts)}`);
+        
     }
 
     ngOnInit() {
-        
     }
 
     increment(product: IProduct) {

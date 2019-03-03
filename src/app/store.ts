@@ -1,9 +1,8 @@
-
 import { Injectable } from '@angular/core';
 import { Store, createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
-import { IAppState, Action, IProduct, ICartProduct } from './models';
+import { IAppState, Action, IProduct, ICartProduct, IWishlist } from './models';
 import axios from 'axios';
 import * as Actions from './actions';
 
@@ -15,7 +14,8 @@ export const initialState: IAppState = {
     isFetching: false,
     isError: false,
     error: '',
-    cartQuantity: 0
+    cartQuantity: 0,
+    cartAmount: 0
 };
 
 //persist store
@@ -28,24 +28,24 @@ store.subscribe(() => {
     console.log(`local storage app-state set`);
 });
 
-
 //reducer
 export function rootReducer(state: IAppState = initialState, action: Action): IAppState {
     switch(action.type) {
         case Actions.LOGIN_FULFILLED:
-            console.log(`store.LOGIN_FULFILLED - ${action.payload}`);
+            // console.log(`store.LOGIN_FULFILLED - ${action.payload}`);
             return Object.assign({}, state, {
                 username: action.payload,
                 isFetching: false
             });
         case Actions.LOGOUT:
             return initialState;
-        case Actions.FETCH_CART_SUCCESS:
-            // console.log(`FETCH_CART_SUCCESS - ${JSON.stringify(action.payload, null, 3)}`);
-            return Object.assign({}, state, {
-                cartProducts: action.payload[0].cart,
-                isFetching: false
-            });
+        case Actions.FETCH_CART_SUCCESS: {
+            let _newState = {...state};
+            _newState.cartProducts = action.payload[0].cart;
+            _newState.isFetching = false;
+            // console.log(`FETCH_CART_SUCCESS - new state - ${JSON.stringify(_newState.cartProducts, null, 3)}`);
+            return utilityReducer(_newState);
+        }
         case Actions.FETCH_CART_FAILED:
             return Object.assign({}, state, {
                 isFetching: false,
@@ -59,7 +59,9 @@ export function rootReducer(state: IAppState = initialState, action: Action): IA
             let _newState = state;
             let index = state.cartProducts.findIndex(item => item.productId === action.payload);
             _newState.cartProducts[index].quantity = _newState.cartProducts[index].quantity + 1;
-            return {..._newState, isFetching: false};
+            // return {..._newState, isFetching: false};
+            _newState.isFetching = false;
+            return utilityReducer(_newState);
         }
         case Actions.QUANTITY_UPDATE_FAILED:
             return {...state, isFetching: false, isError: true, error: 'quantity update failed utterly'};
@@ -69,7 +71,9 @@ export function rootReducer(state: IAppState = initialState, action: Action): IA
             let _newState = {...state};
             let index = state.cartProducts.findIndex(item => item.productId === action.payload);
             _newState.cartProducts[index].quantity = _newState.cartProducts[index].quantity - 1;
-            return {..._newState, isFetching: false};
+            // return {..._newState, isFetching: false};
+            _newState.isFetching = false;
+            return utilityReducer(_newState);
         }
         case Actions.REMOVE_CART_START:
             return {...state, isFetching: true};
@@ -79,7 +83,9 @@ export function rootReducer(state: IAppState = initialState, action: Action): IA
             let _newState = {...state};
             let index = state.cartProducts.findIndex(item => item.productId === action.payload);
             _newState.cartProducts.splice(index, 1);
-            return {..._newState, isFetching: false};
+            // return {..._newState, isFetching: false};
+            _newState.isFetching = false;
+            return utilityReducer(_newState);
         }
         case Actions.ADD_TO_CART_START:
             return {...state, isFetching: true};
@@ -89,12 +95,13 @@ export function rootReducer(state: IAppState = initialState, action: Action): IA
             let index = state.cartProducts.findIndex(item => item.productId === action.payload.productId);
             if(duplicate.length) {
                 _newState.cartProducts[index].quantity = _newState.cartProducts[index].quantity + 1;
-                return {..._newState, isFetching: false};
+                // return {..._newState, isFetching: false};
+                _newState.isFetching = false;
+                return utilityReducer(_newState);
             }
-            return Object.assign({}, state, {
-                cartProducts: state.cartProducts.concat(action.payload),
-                isFetching: false
-            });
+            _newState.cartProducts = state.cartProducts.concat(action.payload);
+            _newState.isFetching = false;
+            return utilityReducer(_newState);
         }
         case Actions.ADD_TO_CART_FAILED:
             return {...state, isFetching: false, isError: true, error: 'Error adding product to cart'};
@@ -102,7 +109,21 @@ export function rootReducer(state: IAppState = initialState, action: Action): IA
     return state;
 }
 
-//Thunk 
+//reducer utility
+const utilityReducer = (oldState: IAppState): IAppState => {
+    let _newState = {...oldState};
+    let _amount = 0, _items = 0;
+    for(let item of _newState.cartProducts){
+        _items++;
+        item.quantity > 1 ? _amount += item.quantity * item.price : _amount += item.price;
+    }
+    console.log(`cart quantity - ${_items}, cart amount - ${_amount}`);
+    _newState.cartAmount = _amount;
+    _newState.cartQuantity = _items;
+    return _newState;
+}
+
+//thunk 
 @Injectable({
     providedIn: 'root'
 })
@@ -198,7 +219,7 @@ export class ThunkWrapper{
         store.dispatch(Actions.addToCartStart());
         let _user = store.getState().username;
         return dispatch => {
-            axios.post(`${ThunkWrapper.api_url}/addtocart`,{_user, cartProduct})
+            axios.post(`${ThunkWrapper.api_url}/addtocart`, {_user, cartProduct})
             .then(res => {
                 if(res){
                     console.log(`thunk addToCart() - added to cart - ${res}`);
@@ -211,6 +232,27 @@ export class ThunkWrapper{
             .catch(err => {
                 console.log(`thunk addToCart() - error caught while adding to cart - ${err}`);
                 dispatch(Actions.addToCartFailed());
+            });
+        }
+    }
+
+    //add to wishlist
+    addToWishlist(item: IWishlist) {
+        store.dispatch(Actions.addWishlistStart());
+        let _user = store.getState().username;
+        return dispatch => {
+            axios.post(`${ThunkWrapper.api_url}/addtowishlist`, {_user, item})
+            .then((res) => {
+                if(res){
+                    console.log(`thunk addToWishlist() - wishlist updated successfully - ${res}`);
+                    dispatch(Actions.addWishlistSuccess(item.productId));
+                }
+                console.log(`thunk addToWishlist() - wishlist update failed - ${res}`);
+                dispatch(Actions.wishlistFailed());
+            })
+            .catch(err => {
+                console.log(`thunk addToWishlist() - error caught while adding to wishlist - ${err}`);
+                dispatch(Actions.wishlistFailed());
             });
         }
     }

@@ -14,8 +14,40 @@ export const LOGOUT = 'LOGOUT';
 export const REMOVE_CART_START = 'REMOVE_CART_START';
 export const REMOVE_CART_SUCCESS = 'REMOVE_CART_SUCCESS';
 export const REMOVE_CART_FAILED = 'REMOVE_CART_FAILED';
+export const ADD_WISHLIST_START = 'ADD_WISHLIST_START';
+export const ADD_WISHLIST_SUCCESS = 'ADD_WISHLIST_SUCCESS';
+export const REMOVE_WISHLIST_START = 'REMOVE_WISHLIST_START';
+export const REMOVE_WISHLIST_SUCCESS = 'REMOVE_WISHLIST_SUCCESS';
+export const WISHLIST_FAILED = 'WISHLIST_FAILED';
 
 //action creators
+export const addWishlistStart = () => {
+    return {
+        type: ADD_WISHLIST_START
+    }
+}
+export const addWishlistSuccess = productId => {
+    return {
+        type: ADD_WISHLIST_SUCCESS,
+        payload: productId
+    }
+}
+export const wishlistFailed = () => {
+    return {
+        type: WISHLIST_FAILED
+    }
+}
+export const removeWishlistStart = () => {
+    return {
+        type: REMOVE_WISHLIST_START
+    }
+}
+export const removeWishlistSuccess = productId => {
+    return {
+        type: REMOVE_WISHLIST_SUCCESS,
+        payload: productId
+    }
+}
 export const removeCartStart = () => {
     return {
         type: REMOVE_CART_START
