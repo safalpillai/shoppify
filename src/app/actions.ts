@@ -26,10 +26,10 @@ export const addWishlistStart = () => {
         type: ADD_WISHLIST_START
     }
 }
-export const addWishlistSuccess = productId => {
+export const addWishlistSuccess = item => {
     return {
         type: ADD_WISHLIST_SUCCESS,
-        payload: productId
+        payload: item
     }
 }
 export const wishlistFailed = () => {

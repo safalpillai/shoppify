@@ -96,6 +96,21 @@ header{
                 background-size: 26px;
                 background-position: center;
                 margin-right: 0;
+                position: relative;
+
+                .notif-icon{
+                    @include tr(-6px, -6px);
+                    @include boxshadow(0, 0, 5px, 0, 0, 0, 0.25);
+                    @include radius(50%);
+                    @include reg(12);
+                    background: red;
+                    color: $w;
+                    width: 20px;
+                    height: 20px;
+                    line-height: 20px;
+                    display: inline-block;
+                    text-align: center;
+                }
             }
             &.active{
                 @include radius(3px);

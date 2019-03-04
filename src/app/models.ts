@@ -1,5 +1,5 @@
 export interface IProduct{
-    productId: number,
+    productId: string,
     brand: string;
     title: string;
     price: number;
@@ -13,7 +13,7 @@ export interface IProduct{
 }
 
 export interface ICartProduct {
-    productId: number;
+    productId: string;
     title: string;
     quantity: number;
     size: number;
@@ -22,7 +22,7 @@ export interface ICartProduct {
 }
 
 export interface IWishlist{
-    productId: number;
+    productId: string;
     title: string;
     size: number;
     price: number;

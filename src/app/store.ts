@@ -105,6 +105,17 @@ export function rootReducer(state: IAppState = initialState, action: Action): IA
         }
         case Actions.ADD_TO_CART_FAILED:
             return {...state, isFetching: false, isError: true, error: 'Error adding product to cart'};
+        case Actions.ADD_WISHLIST_START:
+            return {...state, isFetching: true};
+        case Actions.ADD_WISHLIST_SUCCESS: {
+            console.log(`rootReducer ADD_WISHLIST_SUCCESS - ${JSON.stringify(action.payload, null, 2)}`);
+            let _newState = {...state};
+            _newState.wishlist = action.payload;
+            _newState.isFetching = false;
+            return {..._newState};
+        }
+        case Actions.WISHLIST_FAILED:
+            return {...state, isError: true, error: 'wishlist operation failed'};
     }
     return state;
 }
@@ -245,10 +256,11 @@ export class ThunkWrapper{
             .then((res) => {
                 if(res){
                     console.log(`thunk addToWishlist() - wishlist updated successfully - ${res}`);
-                    dispatch(Actions.addWishlistSuccess(item.productId));
+                    dispatch(Actions.addWishlistSuccess(item));
+                } else {
+                    console.log(`thunk addToWishlist() - wishlist update failed - ${res}`);
+                    dispatch(Actions.wishlistFailed());
                 }
-                console.log(`thunk addToWishlist() - wishlist update failed - ${res}`);
-                dispatch(Actions.wishlistFailed());
             })
             .catch(err => {
                 console.log(`thunk addToWishlist() - error caught while adding to wishlist - ${err}`);

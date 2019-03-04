@@ -12,7 +12,9 @@
         <div class="header-extras">
             <a class="search" href="javascript:void(0)"></a>
             <a class="profile" [routerLink]="['/profile']" [routerLinkActive]="['active']" title="User Dashboard"></a>
-            <a class="cart" [routerLink]="['/cart']" [routerLinkActive]="['active']" title="Cart"></a>
+            <a class="cart" [routerLink]="['/cart']" [routerLinkActive]="['active']" title="Cart">
+                <span *ngIf="showQuantity" class="notif-icon">{{ cartQuantity | async }}</span>
+            </a>
         </div>
     </header>
     <!-- ROUTER OUTLET -->

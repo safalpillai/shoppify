@@ -31,7 +31,7 @@ export class ProductComponent implements OnInit {
 
     ngOnInit() {
         //request product details from db
-        this.productService.getProduct(this.productId).subscribe((res) => {
+        this.productService.getProduct(this.productId.toString()).subscribe((res) => {
             // console.log(`product.component - received response - ${res}`);
             this.productDetails = res;
             this.sizes = this.productDetails.sizesAvailable.split(",");
@@ -43,7 +43,7 @@ export class ProductComponent implements OnInit {
     //add to cart
     addToCart(product: IProduct){
         let _cartProduct: ICartProduct = {
-            productId: parseInt(product.productId),
+            productId: product.productId,
             title: product.title,
             quantity: 1,
             size: 7,
