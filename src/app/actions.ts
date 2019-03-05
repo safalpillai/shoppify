@@ -1,30 +1,55 @@
 //actions
-export const LOGIN_FULFILLED = 'LOGIN_FULFILLED';
-export const FETCH_CART_SUCCESS = 'FETCH_CART_SUCCESS';
-export const FETCH_CART_FAILED = 'FETCH_CART_FAILED';
+export const INIT_STORE = 'INIT_STORE';
+export const INIT_STORE_SUCCESS = 'INIT_STORE_SUCCESS';
+export const INIT_STORE_FAILED = 'INIT_STORE_FAILED';
+
 export const ADD_TO_CART_START = 'ADD_TO_CART_START';
 export const ADD_TO_CART_SUCCESS = 'ADD_TO_CART_SUCCESS';
 export const ADD_TO_CART_FAILED = 'ADD_TO_CART_FAILED';
+
 export const INCREMENT_START = 'INCREMENT_START';
 export const INCREMENT_SUCCESS = 'INCREMENT_SUCCESS';
-export const QUANTITY_UPDATE_FAILED = 'QUANTITY_UPDATE_FAILED';
 export const DECREMENT_START = 'DECREMENT_START';
 export const DECREMENT_SUCCESS = 'DECREMENT_SUCCESS';
+export const QUANTITY_UPDATE_FAILED = 'QUANTITY_UPDATE_FAILED';
+
 export const LOGOUT = 'LOGOUT';
+
 export const REMOVE_CART_START = 'REMOVE_CART_START';
 export const REMOVE_CART_SUCCESS = 'REMOVE_CART_SUCCESS';
 export const REMOVE_CART_FAILED = 'REMOVE_CART_FAILED';
+
 export const ADD_WISHLIST_START = 'ADD_WISHLIST_START';
 export const ADD_WISHLIST_SUCCESS = 'ADD_WISHLIST_SUCCESS';
+
 export const REMOVE_WISHLIST_START = 'REMOVE_WISHLIST_START';
 export const REMOVE_WISHLIST_SUCCESS = 'REMOVE_WISHLIST_SUCCESS';
 export const REMOVE_WISHLIST_FAILED = 'REMOVE_WISHLIST_FAILED';
+
 export const WISHLIST_FAILED = 'WISHLIST_FAILED';
+
 export const WISHLIST_FETCH_START = 'WISHLIST_FETCH_START';
 export const WISHLIST_FETCH_SUCCESS = 'WISHLIST_FETCH_SUCCESS';
 export const WISHLIST_FETCH_FAILED = 'WISHLIST_FETCH_FAILED';
 
 //action creators
+export const removeWishlistStart = () => {
+    return {
+        type: REMOVE_WISHLIST_START
+    }
+}
+export const removeWishlistSuccess = productId => {
+    return {
+        type: REMOVE_WISHLIST_SUCCESS,
+        payload: productId
+    }
+}
+export const removeWishlistFailed = () => {
+    return {
+        type: REMOVE_WISHLIST_FAILED
+    }
+}
+
 export const wishlistFetchStart = () => {
     return {
         type: WISHLIST_FETCH_START
@@ -36,16 +61,12 @@ export const wishlistFetchSuccess = items => {
         payload: items
     }
 }
-export const removeWishlistFailed = () => {
-    return {
-        type: REMOVE_WISHLIST_FAILED
-    }
-}
 export const wishlistFetchFailed = () => {
     return {
         type: WISHLIST_FETCH_FAILED
     }
 }
+
 export const addWishlistStart = () => {
     return {
         type: ADD_WISHLIST_START
@@ -62,17 +83,7 @@ export const wishlistFailed = () => {
         type: WISHLIST_FAILED
     }
 }
-export const removeWishlistStart = () => {
-    return {
-        type: REMOVE_WISHLIST_START
-    }
-}
-export const removeWishlistSuccess = productId => {
-    return {
-        type: REMOVE_WISHLIST_SUCCESS,
-        payload: productId
-    }
-}
+
 export const removeCartStart = () => {
     return {
         type: REMOVE_CART_START
@@ -89,6 +100,7 @@ export const removeCartFailed = () => {
         type: REMOVE_CART_FAILED
     }
 }
+
 export const decrementStart = () => {
     return {
         type: DECREMENT_START
@@ -116,23 +128,25 @@ export const quantityUpdateFailed = () => {
         type: QUANTITY_UPDATE_FAILED
     }
 }
-export const loginFulfilled = username => {
+
+export const initStore = username => {
     return {
-        type: LOGIN_FULFILLED,
+        type: INIT_STORE,
         payload: username
     }
 }
-export const fetchCartSuccess = data => {
+export const initStoreSuccess = data => {
     return {
-        type: FETCH_CART_SUCCESS,
+        type: INIT_STORE_SUCCESS,
         payload: data
     }
 }
-export const fetchCartFailed = () => {
+export const initStoreFailed = () => {
     return {
-        type: FETCH_CART_FAILED
+        type: INIT_STORE_FAILED
     }
 }
+
 export const addToCartStart = () => {
     return {
         type: ADD_TO_CART_START

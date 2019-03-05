@@ -18,7 +18,7 @@ export class WishlistComponent implements OnInit {
 
     ngOnInit() {
         this.ngRedux.dispatch<any>(this.thunk.fetchWishlist(this.userService.getUser()));
-        this.wishlist.subscribe(items => console.log(`wishlist.component - wishlist items - ${items}`));
+        // this.wishlist.subscribe(items => console.log(`wishlist.component - wishlist items - ${items}`));
     }
     
     removeFromWishlist(product: IWishlist) {

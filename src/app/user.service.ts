@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { IUser, ICartProduct } from './models';
+import { IUser, ICartProduct, IAppState } from './models';
+import { NgRedux } from '@angular-redux/store';
 
 @Injectable({
     providedIn: 'root'
@@ -10,7 +11,7 @@ import { IUser, ICartProduct } from './models';
 export class UserService {
     static API_URL = 'http://localhost:4000/user';
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private ngRedux: NgRedux<IAppState>) { }
 
     //get user details for dashboard
     getUserDetails(name: string): Observable<any> {
@@ -54,6 +55,7 @@ export class UserService {
 
     //on logout
     loggedOut() {
+        this.ngRedux.dispatch({type: 'LOGOUT'});
         localStorage.removeItem('user');
         localStorage.removeItem('app-state');
     }

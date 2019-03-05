@@ -169,6 +169,10 @@ header{
         height: 40px;
     }
     .cart-icon{
+        @include svg(cart-off);
+        background-size: 22px;
+        background-color: $w;
+        background-position: center;
         top: auto;
         bottom: 20px;
 
@@ -178,22 +182,15 @@ header{
             background-color: $w;
             background-position: center;
         }
-        &.false{
-            @include svg(cart-off);
-            background-size: 22px;
-            background-color: $w;
-            background-position: center;
-        }
     }
     .wishlist-icon{
+        @include svg(heart-false);
+        background-size: 18px;
+        background-color: $w;
+        background-position: center;
+        
         &.true{
             @include svg(heart-true);
-            background-size: 18px;
-            background-color: $w;
-            background-position: center;
-        }
-        &.false{
-            @include svg(heart-false);
             background-size: 18px;
             background-color: $w;
             background-position: center;

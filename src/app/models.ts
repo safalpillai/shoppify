@@ -49,7 +49,10 @@ export interface IAppState{
     isError: boolean,
     error: string,
     cartQuantity: number,
-    cartAmount: number
+    cartAmount: number,
+    wishlisted: string[],
+    carted: string[],
+    storeInitialized: boolean
 }
 
 export interface Action {

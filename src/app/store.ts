@@ -15,7 +15,10 @@ export const initialState: IAppState = {
     isError: false,
     error: '',
     cartQuantity: 0,
-    cartAmount: 0
+    cartAmount: 0,
+    wishlisted: [],
+    carted: [],
+    storeInitialized: false
 };
 
 //persist store
@@ -31,27 +34,24 @@ store.subscribe(() => {
 //reducer
 export function rootReducer(state: IAppState = initialState, action: Action): IAppState {
     switch(action.type) {
-        case Actions.LOGIN_FULFILLED:
-            // console.log(`store.LOGIN_FULFILLED - ${action.payload}`);
-            return Object.assign({}, state, {
-                username: action.payload,
-                isFetching: false
-            });
+        case Actions.INIT_STORE:
+            return {...state, username: action.payload, isFetching: false};
         case Actions.LOGOUT:
+            // console.log(`store.LOGOUT`);
             return initialState;
-        case Actions.FETCH_CART_SUCCESS: {
+        case Actions.INIT_STORE_SUCCESS: {
             let _newState = {...state};
             _newState.cartProducts = action.payload[0].cart;
+            _newState.carted = action.payload[0].cart.map(items => {return items.productId});
+            _newState.wishlist = action.payload[0].wishlist;
+            _newState.wishlisted = action.payload[0].wishlist.map(items => {return items.productId});
             _newState.isFetching = false;
+            _newState.storeInitialized = true;
             // console.log(`FETCH_CART_SUCCESS - new state - ${JSON.stringify(_newState.cartProducts, null, 3)}`);
             return utilityReducer(_newState);
         }
-        case Actions.FETCH_CART_FAILED:
-            return Object.assign({}, state, {
-                isFetching: false,
-                isError: true,
-                error: 'Error encountered while fetching data'
-            });
+        case Actions.INIT_STORE_FAILED:
+            return {...state, isFetching: false, isError: true, error: 'Error encountered while fetching data'};
         case Actions.INCREMENT_START:
             return {...state, isFetching: true};
         case Actions.INCREMENT_SUCCESS: {
@@ -59,7 +59,6 @@ export function rootReducer(state: IAppState = initialState, action: Action): IA
             let _newState = state;
             let index = state.cartProducts.findIndex(item => item.productId === action.payload);
             _newState.cartProducts[index].quantity = _newState.cartProducts[index].quantity + 1;
-            // return {..._newState, isFetching: false};
             _newState.isFetching = false;
             return utilityReducer(_newState);
         }
@@ -71,7 +70,6 @@ export function rootReducer(state: IAppState = initialState, action: Action): IA
             let _newState = {...state};
             let index = state.cartProducts.findIndex(item => item.productId === action.payload);
             _newState.cartProducts[index].quantity = _newState.cartProducts[index].quantity - 1;
-            // return {..._newState, isFetching: false};
             _newState.isFetching = false;
             return utilityReducer(_newState);
         }
@@ -83,7 +81,7 @@ export function rootReducer(state: IAppState = initialState, action: Action): IA
             let _newState = {...state};
             let index = state.cartProducts.findIndex(item => item.productId === action.payload);
             _newState.cartProducts.splice(index, 1);
-            // return {..._newState, isFetching: false};
+            _newState.carted = _newState.carted.filter(item => item !== action.payload);
             _newState.isFetching = false;
             return utilityReducer(_newState);
         }
@@ -99,7 +97,8 @@ export function rootReducer(state: IAppState = initialState, action: Action): IA
                 _newState.isFetching = false;
                 return utilityReducer(_newState);
             }
-            _newState.cartProducts = state.cartProducts.concat(action.payload);
+            _newState.carted = _newState.carted.concat(action.payload.productId);
+            _newState.cartProducts = _newState.cartProducts.concat(action.payload);
             _newState.isFetching = false;
             return utilityReducer(_newState);
         }
@@ -108,20 +107,21 @@ export function rootReducer(state: IAppState = initialState, action: Action): IA
         case Actions.ADD_WISHLIST_START:
             return {...state, isFetching: true};
         case Actions.ADD_WISHLIST_SUCCESS: {
-            console.log(`rootReducer ADD_WISHLIST_SUCCESS - ${JSON.stringify(action.payload, null, 2)}`);
+            // console.log(`rootReducer ADD_WISHLIST_SUCCESS - ${JSON.stringify(action.payload, null, 2)}`);
             let _newState = {...state};
-            _newState.wishlist = action.payload;
+            _newState.wishlist = _newState.wishlist.concat(action.payload);
+            _newState.wishlisted = _newState.wishlisted.concat(action.payload.productId);
             _newState.isFetching = false;
             return {..._newState};
         }
-        case Actions.WISHLIST_FAILED:
-            return {...state, isError: true, error: 'wishlist operation failed'};
         case Actions.WISHLIST_FETCH_START:
             return {...state, isFetching: true}
         case Actions.WISHLIST_FETCH_SUCCESS: {
             let _newState = {...state};
             _newState.wishlist = action.payload[0].wishlist;
-            console.log(`rootReducer() = WISHLIST_FETCH_SUCCESS - ${JSON.stringify(action.payload[0].wishlist, null, 3)}`);
+            // console.log(`rootReducer() = WISHLIST_FETCH_SUCCESS - ${JSON.stringify(action.payload[0].wishlist, null, 3)}`);
+            _newState.wishlisted = action.payload[0].wishlist.map(items => {return items.productId});
+            console.log(`rootReducer WISHLIST_FETCH_SUCCESS - wishlisted items - ${_newState.wishlisted}`);
             _newState.isFetching = false;
             return {..._newState};
         }
@@ -131,11 +131,20 @@ export function rootReducer(state: IAppState = initialState, action: Action): IA
             return {...state, isFetching: true};
         case Actions.REMOVE_WISHLIST_SUCCESS: {
             let _newState = {...state};
-            let _push = _newState.wishlist.filter(item => item.productId !== action.payload);
-            _newState.wishlist = _push;
-            console.log(`rootReducer - REMOVE_WISHLIST_SUCCESS - ${JSON.stringify(_push, null, 2)}`);
+            console.log(`store.REMOVE_WISHLIST_SUCCESS - wishlisted old - ${JSON.stringify(_newState.wishlisted)} === ${action.payload}`);
+            let index = _newState.wishlist.findIndex(item => item.productId === action.payload);
+            _newState.wishlist.splice(index, 1);
+            let _index = _newState.wishlisted.findIndex(item => item === action.payload);
+            _newState.wishlisted.splice(_index, 1);
+            console.log(`store.REMOVE_WISHLIST_SUCCESS - wishlisted new - ${JSON.stringify(_newState.wishlisted)}`);
             return {..._newState, isFetching: false};
         }
+        case Actions.REMOVE_WISHLIST_FAILED:
+            return Object.assign({}, state, {
+                isError: true,
+                error: 'error while removing item from wishlist',
+                isFetching: false
+            });
     }
     return state;
 }
@@ -164,23 +173,68 @@ export class ThunkWrapper{
     //initialize store
     initializeStore(username: string) {
         console.log('store initialized with - ', username);
-        store.dispatch(Actions.loginFulfilled(username));
+        store.dispatch(Actions.initStore(username));
         return dispatch => {
-            axios.get(`${ThunkWrapper.api_url}/getcart?user=${username}`)
-            .then(res => {
-                if(!res) console.log(`thunk initializeStore() - response error`);
-                else {
-                    console.log(`thunk initializeStore() - response received - ${res}`);
-                    dispatch(Actions.fetchCartSuccess(res.data));
-                }
-            })
-            .catch(err => {
-                console.log(`initialize store error caught - ${err}`);
-                dispatch(Actions.fetchCartFailed());
-            });
+            setTimeout(() => {
+                axios.get(`${ThunkWrapper.api_url}/initializestore?user=${username}`)
+                .then(res => {
+                    if(!res) console.log(`thunk initializeStore() - response error`);
+                    else {
+                        // console.log(`thunk initializeStore() - response received - ${JSON.stringify(res.data, null, 2)}`);
+                        dispatch(Actions.initStoreSuccess(res.data));
+                    }
+                })
+                .catch(err => {
+                    console.log(`initialize store error caught - ${err}`);
+                    dispatch(Actions.initStoreFailed());
+                });
+            }, 3000);
         }
     }
     
+    //add to cart
+    addToCart(cartProduct: ICartProduct) {
+        store.dispatch(Actions.addToCartStart());
+        let _user = store.getState().username;
+        return dispatch => {
+            axios.post(`${ThunkWrapper.api_url}/addtocart`, {_user, cartProduct})
+            .then(res => {
+                if(res){
+                    console.log(`thunk addToCart() - added to cart - ${res}`);
+                    dispatch(Actions.addToCartSuccess(cartProduct));
+                } else {
+                    console.log(`thunk addToCart() - add to cart failed - ${res}`);
+                    dispatch(Actions.addToCartFailed());
+                }
+            })
+            .catch(err => {
+                console.log(`thunk addToCart() - error caught while adding to cart - ${err}`);
+                dispatch(Actions.addToCartFailed());
+            });
+        }
+    }
+
+    //remove from cart
+    removeFromCart(product: IProduct) {
+        store.dispatch(Actions.removeCartStart());
+        return dispatch => {
+            axios.post(`${ThunkWrapper.api_url}/removefromcart?user=${store.getState().username}&productid=${product.productId}`)
+            .then(res => {
+                if(res) {
+                    console.log(`thunk removeFromCart() - product removal failed - ${res}`);
+                    dispatch(Actions.removeCartSuccess(product.productId));
+                } else {
+                    console.log(`thunk removeFromCart() - decrement failed - ${res}`);
+                    dispatch(Actions.removeCartFailed());
+                }
+            })
+            .catch(err => {
+                console.log(`thunk removeFromCart() - error caught while removing product - ${err}`);
+                dispatch(Actions.removeCartFailed());
+            });
+        }
+    }
+
     //increment 
     incrementCart(product: IProduct) {
         console.log(`store - product to increment - ${product.productId}`);
@@ -223,46 +277,19 @@ export class ThunkWrapper{
             });
         }
     }
-
-    //remove from cart
-    removeFromCart(product: IProduct) {
-        store.dispatch(Actions.removeCartStart());
+    
+    //fetch wishlist
+    fetchWishlist(username: string) {
+        store.dispatch(Actions.wishlistFetchStart());
         return dispatch => {
-            axios.post(`${ThunkWrapper.api_url}/removefromcart?user=${store.getState().username}&productid=${product.productId}`)
+            axios.get(`${ThunkWrapper.api_url}/fetchwishlist?user=${username}`)
             .then(res => {
-                if(res) {
-                    console.log(`thunk removeFromCart() - product removal failed - ${res}`);
-                    dispatch(Actions.removeCartSuccess(product.productId));
-                } else {
-                    console.log(`thunk removeFromCart() - decrement failed - ${res}`);
-                    dispatch(Actions.removeCartFailed());
-                }
+                // console.log(`thunk fetchWishlist() - ${res}`);
+                dispatch(Actions.wishlistFetchSuccess(res.data));
             })
             .catch(err => {
-                console.log(`thunk removeFromCart() - error caught while removing product - ${err}`);
-                dispatch(Actions.removeCartFailed());
-            });
-        }
-    }
-
-    //add to cart
-    addToCart(cartProduct: ICartProduct) {
-        store.dispatch(Actions.addToCartStart());
-        let _user = store.getState().username;
-        return dispatch => {
-            axios.post(`${ThunkWrapper.api_url}/addtocart`, {_user, cartProduct})
-            .then(res => {
-                if(res){
-                    console.log(`thunk addToCart() - added to cart - ${res}`);
-                    dispatch(Actions.addToCartSuccess(cartProduct));
-                } else {
-                    console.log(`thunk addToCart() - add to cart failed - ${res}`);
-                    dispatch(Actions.addToCartFailed());
-                }
-            })
-            .catch(err => {
-                console.log(`thunk addToCart() - error caught while adding to cart - ${err}`);
-                dispatch(Actions.addToCartFailed());
+                console.log(`thunk fetchWishlist() - error caught while fetching wishlist`);
+                dispatch(Actions.wishlistFetchFailed());
             });
         }
     }
@@ -289,26 +316,11 @@ export class ThunkWrapper{
         }
     }
 
-    //fetch wishlist
-    fetchWishlist(username: string) {
-        store.dispatch(Actions.wishlistFetchStart());
-        return dispatch => {
-            axios.get(`${ThunkWrapper.api_url}/fetchwishlist?user=${username}`)
-            .then(res => {
-                console.log(`thunk fetchWishlist() - ${res}`);
-                dispatch(Actions.wishlistFetchSuccess(res.data));
-            })
-            .catch(err => {
-                console.log(`thunk fetchWishlist() - error caught while fetching wishlist`);
-                dispatch(Actions.fetchCartFailed());
-            });
-        }
-    }
-
-    //remoove from wishlist
-    removeWishlist(productId: string) {
-        let user = store.getState().username;
+    //remove from wishlist
+    removeFromWishlist(productId: string) {
         store.dispatch(Actions.removeWishlistStart());
+        console.log(`thunk removeFromWishlist() - productid - ${productId} - store.wishlisted - ${JSON.stringify(store.getState().wishlisted)}`);
+        let user = store.getState().username;
         return dispatch => {
             axios.post(`${ThunkWrapper.api_url}/removewishlist?user=${user}&productid=${productId}`)
             .then(res => {
@@ -320,7 +332,7 @@ export class ThunkWrapper{
                     dispatch(Actions.removeWishlistSuccess(productId));
                 }
             })
-            .catch(err => console.log(`thunk removeWishlist() - error caught while removing wishlist`));
+            .catch(err => console.log(`thunk removeWishlist() - error caught while removing wishlist - ${err}`));
         }
     }
 }
