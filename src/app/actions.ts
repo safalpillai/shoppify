@@ -18,9 +18,34 @@ export const ADD_WISHLIST_START = 'ADD_WISHLIST_START';
 export const ADD_WISHLIST_SUCCESS = 'ADD_WISHLIST_SUCCESS';
 export const REMOVE_WISHLIST_START = 'REMOVE_WISHLIST_START';
 export const REMOVE_WISHLIST_SUCCESS = 'REMOVE_WISHLIST_SUCCESS';
+export const REMOVE_WISHLIST_FAILED = 'REMOVE_WISHLIST_FAILED';
 export const WISHLIST_FAILED = 'WISHLIST_FAILED';
+export const WISHLIST_FETCH_START = 'WISHLIST_FETCH_START';
+export const WISHLIST_FETCH_SUCCESS = 'WISHLIST_FETCH_SUCCESS';
+export const WISHLIST_FETCH_FAILED = 'WISHLIST_FETCH_FAILED';
 
 //action creators
+export const wishlistFetchStart = () => {
+    return {
+        type: WISHLIST_FETCH_START
+    }
+}
+export const wishlistFetchSuccess = items => {
+    return {
+        type: WISHLIST_FETCH_SUCCESS,
+        payload: items
+    }
+}
+export const removeWishlistFailed = () => {
+    return {
+        type: REMOVE_WISHLIST_FAILED
+    }
+}
+export const wishlistFetchFailed = () => {
+    return {
+        type: WISHLIST_FETCH_FAILED
+    }
+}
 export const addWishlistStart = () => {
     return {
         type: ADD_WISHLIST_START

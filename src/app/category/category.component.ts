@@ -13,9 +13,10 @@ export class CategoryComponent implements OnInit {
     dataReceived: boolean = false;
     isLoading: boolean;
     windowWidth: any;
+
     @HostListener('window: resize', ['event']) onresize(event) {
         this.windowWidth = window.innerWidth;
-        console.log(`viewport width - ${this.windowWidth}`);
+        // console.log(`viewport width - ${this.windowWidth}`);
     }
 
     constructor(private productService: ProductService) { 

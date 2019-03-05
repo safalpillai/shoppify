@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IProduct, ICartProduct, IAppState, IWishlist } from '../models';
-import { NgRedux } from '@angular-redux/store';
+import { NgRedux, select } from '@angular-redux/store';
 import { ThunkWrapper } from '../store';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-card',
@@ -10,11 +11,14 @@ import { ThunkWrapper } from '../store';
 })
 export class CardComponent implements OnInit {
     @Input() product: IProduct;
+    @select() wishlist: Observable<IWishlist[]>;
+    wishlistStatus: boolean;
 
     constructor(private ngRedux: NgRedux<IAppState>, private thunk: ThunkWrapper) {
     }
 
     ngOnInit() {
+        
     }
 
     addToCart(product: IProduct){

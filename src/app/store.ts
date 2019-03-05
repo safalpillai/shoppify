@@ -116,6 +116,26 @@ export function rootReducer(state: IAppState = initialState, action: Action): IA
         }
         case Actions.WISHLIST_FAILED:
             return {...state, isError: true, error: 'wishlist operation failed'};
+        case Actions.WISHLIST_FETCH_START:
+            return {...state, isFetching: true}
+        case Actions.WISHLIST_FETCH_SUCCESS: {
+            let _newState = {...state};
+            _newState.wishlist = action.payload[0].wishlist;
+            console.log(`rootReducer() = WISHLIST_FETCH_SUCCESS - ${JSON.stringify(action.payload[0].wishlist, null, 3)}`);
+            _newState.isFetching = false;
+            return {..._newState};
+        }
+        case Actions.WISHLIST_FAILED:
+            return {...state, isFetching: false, isError: true, error: 'error while fetching wishlist'};
+        case Actions.REMOVE_WISHLIST_START:
+            return {...state, isFetching: true};
+        case Actions.REMOVE_WISHLIST_SUCCESS: {
+            let _newState = {...state};
+            let _push = _newState.wishlist.filter(item => item.productId !== action.payload);
+            _newState.wishlist = _push;
+            console.log(`rootReducer - REMOVE_WISHLIST_SUCCESS - ${JSON.stringify(_push, null, 2)}`);
+            return {..._newState, isFetching: false};
+        }
     }
     return state;
 }
@@ -266,6 +286,41 @@ export class ThunkWrapper{
                 console.log(`thunk addToWishlist() - error caught while adding to wishlist - ${err}`);
                 dispatch(Actions.wishlistFailed());
             });
+        }
+    }
+
+    //fetch wishlist
+    fetchWishlist(username: string) {
+        store.dispatch(Actions.wishlistFetchStart());
+        return dispatch => {
+            axios.get(`${ThunkWrapper.api_url}/fetchwishlist?user=${username}`)
+            .then(res => {
+                console.log(`thunk fetchWishlist() - ${res}`);
+                dispatch(Actions.wishlistFetchSuccess(res.data));
+            })
+            .catch(err => {
+                console.log(`thunk fetchWishlist() - error caught while fetching wishlist`);
+                dispatch(Actions.fetchCartFailed());
+            });
+        }
+    }
+
+    //remoove from wishlist
+    removeWishlist(productId: string) {
+        let user = store.getState().username;
+        store.dispatch(Actions.removeWishlistStart());
+        return dispatch => {
+            axios.post(`${ThunkWrapper.api_url}/removewishlist?user=${user}&productid=${productId}`)
+            .then(res => {
+                if(!res) {
+                    console.log(`thunk removeWishlist() - error occured while removing wishlist - ${res}`);
+                    dispatch(Actions.removeWishlistFailed());
+                } else {
+                    console.log(`thunk removeWishlist() - removing wishlist returned - ${res}`);
+                    dispatch(Actions.removeWishlistSuccess(productId));
+                }
+            })
+            .catch(err => console.log(`thunk removeWishlist() - error caught while removing wishlist`));
         }
     }
 }

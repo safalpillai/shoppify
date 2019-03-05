@@ -28,7 +28,7 @@ export class AppComponent implements OnInit{
         if(event instanceof NavigationEnd){
             this.loadingBar.complete();
         }
-        if(event instanceof NavigationCancel || event instanceof NavigationEnd){
+        if(event instanceof NavigationCancel || event instanceof NavigationEnd || event instanceof NavigationError){
             this.loadingBar.stop();
         }
     }

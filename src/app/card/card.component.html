@@ -11,6 +11,6 @@
             </div>
         </div>
     </a>
-    <a (click)="addToWishlist(product)" class="wishlist-icon false" href="javascript:void(0)"></a>
+    <a (click)="addToWishlist(product)" class="wishlist-icon false" [class.true]="wishlistStatus" href="javascript:void(0)"></a>
     <a (click)="addToCart(product)" class="cart-icon false" href="javascript:void(0)"></a>
 </div>
