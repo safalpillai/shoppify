@@ -22,6 +22,6 @@ export class WishlistComponent implements OnInit {
     }
     
     removeFromWishlist(product: IWishlist) {
-        this.ngRedux.dispatch<any>(this.thunk.removeWishlist(product.productId));
+        this.ngRedux.dispatch<any>(this.thunk.removeFromWishlist(product.productId));
     }
 }
