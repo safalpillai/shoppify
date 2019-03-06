@@ -19,6 +19,7 @@ export class CardComponent implements OnInit {
     @select() carted: Observable<string[]>;
     wishlistStatus: boolean;
     cartStatus: boolean;
+    @select() isFetching;
 
     constructor(private ngRedux: NgRedux<IAppState>, private thunk: ThunkWrapper,
         private userService: UserService, private router: Router, private notify: NotificationService) {
@@ -52,8 +53,8 @@ export class CardComponent implements OnInit {
         }
     }
 
-    addToCart(product: IProduct){
-        if(this.userService.isAuthenticated()) {
+    toggleCart(product: IProduct, status: boolean){
+        if(!status && this.userService.isAuthenticated()){
             let model: ICartProduct = {
                 productId: product.productId,
                 title: product.title,
@@ -62,7 +63,11 @@ export class CardComponent implements OnInit {
                 price: product.price,
                 imgSrc: product.imgSrc
             }
+            console.log(`adding to cart`);
             this.ngRedux.dispatch<any>(this.thunk.addToCart(model));
+        } else if(status && this.userService.isAuthenticated()){
+            console.log(`removing from cart - ${product.productId}`);
+            this.ngRedux.dispatch<any>(this.thunk.removeFromCart(product));
         } else {
             this.sendToLogin();
         }

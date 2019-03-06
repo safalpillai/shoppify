@@ -28,17 +28,19 @@ let persistedStore: IAppState = localStorage.getItem('app-state') !== null  || l
 export const store: Store<IAppState> = createStore(rootReducer, persistedStore, applyMiddleware(thunk, createLogger({collapsed: true})));
 store.subscribe(() => {
     localStorage.setItem('app-state', JSON.stringify(store.getState()));
-    console.log(`STORE CHANGED!!`);
+    // console.log(`STORE CHANGED!! - ${JSON.stringify(store.getState(), null, 2)}`);
 });
 
 //reducer
 export function rootReducer(state: IAppState = initialState, action: Action): IAppState {
     switch(action.type) {
-        case Actions.INIT_STORE:
+        case Actions.INIT_STORE: {
             return {...state, username: action.payload, isFetching: false};
-        case Actions.LOGOUT:
+        }
+        case Actions.LOGOUT: {
             // console.log(`store.LOGOUT`);
             return initialState;
+        }
         case Actions.INIT_STORE_SUCCESS: {
             let _newState = {...state};
             _newState.cartProducts = action.payload[0].cart;
@@ -50,10 +52,12 @@ export function rootReducer(state: IAppState = initialState, action: Action): IA
             // console.log(`FETCH_CART_SUCCESS - new state - ${JSON.stringify(_newState.cartProducts, null, 3)}`);
             return utilityReducer(_newState);
         }
-        case Actions.INIT_STORE_FAILED:
+        case Actions.INIT_STORE_FAILED: {
             return {...state, isFetching: false, isError: true, error: 'Error encountered while fetching data'};
-        case Actions.INCREMENT_START:
+        }
+        case Actions.INCREMENT_START:{
             return {...state, isFetching: true};
+        }
         case Actions.INCREMENT_SUCCESS: {
             console.log(`store.INCREMENT_SUCCESS - action.payload - ${action.payload}`);
             let _newState = state;
@@ -62,10 +66,12 @@ export function rootReducer(state: IAppState = initialState, action: Action): IA
             _newState.isFetching = false;
             return utilityReducer(_newState);
         }
-        case Actions.QUANTITY_UPDATE_FAILED:
+        case Actions.QUANTITY_UPDATE_FAILED: {
             return {...state, isFetching: false, isError: true, error: 'quantity update failed utterly'};
-        case Actions.DECREMENT_START:
-            return {...state, isFetching: true}
+        }
+        case Actions.DECREMENT_START: {
+            return {...state, isFetching: true};
+        }
         case Actions.DECREMENT_SUCCESS: {
             let _newState = {...state};
             let index = state.cartProducts.findIndex(item => item.productId === action.payload);
@@ -73,22 +79,24 @@ export function rootReducer(state: IAppState = initialState, action: Action): IA
             _newState.isFetching = false;
             return utilityReducer(_newState);
         }
-        case Actions.REMOVE_CART_START:
+        case Actions.REMOVE_CART_START: {
             return Object.assign({}, state, {
                 isFetching: true
-            })
-        case Actions.REMOVE_CART_FAILED:
+            });
+        }
+        case Actions.REMOVE_CART_FAILED: {
             return {...state, isFetching: false, isError: true, error: 'Item deletion failed'};
+        }
         case Actions.REMOVE_CART_SUCCESS: {
             let _newState = {...state};
-            let index = _newState.cartProducts.findIndex(item => item.productId === action.payload);
-            _newState.cartProducts.splice(index, 1);
-            _newState.carted = _newState.carted.filter(item => item !== action.payload);
+            _newState.cartProducts = _newState.cartProducts.filter(item => item.productId.toString() !== action.payload.toString());
+            _newState.carted = _newState.carted.filter(item => item.toString() !== action.payload.toString());
             _newState.isFetching = false;
             return utilityReducer(_newState);
         }
-        case Actions.ADD_TO_CART_START:
+        case Actions.ADD_TO_CART_START: {
             return {...state, isFetching: true};
+        }
         case Actions.ADD_TO_CART_SUCCESS: {
             let _newState = {...state};
             let duplicate = state.cartProducts.filter(item => item.productId === action.payload.productId);
@@ -104,10 +112,12 @@ export function rootReducer(state: IAppState = initialState, action: Action): IA
             _newState.isFetching = false;
             return utilityReducer(_newState);
         }
-        case Actions.ADD_TO_CART_FAILED:
+        case Actions.ADD_TO_CART_FAILED: {
             return {...state, isFetching: false, isError: true, error: 'Error adding product to cart'};
-        case Actions.ADD_WISHLIST_START:
+        }
+        case Actions.ADD_WISHLIST_START: {
             return {...state, isFetching: true};
+        }
         case Actions.ADD_WISHLIST_SUCCESS: {
             // console.log(`rootReducer ADD_WISHLIST_SUCCESS - ${JSON.stringify(action.payload, null, 2)}`);
             let _newState = {...state};
@@ -116,8 +126,9 @@ export function rootReducer(state: IAppState = initialState, action: Action): IA
             _newState.isFetching = false;
             return {..._newState};
         }
-        case Actions.WISHLIST_FETCH_START:
+        case Actions.WISHLIST_FETCH_START: {
             return {...state, isFetching: true}
+        }
         case Actions.WISHLIST_FETCH_SUCCESS: {
             let _newState = {...state};
             _newState.wishlist = action.payload[0].wishlist;
@@ -127,31 +138,32 @@ export function rootReducer(state: IAppState = initialState, action: Action): IA
             _newState.isFetching = false;
             return {..._newState};
         }
-        case Actions.WISHLIST_FAILED:
+        case Actions.WISHLIST_FAILED: {
             return {...state, isFetching: false, isError: true, error: 'error while fetching wishlist'};
-        case Actions.REMOVE_WISHLIST_START:
-            return {...state, isFetching: true};
-        case Actions.REMOVE_WISHLIST_SUCCESS: {
-            let _newState = {...state};
-            console.log(`store.REMOVE_WISHLIST_SUCCESS - wishlisted old - ${JSON.stringify(_newState.wishlisted)} === ${action.payload}`);
-            let index = _newState.wishlist.findIndex(item => item.productId === action.payload.toString());
-            _newState.wishlist.splice(index, 1);
-            let _index = _newState.wishlisted.findIndex(item => item === action.payload.toString());
-            _newState.wishlisted.splice(_index, 1);
-            console.log(`store.REMOVE_WISHLIST_SUCCESS - wishlisted new - ${JSON.stringify(_newState.wishlisted)}`);
-            return {..._newState, isFetching: false};
         }
-        case Actions.REMOVE_WISHLIST_FAILED:
+        case Actions.REMOVE_WISHLIST_START: {
+            return {...state, isFetching: true};
+        }
+        case Actions.REMOVE_WISHLIST_SUCCESS: {
+            console.log(`store.REMOVE_WISHLIST_SUCCESS - wishlisted - ${JSON.stringify(state.wishlisted)} === ${action.payload}`);
+            return Object.assign({}, state, {
+                wishlist: state.wishlist.filter(item => item.productId.toString() !== action.payload.toString()),
+                wishlisted: state.wishlisted.filter(item => item !== action.payload.toString()),
+                isFetching: false
+            });
+        }
+        case Actions.REMOVE_WISHLIST_FAILED: {
             return Object.assign({}, state, {
                 isError: true,
                 error: 'error while removing item from wishlist',
                 isFetching: false
             });
+        }
     }
     return state;
 }
 
-//reducer utility
+//reducer utility to set cart quantity and cart amount
 const utilityReducer = (oldState: IAppState): IAppState => {
     let _newState = {...oldState};
     let _amount = 0, _items = 0;

@@ -10,7 +10,7 @@
             <div class="site-title">shopify</div>
         </a>
         <div class="header-extras">
-            <a class="search" href="javascript:void(0)"></a>
+            <a class="search" href="javascript:void(0)" title="Search"></a>
             <a class="profile" [routerLink]="['/profile']" [routerLinkActive]="['active']" title="User Dashboard"></a>
             <a class="cart" [routerLink]="['/cart']" [routerLinkActive]="['active']" title="Cart">
                 <span *ngIf="showQuantity" class="notif-icon">{{ cartQuantity | async }}</span>

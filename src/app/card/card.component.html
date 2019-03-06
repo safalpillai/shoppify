@@ -1,5 +1,6 @@
 <div class="card-wrapper">
     <a [routerLink]="['/product', product.productId]" class="card">
+        <div *ngIf="isFetching | async" class="loader"></div>
         <img [src]="product.imgSrc" alt="">
         <div class="card-inner">
             <span class="brand">{{ product.brand }}</span>
@@ -12,5 +13,5 @@
         </div>
     </a>
     <a (click)="toggleWishlist(product, wishlistStatus)" class="wishlist-icon" [class.true]="wishlistStatus" href="javascript:void(0)"></a>
-    <a (click)="addToCart(product)" class="cart-icon" [class.true]="cartStatus" href="javascript:void(0)"></a>
+    <a (click)="toggleCart(product, cartStatus)" class="cart-icon" [class.true]="cartStatus" href="javascript:void(0)"></a>
 </div>

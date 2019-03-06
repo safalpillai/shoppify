@@ -150,6 +150,7 @@ header{
     .card{
         display: block;
         padding-top: 50px;
+        position: relative;
 
         img{
             max-width: 100%;
@@ -585,6 +586,9 @@ header{
         text-transform: capitalize;
         text-align: center;
         padding: 30px 0;
+    }
+    a.active{
+        background: darken($yellow, 15%);
     }
 }
 .dashboard-title{
