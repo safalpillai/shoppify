@@ -70,13 +70,16 @@ header{
     z-index: 10;
 
     .logo{
-        display: inline-block;
+        display: none;
 
         .site-title{
             display: none;
         }
     }
     .header-extras{
+        text-align: center;
+        width: 100%;
+
         a{
             display: inline-block;
             width: 45px;
@@ -84,6 +87,11 @@ header{
             margin-right: 15px;
             border: 1px solid $t;
 
+            &.home{
+                @include svg(home);
+                background-size: 24px;
+                background-position: center;
+            }
             &.search{
                 @include svg(search);
                 background-size: 20px;
@@ -128,6 +136,12 @@ header{
                 &.cart{
                     @include svg(cart-active);
                     background-size: 26px;
+                    background-position: center;
+                    background-color: rgba(0, 0, 0, 0.15);
+                }
+                &.home{
+                    @include svg(home-active);
+                    background-size: 24px;
                     background-position: center;
                     background-color: rgba(0, 0, 0, 0.15);
                 }
@@ -757,15 +771,10 @@ header{
     }
     header{
         .logo{
-            .site-title{
-                @include reg(22);
-                color: $w;
-                display: inline-block;
-                vertical-align: middle;
-                color: $w;
-                text-transform: uppercase;
-                margin-left: 10px;
-            }
+            display: inline-block;
+        }
+        .header-extras{
+            text-align: right;
         }
     }
     .card-wrapper{
@@ -782,6 +791,21 @@ header{
     header{
         padding-left: 60px;
         padding-right: 60px;
+
+        .logo{
+            .site-title{
+                @include reg(22);
+                color: $w;
+                display: inline-block;
+                vertical-align: middle;
+                color: $w;
+                text-transform: uppercase;
+                margin-left: 10px;
+            }
+        }
+        .header-extras{
+            width: calc(100% - 180px);
+        }
     }
     .padding, .default-content, .profile-children{
         padding: 45px;
@@ -892,11 +916,11 @@ header{
 
 @media only screen and (min-width: 1200px){
     #root-container{
-        margin-bottom: 80px;
-        position: relative;
-        z-index: 100;
-        overflow: hidden;
         background-color: $w;
+        // margin-bottom: 80px;
+        // position: relative;
+        // z-index: 100;
+        // overflow: hidden;
     }
     // footer{
     //     display: block;
@@ -1001,8 +1025,15 @@ header{
         }
     }
     .dashboard-flex{
-        a:hover{
-            background: darken($yellow, 15%);
+        a{
+            &:hover{
+                @include boxshadow(0, 0, 15px, 0, 0, 0, 0.5);
+                background: darken($yellow, 10%);
+            }
+            &.active:hover{
+                @include boxshadow(0, 0, 10px, 0, 0, 0, 0.3);
+                background: darken($yellow, 15%);
+            }
         }
     }
     #cart-table{
