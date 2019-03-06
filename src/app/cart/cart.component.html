@@ -16,7 +16,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let p of cartProducts | async">
-                    <td><img src="{{p.imgSrc}}" alt=""></td>
+                    <td><a [routerLink]="['/product', p.productId]"><img src="{{p.imgSrc}}" alt=""></a></td>
                     <td>{{p.title}}</td>
                     <td class="choose-wrapper">
                         <div><button [class.hiddden]="p.quantity === 1" (click)="decrement(p)" class="min">-</button></div>

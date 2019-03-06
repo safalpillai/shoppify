@@ -13,5 +13,5 @@
         </div>
     </a>
     <a (click)="toggleWishlist(product, wishlistStatus)" class="wishlist-icon" [class.true]="wishlistStatus" href="javascript:void(0)"></a>
-    <a (click)="toggleCart(product, cartStatus)" class="cart-icon" [class.true]="cartStatus" href="javascript:void(0)"></a>
+    <a (click)="toggleCart(product, cartStatus, product.sizesAvailable[0])" class="cart-icon" [class.true]="cartStatus" href="javascript:void(0)"></a>
 </div>

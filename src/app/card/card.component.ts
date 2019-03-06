@@ -34,13 +34,7 @@ export class CardComponent implements OnInit {
                     _temp.push(item.toString());
                 });
                 // console.log(`card.component - wishlisted items - ${_temp} === ${this.product.productId}`);
-                if(_temp.includes(this.product.productId)){
-                    this.wishlistStatus = true;
-                    // console.log(`product inside wishlisted`);
-                } else {
-                    this.wishlistStatus = false;
-                    // console.log(`product inside wishlisted`);
-                }
+                _temp.includes(this.product.productId) ? this.wishlistStatus = true : this.wishlistStatus = false;
             });
             this.carted.subscribe(items => {
                 // console.log(`store.carted change subscription`);
@@ -52,14 +46,15 @@ export class CardComponent implements OnInit {
             });
         }
     }
-
-    toggleCart(product: IProduct, status: boolean){
+    
+    //wishlist
+    toggleCart(product: IProduct, status: boolean, chosenSize: number){
         if(!status && this.userService.isAuthenticated()){
             let model: ICartProduct = {
                 productId: product.productId,
                 title: product.title,
                 quantity: 1,
-                size: 7,
+                size: chosenSize,
                 price: product.price,
                 imgSrc: product.imgSrc
             }
@@ -72,7 +67,8 @@ export class CardComponent implements OnInit {
             this.sendToLogin();
         }
     }
-
+    
+    //cart
     toggleWishlist(product: IProduct, status: boolean) {
         if(!status && this.userService.isAuthenticated()){
             console.log(`adding to wishlist`);

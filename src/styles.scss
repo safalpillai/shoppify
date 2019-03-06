@@ -176,40 +176,40 @@ header{
             text-decoration: none;
         }
     }
-    .wishlist-icon, .cart-icon{
-        @include boxshadow(0, 0, 6px, 0, 0, 0, 0.35);
-        @include radius(50%);
-        @include tr(20px, 20px);
-        width: 40px;
-        height: 40px;
-    }
-    .cart-icon{
-        @include svg(cart-off);
+}
+.wishlist-icon, .cart-icon{
+    @include boxshadow(0, 0, 10px, 0, 0, 0, 0.45);
+    @include radius(50%);
+    @include tr(20px, 20px);
+    width: 40px;
+    height: 40px;
+}
+.cart-icon{
+    @include svg(cart-off);
+    background-size: 22px;
+    background-color: $w;
+    background-position: center;
+    top: auto;
+    bottom: 20px;
+
+    &.true{
+        @include svg(cart-on);
         background-size: 22px;
         background-color: $w;
         background-position: center;
-        top: auto;
-        bottom: 20px;
-
-        &.true{
-            @include svg(cart-on);
-            background-size: 22px;
-            background-color: $w;
-            background-position: center;
-        }
     }
-    .wishlist-icon{
-        @include svg(heart-false);
+}
+.wishlist-icon{
+    @include svg(heart-false);
+    background-size: 18px;
+    background-color: $w;
+    background-position: center;
+    
+    &.true{
+        @include svg(heart-true);
         background-size: 18px;
         background-color: $w;
         background-position: center;
-        
-        &.true{
-            @include svg(heart-true);
-            background-size: 18px;
-            background-color: $w;
-            background-position: center;
-        }
     }
 }
 .card-inner{
@@ -299,8 +299,12 @@ header{
     .product{
         @include boxshadow(0, 0, 10px, 0, 0, 0, 0.15);
         @include radius(6px);
-        padding-top: 30px;
+        padding-top: 50px;
+        position: relative;
 
+        .wishlist-icon{
+            right: 35px;
+        }
         img{
             margin-bottom: 20px;
             max-width: 100%;
@@ -409,6 +413,10 @@ header{
                 margin-right: 0;
             }
         }
+        a.size-chosen{
+            background: $yellow;
+            color: #333333;
+        }
     }
     .title{
         @include reg(18);
@@ -424,7 +432,7 @@ header{
         @include radius(20px);
         @include reg(14);
         font-style: normal;
-        background: $rating;
+        background: #ffb228;
         color: $w;
         display: inline-block;
         padding: 4px 28px 4px 18px;
@@ -860,6 +868,10 @@ header{
             align-items: center;
             padding-top: 0;
 
+            .wishlist-icon{
+                top: 40px;
+                right: 50px;
+            }
             .text-center{
                 width: 40%;
             }

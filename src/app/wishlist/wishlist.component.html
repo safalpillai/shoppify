@@ -14,7 +14,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let p of wishlist | async">
-                    <td><img src="{{p.imgSrc}}" alt=""></td>
+                    <td><a [routerLink]="['/product', p.productId]"><img src="{{p.imgSrc}}" alt=""></a></td>
                     <td>{{p.title}}</td>
                     <td>{{p.size}}</td>
                     <td>{{p.price}}</td>

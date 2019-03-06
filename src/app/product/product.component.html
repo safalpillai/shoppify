@@ -1,6 +1,7 @@
 <div class="product-container padding">
     <div class="col-xs-12" *ngIf="productReceived">
         <div class="product">
+            <div *ngIf="isFetching | async" class="loader"></div>
             <div class="text-center">
                 <img [src]="productDetails.imgSrc" alt="">
             </div>
@@ -13,12 +14,13 @@
                     <div class="rating">
                         <em>{{ productDetails.rating }}</em>
                     </div>
+                    <a (click)="toggleWishlist(productDetails, wishlistStatus)" class="wishlist-icon" [class.true]="wishlistStatus" href="javascript:void(0)"></a>
                 </div>
                 <div class="size">
                     <div class="title">sizes available</div>
                     <div class="size-flex">
                         <ng-container *ngIf="sizes.length > 1; else nosize">
-                            <a *ngFor="let s of sizes" href="javascript:void(0)">{{ s }}</a>
+                            <a *ngFor="let s of sizes" [class.size-chosen]="setSize == s" (click)="setSize = s" href="javascript:void(0)">{{ s }}</a>
                         </ng-container>
                         <ng-template #nosize>
                             <span>NA</span>
@@ -31,9 +33,8 @@
                     <p><span>material</span><i>{{ productDetails.material }}</i></p>
                     <p><span>details</span>{{ productDetails.sizesAvailable }}</p>
                     <p><span>description</span>{{ productDetails.description }}</p>
-                    <button #cartButton (click)="addToCart(productDetails)" 
-                    [disabled]="productDetails.sizesAvailable == undefined || productDetails.sizesAvailable == ''" class="cart">
-                        {{ sizes.length > 1 ? "add to cart" : "sold out" }}
+                    <button #cartButton (click)="toggleCart(productDetails, cartStatus, setSize)" class="cart">
+                        {{ cartText }}
                     </button>
                 </div>
             </div>
