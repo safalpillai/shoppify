@@ -1,3 +1,8 @@
+<div class="breadcrumb">
+    <a [routerLink]="['/home']">home</a>
+    <a [routerLink]="['/profile/dashboard']">dashboard</a>
+    <span>{{ location }}</span>
+</div>
 <div class="dashboard-flex">
     <a [routerLink]="['/cart']" [routerLinkActive]="['active']">my cart</a>
     <a [routerLink]="['/wishlist']" [routerLinkActive]="['active']">my wishlist</a>

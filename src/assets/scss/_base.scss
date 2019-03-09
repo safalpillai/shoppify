@@ -2,7 +2,7 @@
 $w: #fff;
 $b: #333;
 $t: transparent;
-$blue: #047BD5;
+$blue: #448ef6;
 $yellow: #ffe26f;
 $rating: #e4734f;
 $text: #333;
@@ -10,6 +10,7 @@ $text2: #666;
 $border: #888;
 $user: user, email, phone, location;
 $poweredby: mongo, expressjs, angular7, nodejs, typescript;
+$bg: cart, wishlist, order, logout;
 
 @font-face{
     font-family: 'Open Sans';
@@ -134,6 +135,9 @@ $poweredby: mongo, expressjs, angular7, nodejs, typescript;
 }
 @mixin png($png){
     background: url('assets/images/#{$png}.png') no-repeat;
+}
+@mixin material{
+    @include boxshadow(0, 0, 8px, 0, 0, 0, 0.3);
 }
 .full-width{
     width: 100%;

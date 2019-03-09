@@ -107,7 +107,7 @@ export function rootReducer(state: IAppState = initialState, action: Action): IA
                 _newState.isFetching = false;
                 return utilityReducer(_newState);
             }
-            _newState.carted = _newState.carted.concat(action.payload.productId);
+            _newState.carted = _newState.carted.concat(action.payload.productId.toString());
             _newState.cartProducts = _newState.cartProducts.concat(action.payload);
             _newState.isFetching = false;
             return utilityReducer(_newState);
@@ -134,7 +134,7 @@ export function rootReducer(state: IAppState = initialState, action: Action): IA
             _newState.wishlist = action.payload[0].wishlist;
             // console.log(`rootReducer() = WISHLIST_FETCH_SUCCESS - ${JSON.stringify(action.payload[0].wishlist, null, 3)}`);
             _newState.wishlisted = action.payload[0].wishlist.map(items => {return items.productId.toString()});
-            console.log(`rootReducer WISHLIST_FETCH_SUCCESS - wishlisted items - ${_newState.wishlisted}`);
+            // console.log(`rootReducer WISHLIST_FETCH_SUCCESS - wishlisted items - ${_newState.wishlisted}`);
             _newState.isFetching = false;
             return {..._newState};
         }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { NotificationService } from '../notification.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-dash-links',
@@ -9,8 +9,13 @@ import { Router } from '@angular/router';
     styleUrls: ['./dash-links.component.scss']
 })
 export class DashLinksComponent implements OnInit {
+    location: string;
 
-    constructor(private router: Router, private userService: UserService, private notify: NotificationService) { }
+    constructor(private router: Router, private userService: UserService, private notify: NotificationService, private activatedRoute: ActivatedRoute) { 
+        this.activatedRoute.params.subscribe(() => {
+            this.location = activatedRoute.snapshot.url[0].path;
+        });
+    }
 
     ngOnInit() {
     }
