@@ -3,35 +3,41 @@
     <!-- cart products -->
     <section class="cart-section" *ngIf="(cartProducts | async)?.length > 0; else nocart">
         <div *ngIf="isFetching | async" class="loader"></div>
-        <table id="cart-table" class="table table-responsive">
-            <thead>
-                <tr>
-                    <th>product</th>
-                    <th>title</th>
-                    <th>quantity</th>
-                    <th>size</th>
-                    <th>price</th>
-                    <th>remove</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let p of cartProducts | async">
-                    <td><a [routerLink]="['/product', p.productId]"><img src="{{p.imgSrc}}" alt=""></a></td>
-                    <td>{{p.title}}</td>
-                    <td class="choose-wrapper">
-                        <div><button [class.hiddden]="p.quantity === 1" (click)="decrement(p)" class="min">-</button></div>
-                        <span>{{p.quantity}}</span>
-                        <div><button (click)="increment(p)" class="max">+</button></div>
-                    </td>
-                    <td>{{p.size}}</td>
-                    <td>{{p.price}}</td>
-                    <td><button (click)="removeFromCart(p)" class="delete-cart"></button></td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="amount-flex">
-            <div class="title">amount payable</div>
-            <span>{{ cartAmount | async }}</span>
+        <div class="desktop-flex">
+            <table id="cart-table" class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th>product</th>
+                        <th>title</th>
+                        <th>quantity</th>
+                        <th>size</th>
+                        <th>price</th>
+                        <th>remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let p of cartProducts | async">
+                        <td><a [routerLink]="['/product', p.productId]"><img src="{{p.imgSrc}}" alt=""></a></td>
+                        <td>{{p.title}}</td>
+                        <td class="choose-wrapper">
+                            <div><button [class.hiddden]="p.quantity === 1" (click)="decrement(p)" class="min">-</button></div>
+                            <span>{{p.quantity}}</span>
+                            <div><button (click)="increment(p)" class="max">+</button></div>
+                        </td>
+                        <td>{{p.size}}</td>
+                        <td>{{p.price}}</td>
+                        <td><button (click)="removeFromCart(p)" class="delete-cart"></button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="amount-container">
+                <div class="title1">price details</div>
+                <div class="amount-flex">
+                    <div class="title2">amount payable</div>
+                    <span>{{ cartAmount | async }}</span>
+                </div>
+                <button (click)="placeOrder(cartProducts)">place order</button>
+            </div>
         </div>
     </section>
     <ng-template #nocart>
