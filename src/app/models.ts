@@ -19,6 +19,7 @@ export interface ICartProduct {
     size: number;
     price: number;
     imgSrc: string;
+    totalPrice?: number
 }
 
 export interface IWishlist{
@@ -38,7 +39,7 @@ export interface IUser{
     address: string;
     cart?: ICartProduct[];
     wishlist?: IWishlist[];
-    orders?: string;
+    orders?: IOrder[];
 }
 
 export interface IAppState{
@@ -58,4 +59,15 @@ export interface IAppState{
 export interface Action {
     type: string, 
     payload: any
+}
+
+export interface IOrder {
+    productId: string;
+    title: string;
+    quantity: number;
+    size: number;
+    price: number;
+    imgSrc: string;
+    totalPrice?: number,
+    dated: string
 }

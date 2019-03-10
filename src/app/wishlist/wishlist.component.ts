@@ -63,7 +63,8 @@ export class WishlistComponent implements OnInit, AfterViewInit {
                 quantity: 1,
                 size: product.size,
                 price: product.price,
-                imgSrc: product.imgSrc
+                imgSrc: product.imgSrc,
+                totalPrice: product.price * 1
             }
             this.ngRedux.dispatch<any>(this.thunk.addToCart(model));
         } else {

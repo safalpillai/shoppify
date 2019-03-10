@@ -751,6 +751,7 @@ header{
             line-height: 26px;
             margin-top: -10px;
             opacity: 0;
+            display: none;
         }
         &[data-cart="remove"]{
             @include svg(removecart);
@@ -772,13 +773,14 @@ header{
         }
         &:hover:before{
             opacity: 1;
+            display: block;
         }
     }
 }
 .amount-container{
     @include radius(6px);
     @include material;
-    margin-top: 40px;
+    margin-top: 22px;
     padding: 30px;
     background: #f5f5f5;
 
@@ -977,6 +979,16 @@ header{
             width: 220px;
             float: right;
         }
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+    .default-content{
+        overflow: hidden;
+    }
+    .amount-container{
+        width: 60%;
+        float: right;
     }
 }
 

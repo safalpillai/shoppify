@@ -32,7 +32,27 @@ export const WISHLIST_FETCH_START = 'WISHLIST_FETCH_START';
 export const WISHLIST_FETCH_SUCCESS = 'WISHLIST_FETCH_SUCCESS';
 export const WISHLIST_FETCH_FAILED = 'WISHLIST_FETCH_FAILED';
 
+export const ORDER_START = 'ORDER_START';
+export const ORDER_DONE = 'ORDER_DONE';
+export const ORDER_FAILED = 'ORDER_FAILED';
+
 //action creators
+export const orderStart = () => {
+    return {
+        type: ORDER_START
+    }
+}
+export const orderDone = () => {
+    return {
+        type: ORDER_DONE
+    }
+}
+export const orderFailed = () => {
+    return {
+        type: ORDER_FAILED
+    }
+}
+
 export const removeWishlistStart = () => {
     return {
         type: REMOVE_WISHLIST_START

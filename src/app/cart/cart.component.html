@@ -12,6 +12,7 @@
                         <th>quantity</th>
                         <th>size</th>
                         <th>price</th>
+                        <th>item total</th>
                         <th>remove</th>
                     </tr>
                 </thead>
@@ -26,6 +27,7 @@
                         </td>
                         <td>{{p.size}}</td>
                         <td>{{p.price}}</td>
+                        <td>{{p.totalPrice}}</td>
                         <td><button (click)="removeFromCart(p)" class="delete-cart"></button></td>
                     </tr>
                 </tbody>
@@ -36,7 +38,8 @@
                     <div class="title2">amount payable</div>
                     <span>{{ cartAmount | async }}</span>
                 </div>
-                <button (click)="placeOrder(cartProducts)">place order</button>
+                <input #orderedProducts type="hidden" [value]="cartProducts | async">
+                <button (click)="placeOrder()">place order</button>
             </div>
         </div>
     </section>
