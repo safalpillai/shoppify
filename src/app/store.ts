@@ -145,8 +145,11 @@ export function rootReducer(state: IAppState = initialState, action: Action): IA
         case Actions.ORDER_FAILED:
             return {...state, isFetching: false, isError: true, error: 'Error ordering products'};
         case Actions.ORDER_DONE: {
-            return {...state, cartProducts: [], cartAmount: 0, cartQuantity: 0, isFetching: false};
-        }
+            let _newState = {...state};
+            _newState.cartProducts = [];
+            _newState.carted = [];
+            return utilityReducer(_newState);
+        }  
     }
     return state;
 }

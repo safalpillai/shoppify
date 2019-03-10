@@ -15,7 +15,6 @@ export class CartComponent implements OnInit {
     _orders: IOrder[];
 
     constructor(private ngRedux: NgRedux<IAppState>, private thunk: ThunkWrapper) {  
-
     }
 
     ngOnInit() {
@@ -35,20 +34,22 @@ export class CartComponent implements OnInit {
             return `${date}.${month}.${year}`;
         }
         let dateStr = getDate();
-        this.cartProducts.subscribe(items => {
-            this._orders = [];
-            items.map(item => {
-                this._orders.push({
-                    productId: item.productId,
-                    title: item.title,
-                    quantity: item.quantity,
-                    size: item.size,
-                    price: item.price,
-                    imgSrc: item.imgSrc,
-                    totalPrice: item.price * item.quantity, 
-                    dated: dateStr
+        this.isFetching.subscribe(() => {
+            console.log(`cart.component - cart products change subscription`);
+            this.cartProducts.subscribe(items => {
+                this._orders = [];
+                items.map(item => {
+                    this._orders.push({
+                        productId: item.productId,
+                        title: item.title,
+                        quantity: item.quantity,
+                        size: item.size,
+                        price: item.price,
+                        imgSrc: item.imgSrc,
+                        totalPrice: item.price * item.quantity, 
+                        dated: dateStr
+                    });
                 });
-                console.log(this._orders);
             });
         });
     }
@@ -66,7 +67,7 @@ export class CartComponent implements OnInit {
     }
 
     placeOrder() {
-        console.log(`cart.component - orders set - ${JSON.stringify(this._orders, null, 2)}`);
-        // this.ngRedux.dispatch<any>(this.thunk.orderPlaced(_ordersModel));
+        // console.log(`cart.component - orders set - ${JSON.stringify(this._orders, null, 2)}`);
+        this.ngRedux.dispatch<any>(this.thunk.orderPlaced(this._orders));
     }
 }
