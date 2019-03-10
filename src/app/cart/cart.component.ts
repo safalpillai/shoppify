@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { select, NgRedux } from '@angular-redux/store';
-import { IAppState, IProduct, ICartProduct, IOrder } from '../models';
+import { IAppState, IProduct, IOrder } from '../models';
 import { ThunkWrapper } from '../store';
 
 @Component({

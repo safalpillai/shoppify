@@ -1,4 +1,22 @@
 <div class="default-content">
     <app-dash-links class="tablet"></app-dash-links>
-    orders works!
+    
+    <section *ngIf="(orderList | async)?.length > 0; else noorders">
+        <div *ngFor="let instance of orderList | async" class="order-list">
+            <img [src]="instance.imgSrc" alt="">
+            <div class="order-left">
+                <div class="title">{{ instance.title }}</div>
+                <span>quantity: {{ instance.quantity }}</span>
+                <span>size: {{ instance.size }}</span>
+                <span>price: {{ instance.price }}</span>
+            </div>
+            <div class="order-right">
+                <div class="ordered-on">ordered on: {{ instance.dated }}</div>
+                <div class="total-price">total price: {{ instance.totalPrice }}</div>
+            </div>
+        </div>
+    </section>
+    <ng-template #noorders>
+        <div class="no-data"><span>No orders to show!</span></div>
+    </ng-template>
 </div>

@@ -13,6 +13,16 @@ export class UserService {
 
     constructor(private http: HttpClient, private ngRedux: NgRedux<IAppState>) { }
 
+    //get orders
+    getOrders(user: string): Observable<any> {
+        return this.http.get(`${UserService.API_URL}/getorders?user=${user}`).pipe(
+            map(res => {
+                // console.log(`user.service.getOrders() - response received - ${JSON.stringify(res, null, 2)}`);
+                return res;
+            })
+        );
+    }
+
     //get user details for dashboard
     getUserDetails(name: string): Observable<any> {
         const params = new HttpParams().set('username', name);

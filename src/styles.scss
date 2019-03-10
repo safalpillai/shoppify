@@ -274,7 +274,7 @@ header{
     }
 }
 .no-data{
-    @include reg(22);
+    @include reg(16);
     color: $blue;
     text-transform: uppercase;
     margin: 100px 0;
@@ -859,6 +859,9 @@ header{
                 @include reg(14);
             }
         }
+    }
+    .no-data{
+        font-size: 22px;
     }
     header{
         .logo{
