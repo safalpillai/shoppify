@@ -1,5 +1,5 @@
 <div class="default-content">
-    <app-dash-links class="tablet"></app-dash-links>
+    <app-dash-links></app-dash-links>
     
     <section *ngIf="orderList?.length > 0; else noorders" class="order-section row">
         <ng-container *ngFor="let instance of orderList; let ind = index;">

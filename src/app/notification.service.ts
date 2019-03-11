@@ -6,7 +6,7 @@ import { ToastrManager } from 'ng6-toastr-notifications';
 })
 export class NotificationService {
     _options = {
-        toastTimeout: 3200,
+        toastTimeout: 2000,
         animate: 'fade',
         position: 'bottom-right',
         newestOnTop: false,

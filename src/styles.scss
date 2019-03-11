@@ -42,7 +42,7 @@ button::-moz-focus-inner {
 .mobile{
     display: block;
 }
-.tablet, .desktop{
+.desktop{
     display: none;
 }  
 a{
@@ -871,6 +871,7 @@ header{
             @include bold(16);
             color: #333;
             text-transform: uppercase;
+            margin-bottom: 5px;
         }
         span{
             @include reg(12);
@@ -903,6 +904,17 @@ header{
                 }
             }
         }
+    }
+}
+.goto-order{
+    @include light(18);
+    color: #888;
+    margin: -60px 0 60px;
+    text-align: center;
+
+    a{
+        text-decoration: underline;
+        letter-spacing: 1px;
     }
 }
 //responsive
@@ -966,9 +978,6 @@ header{
 @media only screen and (min-width: 768px){
     .order-section{
         margin-top: 35px;
-    }
-    .tablet{
-        display: block;
     }
     header{
         padding-left: 60px;

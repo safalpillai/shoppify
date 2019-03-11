@@ -13,8 +13,10 @@ export class CartComponent implements OnInit {
     @select() cartProducts;
     @select() cartAmount;
     _orders: IOrder[];
+    goToOrder: boolean;
 
     constructor(private ngRedux: NgRedux<IAppState>, private thunk: ThunkWrapper) {  
+        this.goToOrder = false;
     }
 
     ngOnInit() {
@@ -69,5 +71,8 @@ export class CartComponent implements OnInit {
     placeOrder() {
         // console.log(`cart.component - orders set - ${JSON.stringify(this._orders, null, 2)}`);
         this.ngRedux.dispatch<any>(this.thunk.orderPlaced(this._orders));
+        setTimeout(() => {
+            this.goToOrder = true;
+        }, 1000);
     }
 }

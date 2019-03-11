@@ -48,13 +48,13 @@ export class CardComponent implements OnInit {
     }
     
     //wishlist
-    toggleCart(product: IProduct, status: boolean, chosenSize: number){
+    toggleCart(product: IProduct, status: boolean, chosenSize: string){
         if(!status && this.userService.isAuthenticated()){
             let model: ICartProduct = {
                 productId: product.productId,
                 title: product.title,
                 quantity: 1,
-                size: chosenSize,
+                size: parseInt(chosenSize.split(',')[0]),
                 price: product.price,
                 imgSrc: product.imgSrc
             }

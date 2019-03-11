@@ -1,5 +1,5 @@
 <div class="default-content">
-    <app-dash-links class="tablet"></app-dash-links>
+    <app-dash-links></app-dash-links>
     <!-- cart products -->
     <section class="cart-section" *ngIf="(cartProducts | async)?.length > 0; else nocart">
         <div *ngIf="isFetching | async" class="loader"></div>
@@ -46,4 +46,7 @@
     <ng-template #nocart>
         <div class="no-data"><span>no products in cart!</span></div>
     </ng-template>
+    <div *ngIf="goToOrder" class="goto-order">
+        <p>Go to my <a [routerLink]="['/orders']">orders</a> page to see current orders.</p>
+    </div>
 </div>
