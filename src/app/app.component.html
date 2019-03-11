@@ -11,7 +11,7 @@
         </a>
         <div class="header-extras">
             <a class="home" [routerLink]="['/home']" title="Home" [routerLinkActive]="['active']"></a>
-            <a class="search" href="javascript:void(0)" title="Search"></a>
+            <a (click)="showSearch()" class="search" href="javascript:void(0)" title="Search"></a>
             <a class="profile" [routerLink]="['/profile']" [routerLinkActive]="['active']" title="User Dashboard"></a>
             <a class="cart" [routerLink]="['/cart']" [routerLinkActive]="['active']" title="Cart">
                 <span *ngIf="showQuantity" class="notif-icon">{{ cartQuantity | async }}</span>
@@ -20,6 +20,18 @@
     </header>
     <!-- ROUTER OUTLET -->
     <router-outlet></router-outlet>
+    <!-- SEARCH -->
+    <section class="search-section" [hidden]="hideSearchContainer">
+        <div class="tabled">
+            <a (click)="hideSearch()" class="close-search" href="javascript:void(0)"></a>
+            <div class="celled">
+                <div class="search-content">
+                    <input type="text" placeholder="Search..." #searchBox autofocus>
+                    <div *ngIf="searchLoader" class="search-loader"></div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 <!-- <footer>
     <spaan></spaan>

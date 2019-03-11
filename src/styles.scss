@@ -459,6 +459,14 @@ header{
     background-color: rgba(255, 255, 255, 0.9);
     z-index: 100;
 }
+.search-loader{
+    @include svg(loader);
+    width: 100%;
+    height: 40px;
+    background-size: 40px;
+    background-position: center;
+    margin-top: 30px;
+}
 .form-wrapper{
     .title{
         @include light(28);
@@ -917,6 +925,52 @@ header{
         letter-spacing: 1px;
     }
 }
+.search-section{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 1000;
+
+    .tabled{
+        width: 100%;
+        height: 100%;
+        display: table;
+        position: relative;
+    }
+    .celled{
+        display: table-cell;
+        vertical-align: middle;
+    }
+    .search-content{
+        width: 80%;
+        margin: auto;
+
+        input[type="text"]{
+            width: 100%;
+            height: 35px;
+            background: $t;
+            border: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.75);
+        }
+        [placeholder]{
+            color: $w !important;
+        }
+    }
+    .close-search{
+        @include tr(20px, 20px);
+        @include svg(close-white);
+        display: inline-block;
+        width: 35px;
+        height: 35px;
+        background-size: 22px;
+        background-position: center;
+    }
+}
 //responsive
 @media only screen and (min-width: 480px){
     #cart-table{
@@ -1073,6 +1127,12 @@ header{
             .ordered-on{
                 margin-bottom: 5px;
             }
+        }
+    }
+    .search-section{
+        .close-search{
+            top: 25px;
+            right: 25px;
         }
     }
 }
