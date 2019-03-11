@@ -1,20 +1,25 @@
 <div class="default-content">
     <app-dash-links class="tablet"></app-dash-links>
     
-    <section *ngIf="(orderList | async)?.length > 0; else noorders">
-        <div *ngFor="let instance of orderList | async" class="order-list">
-            <img [src]="instance.imgSrc" alt="">
-            <div class="order-left">
-                <div class="title">{{ instance.title }}</div>
-                <span>quantity: {{ instance.quantity }}</span>
-                <span>size: {{ instance.size }}</span>
-                <span>price: {{ instance.price }}</span>
+    <section *ngIf="orderList?.length > 0; else noorders" class="order-section row">
+        <ng-container *ngFor="let instance of orderList; let ind = index;">
+            <div class="col-lg-6">
+                <div class="order-list">
+                    <div class="img-holder"><img [src]="instance.imgSrc" alt=""></div>
+                    <div class="order-left">
+                        <div class="title">{{ instance.title }}</div>
+                        <span>size: {{ instance.size }}</span>
+                        <span>quantity: {{ instance.quantity }}</span>
+                        <span>price: {{ instance.price }}</span>
+                    </div>
+                    <div class="order-right">
+                        <div class="ordered-on">Ordered on: {{ instance.dated }}</div>
+                        <div class="total-price">total price: <em>{{ instance.totalPrice }}</em></div>
+                    </div>
+                </div>
             </div>
-            <div class="order-right">
-                <div class="ordered-on">ordered on: {{ instance.dated }}</div>
-                <div class="total-price">total price: {{ instance.totalPrice }}</div>
-            </div>
-        </div>
+            <div class="clearfix" *ngIf="((ind + 1) % 2 === 0) && windowWidth >= 1200"></div>
+        </ng-container>
     </section>
     <ng-template #noorders>
         <div class="no-data"><span>No orders to show!</span></div>

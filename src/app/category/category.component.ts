@@ -14,7 +14,7 @@ export class CategoryComponent implements OnInit {
     isLoading: boolean;
     windowWidth: any;
 
-    @HostListener('window: resize', ['event']) onresize(event) {
+    @HostListener('window: resize') onresize() {
         this.windowWidth = window.innerWidth;
         // console.log(`viewport width - ${this.windowWidth}`);
     }
