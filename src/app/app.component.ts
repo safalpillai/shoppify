@@ -3,7 +3,8 @@ import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 import { Router, Event, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
 import { select } from '@angular-redux/store';
 import { Observable, fromEvent } from 'rxjs';
-import { map, filter, tap, debounceTime, switchAll } from 'rxjs/operators';
+import { map, filter, tap, debounceTime, switchAll, distinctUntilChanged } from 'rxjs/operators';
+import { ProductService } from './product.service';
 
 @Component({
     selector: 'app-root',
@@ -16,8 +17,10 @@ export class AppComponent implements OnInit, AfterViewInit{
     hideSearchContainer: boolean;
     searchLoader: boolean = false;
     @ViewChild('searchBox') searchBox: ElementRef;
+    searchResults: any;
+    noResults: boolean = false;
 
-    constructor(private router: Router, private loadingBar: SlimLoadingBarService) {
+    constructor(private router: Router, private loadingBar: SlimLoadingBarService, private productService: ProductService) {
         this.router.events.subscribe((event: Event) => this.navigationInterceptor(event));
         this.hideSearchContainer = true;
     }
@@ -31,13 +34,25 @@ export class AppComponent implements OnInit, AfterViewInit{
             map((e: any) => e.target.value),
             filter((text: string) => text.length > 1),
             debounceTime(250),
-            tap(() => this.searchLoader = true),
-            map((query: string) => this.sendQuery(query)),
-            // switchAll()
+            distinctUntilChanged(),
+            tap(() => {
+                this.searchLoader = true;
+                console.log(`noResults = false`);
+                this.noResults = false;
+            }),
+            map((query: string) => this.productService.searchProducts(query)),
+            switchAll()
         );
 
-        searchInputEntries$.subscribe(data => {
-            console.log(`subscription - ${data}`);
+        searchInputEntries$.subscribe(results => {
+            console.log(`search input subscription - ${JSON.stringify(results, null, 2)}`);
+            if(results == null || results == '') {
+                this.noResults = true;
+                this.searchResults = false;
+            } else {
+                this.searchResults = results;
+            }
+            this.searchLoader = false;
         });
     }
 
@@ -55,12 +70,11 @@ export class AppComponent implements OnInit, AfterViewInit{
 
     showSearch() {
         this.hideSearchContainer = false;
+        this.searchBox.nativeElement.focus();
     }
     hideSearch() {
         this.hideSearchContainer = true;
-    }
-
-    sendQuery(query: string) {
-        console.log(`query - ${query}`);
+        this.searchResults = [];
+        this.searchBox.nativeElement.value = '';
     }
 }

@@ -32,4 +32,12 @@ export class ProductService {
             })
         )
     }
+
+    //product search
+    searchProducts(query: string): Observable<any> {
+        console.log(`product.service.searchProducts() - query received - ${query}`);
+        return this.http.get(`${ProductService.API_URL}/searchproducts?searchstring=${query}`).pipe(
+            map(res => {return res})
+        );
+    }
 }

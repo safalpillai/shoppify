@@ -177,7 +177,7 @@ header{
 .wishlist-icon, .cart-icon{
     @include boxshadow(0, 0, 10px, 0, 0, 0, 0.45);
     @include radius(50%);
-    @include tr(20px, 20px);
+    @include tr(25px, 25px);
     width: 40px;
     height: 40px;
 }
@@ -187,7 +187,7 @@ header{
     background-color: $w;
     background-position: center;
     top: auto;
-    bottom: 20px;
+    bottom: 25px;
 
     &.true{
         @include svg(cart-on);
@@ -282,7 +282,7 @@ header{
 
     span{
         position: relative;
-        padding-left: 50px;
+        padding-left: 45px;
         display: inline-block;
 
         &:before{
@@ -955,10 +955,14 @@ header{
             height: 35px;
             background: $t;
             border: none;
+            padding-left: 20px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.75);
         }
         [placeholder]{
             color: $w !important;
+        }
+        .no-data{
+            margin: 30px 0;
         }
     }
     .close-search{
@@ -969,6 +973,54 @@ header{
         height: 35px;
         background-size: 22px;
         background-position: center;
+    }
+}
+.search-scroll{
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 5px;
+
+    .search-results:last-of-type{
+        margin-bottom: 0;
+    }
+}
+.search-results{
+    background: $w;
+    display: block;
+    padding: 5px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #888;
+
+    .inner{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    img{
+        padding: 5px;
+        width: 80px;
+        height: 50px;
+        margin-right: 20px;
+    }
+    .title, .brand{
+        @include reg(14);
+        color: #333;
+        text-transform: capitalize;
+    }
+    .brand{
+        font-size: 12px;
+        color: $blue;;
+    }
+}
+.search-textbox{
+    position: relative;
+
+    &:before{
+        @include tl(50%, 0);
+        @include basvg(search, 14px, 14px, 14px);
+        background-position: center;
+        margin-top: -7px;
     }
 }
 //responsive
@@ -1134,6 +1186,24 @@ header{
             top: 25px;
             right: 25px;
         }
+        .search-content{
+            width: 600px;
+
+            input[type="text"]{
+                @include light(14);
+                height: 45px;
+                padding-left: 35px;
+            }
+        }
+    }
+    .search-textbox{
+        &:before{
+            width: 20px;
+            height: 20px;
+            background-size: 20px;
+            background-position: center;
+            margin-top: -10px;
+        }
     }
 }
 
@@ -1284,7 +1354,7 @@ header{
         @include transition;
 
         &:hover{
-            @include boxshadow(0, 0, 10px, 0, 0, 0, 0.4);
+            @include boxshadow(0, 0, 20px, 0, 0, 0, 0.55);
         }
         .wishlist{
             @include transition;
@@ -1457,5 +1527,9 @@ header{
     }
     .order-list{
         margin-bottom: 30px;
+    }
+    .wishlist-icon:hover, .cart-icon:hover{
+        @include boxshadow(0, 0, 0, 0, 0, 0, 0);
+        background-color: lighten($blue, 25%);
     }
 }
