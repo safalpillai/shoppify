@@ -33,6 +33,7 @@ export class ProductComponent implements OnInit {
         this.activatedRoute.params.subscribe((params) => {
             this.productId = params['id'];
             // console.log(`product.component - id retrieved from url params - ${this.productId}`);
+            this.router.routeReuseStrategy.shouldReuseRoute = () => false;
         });
     }
 
@@ -48,7 +49,7 @@ export class ProductComponent implements OnInit {
 
         if(this.userService.isAuthenticated()) {
             this.wishlisted.subscribe(items => {
-                console.log(`store.wishlisted change subscription - prId - ${this.productId}`);
+                // console.log(`store.wishlisted change subscription - prId - ${this.productId}`);
                 let _temp: string[] = [];
                 items.forEach(item => {
                     _temp.push(item.toString());
@@ -62,11 +63,11 @@ export class ProductComponent implements OnInit {
                     _temp.push(item.toString());
                 });
                 if(_temp.includes(this.productId)){
-                    console.log('added to cart');
+                    // console.log('added to cart');
                     this.cartStatus = true;
                     this.cartText = 'remove from cart';
                 } else {
-                    console.log('add to cart');
+                    // console.log('add to cart');
                     this.cartStatus = false;
                     this.cartText = 'add to cart';
                 }

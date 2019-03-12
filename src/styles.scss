@@ -990,6 +990,7 @@ header{
     padding: 5px;
     margin-bottom: 5px;
     border-bottom: 1px solid #888;
+    cursor: pointer;
 
     .inner{
         display: flex;
@@ -1528,8 +1529,13 @@ header{
     .order-list{
         margin-bottom: 30px;
     }
-    .wishlist-icon:hover, .cart-icon:hover{
-        @include boxshadow(0, 0, 0, 0, 0, 0, 0);
-        background-color: lighten($blue, 25%);
+    .wishlist-icon, .cart-icon{
+        &:hover{
+            @include boxshadow(0, 0, 0, 0, 0, 0, 0);
+            background-color: green;
+        }
+        &.true:hover{
+            background-color: #ccc;
+        }
     }
 }

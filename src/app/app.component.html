@@ -30,7 +30,7 @@
                     <div *ngIf="searchLoader" class="search-loader"></div>
                     <div *ngIf="noResults" class="no-data"><span>no results found!</span></div>
                     <div *ngIf="searchResults" class="search-scroll">
-                        <a *ngFor="let item of searchResults" [routerLink]="['/product', item.productId]" class="search-results">
+                        <a *ngFor="let item of searchResults" (click)="toProduct(item.productId)" class="search-results">
                             <div class="inner">
                                 <img [src]="item.imgSrc" alt="">
                                 <div>

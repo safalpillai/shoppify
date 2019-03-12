@@ -37,7 +37,7 @@ export class AppComponent implements OnInit, AfterViewInit{
             distinctUntilChanged(),
             tap(() => {
                 this.searchLoader = true;
-                console.log(`noResults = false`);
+                // console.log(`noResults = false`);
                 this.noResults = false;
             }),
             map((query: string) => this.productService.searchProducts(query)),
@@ -45,7 +45,7 @@ export class AppComponent implements OnInit, AfterViewInit{
         );
 
         searchInputEntries$.subscribe(results => {
-            console.log(`search input subscription - ${JSON.stringify(results, null, 2)}`);
+            // console.log(`search input subscription - ${JSON.stringify(results, null, 2)}`);
             if(results == null || results == '') {
                 this.noResults = true;
                 this.searchResults = false;
@@ -54,6 +54,21 @@ export class AppComponent implements OnInit, AfterViewInit{
             }
             this.searchLoader = false;
         });
+    }
+
+    toProduct(productId: string) {
+        this.hideSearch();
+        this.router.navigate(['/product', productId]);
+    }
+
+    showSearch() {
+        this.hideSearchContainer = false;
+        this.searchBox.nativeElement.focus();
+    }
+    hideSearch() {
+        this.hideSearchContainer = true;
+        this.searchResults = [];
+        this.searchBox.nativeElement.value = '';
     }
 
     navigationInterceptor(event) {
@@ -66,15 +81,5 @@ export class AppComponent implements OnInit, AfterViewInit{
         if(event instanceof NavigationCancel || event instanceof NavigationEnd || event instanceof NavigationError){
             this.loadingBar.stop();
         }
-    }
-
-    showSearch() {
-        this.hideSearchContainer = false;
-        this.searchBox.nativeElement.focus();
-    }
-    hideSearch() {
-        this.hideSearchContainer = true;
-        this.searchResults = [];
-        this.searchBox.nativeElement.value = '';
     }
 }
