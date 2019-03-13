@@ -1,26 +1,37 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { UserService } from '../user.service';
 import { NotificationService } from '../notification.service';
+import { fromEvent } from 'rxjs';
+import { map, filter, debounceTime, tap, switchAll, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
     styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, AfterViewInit {
     registerForm: FormGroup;
     isUserRegistered: boolean;
     isLoading: boolean;
+    usernameLoader: boolean;
+    usernameNotAvailable: boolean;
+    usernameAvailable: boolean;
     hideForm: boolean;
+    @ViewChild('usernameInput') usernameInput: ElementRef;
     
     constructor(private formBuilder: FormBuilder, private userService: UserService, private notify: NotificationService) {
         this.isUserRegistered = false;
         this.isLoading = false;
         this.hideForm = true;
+        this.usernameLoader = false;
+        this.usernameNotAvailable = false;
+        this.usernameAvailable = false;
         this.registerForm = this.formBuilder.group({
             'name': ['', Validators.required],
-            'username': ['', Validators.required],
+            'username': ['', Validators.compose([
+                Validators.required, Validators.minLength(5)
+            ])],
             'email': ['', Validators.required],
             'contactNumber': ['', Validators.compose([
                 Validators.required, Validators.minLength(10)
@@ -33,6 +44,41 @@ export class RegisterComponent implements OnInit {
                 Validators.required
             ])]
         }, { validator: this.matchingPasswordValidator('password', 'confirmPassword') });
+    }
+
+    ngAfterViewInit() {
+        const userInput$ = fromEvent(this.usernameInput.nativeElement, 'keyup').pipe(
+            map((e: any) => e.target.value),
+            tap((query: string) => {
+                if(query.length <= 4) {
+                    this.usernameLoader = false;
+                    this.usernameNotAvailable = false;
+                    this.usernameAvailable = false;
+                }
+            }),
+            filter((text: string) => text.length > 4),
+            debounceTime(300),
+            distinctUntilChanged(),
+            tap(() => {
+                this.usernameLoader = true;
+                this.usernameNotAvailable = false;
+                this.usernameAvailable = false;
+            }),
+            map((query: string) => this.userService.checkUsername(query)),
+            switchAll()
+        );
+
+        userInput$.subscribe(result => {
+            console.log(`register.component - username check - ${result}`);
+            if(result){
+                this.usernameNotAvailable = false;
+                this.usernameAvailable = true;
+            } else {
+                this.usernameNotAvailable = true;
+                this.usernameAvailable = false;
+            }
+            this.usernameLoader = false;
+        });
     }
     
     //matching password

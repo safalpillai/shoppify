@@ -12,7 +12,13 @@
             <div class="col-lg-6">
                 <div class="relative text-box">
                     <em class="caption">username</em>
-                    <input appCustomTextbox type="text" [formControl]="registerForm.controls['username']">
+                    <input #usernameInput appCustomTextbox type="text" [formControl]="registerForm.controls['username']">
+                    <div *ngIf="registerForm.controls['username'].dirty && registerForm.controls['username'].hasError('minlength')" class="field-error">
+                        username must hava a min. length of 5 characters
+                    </div>
+                    <div *ngIf="usernameLoader" class="username-loader">Checking username availability...</div>
+                    <div *ngIf="usernameNotAvailable" class="field-error username-check not-available">username already in use</div>
+                    <div *ngIf="usernameAvailable" class="field-error username-check available">username available</div>
                 </div>
             </div>
         </div>

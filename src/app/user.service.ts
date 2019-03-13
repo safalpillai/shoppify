@@ -23,6 +23,14 @@ export class UserService {
         );
     }
 
+    //check username
+    checkUsername(query: string): Observable<any> {
+        console.log(`user.service.checkUsername() - query - ${query}`);
+        return this.http.get(`${UserService.API_URL}/checkusername?checkuser=${query}`).pipe(
+            map(response => {return response})
+        );
+    }
+
     //get user details for dashboard
     getUserDetails(name: string): Observable<any> {
         const params = new HttpParams().set('username', name);

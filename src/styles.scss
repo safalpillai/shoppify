@@ -562,6 +562,15 @@ header{
         }
     }
 }
+.username-loader{
+    @include reg(12);
+    @include svg(username-loader);
+    background-size: 16px;
+    background-position: left center;
+    margin-top: 5px;
+    color: #ff0000;
+    padding-left: 25px;
+}
 .text-box{
     position: relative;
 
@@ -588,12 +597,38 @@ header{
         display: block;
         position: relative;
         padding-left: 10px;
-        text-transform: capitalize;
 
+        &:first-letter{
+            text-transform: uppercase;
+        }
         &:before{
             @include bold(12);
             @include tl(0, 0);
             content: '*';
+        }
+        &.username-check{
+            padding-left: 25px;
+
+            &:before{
+                @include tl(-1px, 2px);
+                width: 20px;
+                height: 20px;
+                content: '';
+            }
+            &.not-available:before{
+                @include svg(not-available);
+                background-size: 12px;
+                background-position: left center;
+            }
+            &.available{
+                color: green;
+
+                &:before{
+                    @include svg(available);
+                    background-size: 16px;
+                    background-position: left center;
+                }
+            }
         }
     }
 }
