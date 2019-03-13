@@ -933,52 +933,35 @@ header{
     bottom: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.95);
+    background: rgba(255, 255, 255, 0.99);
     z-index: 1000;
 
-    .tabled{
-        width: 100%;
-        height: 100%;
-        display: table;
-        position: relative;
-    }
-    .celled{
-        display: table-cell;
-        vertical-align: middle;
-    }
     .search-content{
+        @include boxshadow(0, 0, 5px, 0, 0, 0, 0.1);
         width: 80%;
-        margin: auto;
+        margin: 30px auto 0;
 
         input[type="text"]{
+            @include reg(14);
             width: 100%;
             height: 35px;
-            background: $t;
+            background: $w;
             border: none;
-            padding-left: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.75);
+            padding-left: 35px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.75);
         }
         [placeholder]{
-            color: $w !important;
+            color: $b !important;
         }
         .no-data{
-            margin: 30px 0;
+            padding: 30px 0;
+            margin-top: 0;
         }
-    }
-    .close-search{
-        @include tr(20px, 20px);
-        @include svg(close-white);
-        display: inline-block;
-        width: 35px;
-        height: 35px;
-        background-size: 22px;
-        background-position: center;
     }
 }
 .search-scroll{
     max-height: 200px;
     overflow-y: auto;
-    margin-top: 5px;
 
     .search-results:last-of-type{
         margin-bottom: 0;
@@ -988,8 +971,7 @@ header{
     background: $w;
     display: block;
     padding: 5px;
-    margin-bottom: 5px;
-    border-bottom: 1px solid #888;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
     cursor: pointer;
 
     .inner{
@@ -1017,9 +999,20 @@ header{
 .search-textbox{
     position: relative;
 
+    .close-search{
+        @include tr(50%, 0);
+        @include svg(close-black);
+        display: inline-block;
+        width: 34px;
+        height: 34px;
+        background-size: 13px;
+        margin-top: -17px;
+        background-position: center;
+        z-index: 10;
+    }
     &:before{
-        @include tl(50%, 0);
-        @include basvg(search, 14px, 14px, 14px);
+        @include tl(50%, 12px);
+        @include basvg(search-black, 14px, 14px, 14px);
         background-position: center;
         margin-top: -7px;
     }
@@ -1184,16 +1177,14 @@ header{
     }
     .search-section{
         .close-search{
-            top: 25px;
-            right: 25px;
+            top: 23px;
         }
         .search-content{
             width: 600px;
 
             input[type="text"]{
-                @include light(14);
                 height: 45px;
-                padding-left: 35px;
+                padding-left: 45px;
             }
         }
     }

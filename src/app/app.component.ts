@@ -64,6 +64,7 @@ export class AppComponent implements OnInit, AfterViewInit{
     showSearch() {
         this.hideSearchContainer = false;
         this.searchBox.nativeElement.focus();
+        console.log(`textbox focused`);
     }
     hideSearch() {
         this.hideSearchContainer = true;
