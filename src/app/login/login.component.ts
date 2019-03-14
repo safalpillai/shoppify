@@ -23,8 +23,8 @@ export class LoginComponent implements OnInit {
         private ngRedux: NgRedux<IAppState>, private thunkWrapper: ThunkWrapper) {
         this.isLoading = false;
         this.loginForm = this.formBuilder.group({
-            'username': ['safal', Validators.required],
-            'password': ['123456', Validators.required]
+            'username': ['', Validators.required],
+            'password': ['', Validators.required]
         });
     }
 

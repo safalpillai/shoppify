@@ -1283,6 +1283,9 @@ header{
             &.nodejs{
                 background-size: 39px;
             }
+            &.mongodb{
+                border: 1px solid #ccc;
+            }
         }
     }
 }
