@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
 import { NotificationService } from '../notification.service';
-import { fromEvent } from 'rxjs';
+import { fromEvent, Observable } from 'rxjs';
 import { map, filter, debounceTime, tap, switchAll, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
@@ -19,6 +19,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     usernameAvailable: boolean;
     hideForm: boolean;
     @ViewChild('usernameInput') usernameInput: ElementRef;
+    userInput$: Observable<boolean>;
     
     constructor(private formBuilder: FormBuilder, private userService: UserService, private notify: NotificationService) {
         this.isUserRegistered = false;
@@ -47,9 +48,10 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        const userInput$ = fromEvent(this.usernameInput.nativeElement, 'keyup').pipe(
+        this.userInput$ = fromEvent(this.usernameInput.nativeElement, 'keyup').pipe(
             map((e: any) => e.target.value),
             tap((query: string) => {
+                this.registerForm.setErrors({'invalid': true});
                 if(query.length <= 4) {
                     this.usernameLoader = false;
                     this.usernameNotAvailable = false;
@@ -68,14 +70,16 @@ export class RegisterComponent implements OnInit, AfterViewInit {
             switchAll()
         );
 
-        userInput$.subscribe(result => {
+        this.userInput$.subscribe(result => {
             console.log(`register.component - username check - ${result}`);
             if(result){
                 this.usernameNotAvailable = false;
                 this.usernameAvailable = true;
+                this.registerForm.setErrors(null);
             } else {
                 this.usernameNotAvailable = true;
                 this.usernameAvailable = false;
+                this.registerForm.setErrors({'invalid': true});
             }
             this.usernameLoader = false;
         });

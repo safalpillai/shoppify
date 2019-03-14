@@ -39,6 +39,7 @@ import { NotificationService } from './notification.service';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { OrdersComponent } from './orders/orders.component';
 import { DashLinksComponent } from './dash-links/dash-links.component';
+import { ModifyUsernameDirective } from './modify-username.directive';
 
 @NgModule({
     declarations: [
@@ -60,6 +61,7 @@ import { DashLinksComponent } from './dash-links/dash-links.component';
         WishlistComponent,
         OrdersComponent,
         DashLinksComponent,
+        ModifyUsernameDirective,
     ],
     imports: [
         BrowserModule,

@@ -520,7 +520,7 @@ header{
     }
     a{
         @include radius(20px);
-        @include reg(12);
+        @include reg(14);
         background: $blue;
         color: $w;
         position: relative;
@@ -545,12 +545,12 @@ header{
 }
 .switch{
     @include reg(13);
-    color: $text2;
+    color: #f00;
     text-align: center;
     margin: 35px 0 15px;
 
     a{
-        color: $blue;
+        color: #f00;
         position: relative;
 
         &:after{
@@ -568,7 +568,7 @@ header{
     background-size: 16px;
     background-position: left center;
     margin-top: 5px;
-    color: #ff0000;
+    color: $blue;
     padding-left: 25px;
 }
 .text-box{
@@ -1558,7 +1558,7 @@ header{
     .wishlist-icon, .cart-icon{
         &:hover{
             @include boxshadow(0, 0, 0, 0, 0, 0, 0);
-            background-color: green;
+            background-color: lighten(green, 10%);
         }
         &.true:hover{
             background-color: #ccc;

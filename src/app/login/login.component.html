@@ -3,7 +3,7 @@
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
         <div class="relative text-box">
             <em class="caption">username</em>
-            <input appCustomTextbox type="text" [formControl]="loginForm.controls['username']">
+            <input appCustomTextbox appModifyUsername type="text" [formControl]="loginForm.controls['username']">
         </div>
         <div class="relative text-box">
             <em class="caption">password</em>

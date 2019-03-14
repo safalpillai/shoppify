@@ -12,7 +12,7 @@
             <div class="col-lg-6">
                 <div class="relative text-box">
                     <em class="caption">username</em>
-                    <input #usernameInput appCustomTextbox type="text" [formControl]="registerForm.controls['username']">
+                    <input #usernameInput appCustomTextbox appModifyUsername type="text" [formControl]="registerForm.controls['username']">
                     <div *ngIf="registerForm.controls['username'].dirty && registerForm.controls['username'].hasError('minlength')" class="field-error">
                         username must hava a min. length of 5 characters
                     </div>
