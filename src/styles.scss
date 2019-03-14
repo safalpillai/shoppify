@@ -19,9 +19,6 @@ body{
 #root-container{
     min-height: 102vh;
 }
-footer{
-    display: none;
-}
 textarea:focus, input:focus, button:focus{
     outline: none;
 }
@@ -42,7 +39,7 @@ button::-moz-focus-inner {
 .mobile{
     display: block;
 }
-.desktop{
+.desktop, footer{
     display: none;
 }  
 a{
@@ -269,7 +266,7 @@ header{
             border: none;
         }
         &.active{
-            background: darken($blue, 5%);
+            background: darken($blue, 8%);
         }
     }
 }
@@ -950,14 +947,22 @@ header{
     }
 }
 .goto-order{
-    @include light(18);
-    color: #888;
+    @include light(16);
     margin: -60px 0 60px;
     text-align: center;
 
+    span{
+        @include radius(3px);
+        padding: 30px;
+        background: #888888;
+        color: $w;
+        display: inline-block;
+    }
     a{
+        @include bold(16);
         text-decoration: underline;
         letter-spacing: 1px;
+        color: $yellow;
     }
 }
 .search-section{
@@ -1052,6 +1057,9 @@ header{
         margin-top: -7px;
     }
 }
+.order-status{
+    display: none;
+}
 //responsive
 @media only screen and (min-width: 480px){
     #cart-table{
@@ -1111,9 +1119,6 @@ header{
 }
 
 @media only screen and (min-width: 768px){
-    .order-section{
-        margin-top: 35px;
-    }
     header{
         padding-left: 60px;
         padding-right: 60px;
@@ -1165,8 +1170,6 @@ header{
         }
     }
     #cart-table{
-        margin-top: 40px;
-
         .cart-status{
             width: 34px;
             height: 34px;
@@ -1230,6 +1233,56 @@ header{
             background-size: 20px;
             background-position: center;
             margin-top: -10px;
+        }
+    }
+    #root-container{
+        @include boxshadow(0, 0, 10px, 0, 0, 0, 0.25);
+        background-color: $w;
+        margin-bottom: 100px;
+        position: relative;
+        z-index: 100;
+        overflow: hidden;
+    }
+    footer{
+        display: block;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 1;
+        bottom: 0;
+        width: 100%;
+        height: 100px;
+        background: #eee;
+
+        .tech{
+            @include tl(50%, 0);
+            width: 100%;
+            height: 36px;
+            margin-top: -18px;
+            text-align: center;
+            perspective: 550px;
+        }
+        span{
+            @include transitEase(1.5s, ease-out);
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            overflow: hidden;
+            
+            &:not(:last-child){
+                margin-right: 30px;
+            }
+            @each $item in $poweredby{
+                &.#{$item}{
+                    @include png(#{$item});
+                    background-size: 36px;
+                    background-position: center;
+                }
+            }
+            &.nodejs{
+                background-size: 39px;
+            }
         }
     }
 }
@@ -1309,6 +1362,10 @@ header{
         padding-right: 40px;
     }
     .order-list{
+        position: relative;
+        padding-bottom: 120px;
+        overflow: hidden;
+
         .order-left{
             span{
                 display: inline-block;
@@ -1327,47 +1384,78 @@ header{
             }
         }
     }
+    .order-status{
+        @include bl(0, 0);
+        background: #f5f5f5;
+        width: 100%;
+        height: 90px;
+        padding: 0 30px;
+        display: block;
+
+        .inner{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 48px;
+            position: relative;
+
+            &.start-slider{
+                i{
+                    width: 36%;
+                }
+            }
+            i{
+                @include transitEase(1.5s, ease-out);
+                @include tl(40px, 0);
+                display: inline-block;
+                width: 0;
+                height: 3px;
+                background: green;
+
+                &:before, &:after{
+                    @include radius(50%);
+                    position: absolute;
+                    top: -4px;
+                    content: '';
+                    width: 12px;
+                    height: 12px;
+                    background: green;
+                }
+                &:before{
+                    left: 0;
+                }
+                &:after{
+                    right: -12px;
+                }
+            }
+            &:before{
+                @include tl(42px, 0);
+                width: 100%;
+                height: 1px;
+                background: rgba(0, 0, 0, 0.15);
+                content: '';
+            }
+            span{
+                @include light(12);
+                text-transform: capitalize;
+                color: $text2;
+                display: inline-block;
+                width: 24%;
+                text-align: center;
+
+                &:first-of-type{
+                    text-align: left;
+                }
+                &:last-of-type{
+                    text-align: right;
+                }
+            }
+        }
+    }
 }
 
 @media only screen and (min-width: 1200px){
-    #root-container{
-        background-color: $w;
-        // margin-bottom: 80px;
-        // position: relative;
-        // z-index: 100;
-        // overflow: hidden;
-    }
-    // footer{
-    //     display: block;
-    //     position: fixed;
-    //     bottom: 0;
-    //     left: 0;
-    //     right: 0;
-    //     z-index: 1;
-    //     bottom: 0;
-    //     width: 100%;
-    //     height: 80px;
-    //     background: #ccc;
-    //     text-align: center;
-
-    //     span{
-    //         display: inline-block;
-    //         width: 50px;
-    //         height: 50px;
-            
-    //         &:not(:first-child){
-    //             margin-right: 30px;
-    //         }
-    //         @each $item in $poweredby{
-    //             $index: index($poweredby, $item);
-    //             &:nth-child(#{$index}){
-    //                 @include png(#{$item});
-    //                 background-size: 40px;
-    //                 background-position: center;
-    //             }
-    //         }
-    //     }
-    // }
     .mobile{
         display: none;
     }
@@ -1407,7 +1495,7 @@ header{
     .categories{
         a{
             &:hover{
-                background: darken($blue, 5%);
+                background: darken($blue, 8%);
             }
         }
     }
@@ -1512,7 +1600,6 @@ header{
         flex-direction: row;
         justify-content: space-between;
         align-items: flex-start;
-        margin-top: 40px;
 
         #cart-table, .amount-container{
             margin: 0;
@@ -1562,6 +1649,11 @@ header{
         }
         &.true:hover{
             background-color: #ccc;
+        }
+    }
+    footer{
+        span:hover{
+            @include transform(rotateY(360deg));
         }
     }
 }

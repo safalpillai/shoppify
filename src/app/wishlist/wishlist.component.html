@@ -1,6 +1,7 @@
 <div class="default-content">
     <app-dash-links></app-dash-links>
     <section class="cart-section" *ngIf="(wishlist | async)?.length > 0; else nocart">
+        <span class="dashboard-title">wishlist</span>
         <div *ngIf="isFetching | async" class="loader"></div>
         <table id="cart-table" class="table table-responsive">
             <thead>

@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, HostListener, AfterViewInit } from '@angular/core';
 import { UserService } from '../user.service';
 
 @Component({
@@ -6,12 +6,14 @@ import { UserService } from '../user.service';
     templateUrl: './orders.component.html',
     styleUrls: ['./orders.component.scss']
 })
-export class OrdersComponent implements OnInit {
+export class OrdersComponent implements AfterViewInit {
     orderList: any;
     windowWidth: any;
+    startSlider: boolean = false;
+
     @HostListener('window: resize') onresize() {
         this.windowWidth = window.innerWidth;
-        console.log(this.windowWidth);
+        // console.log(this.windowWidth);
     }
     
     constructor(private userService: UserService) {
@@ -21,8 +23,10 @@ export class OrdersComponent implements OnInit {
         });
     }
     
-    ngOnInit() {
-        
+    ngAfterViewInit() {
+        setTimeout(() => {
+            this.startSlider = true;
+        }, 2000);
     }
-
+    
 }

@@ -11,9 +11,12 @@ import { ToastrModule } from 'ng6-toastr-notifications';
 import { AppRoutingModule } from './app-routing.module';
 //services
 import { ProductService } from './product.service';
+import { NotificationService } from './notification.service';
+import { UserService } from './user.service';
 //directives
 import { CustomTextboxDirective } from './custom-textbox.directive';
 import { NumbersOnlyDirective } from './numbers-only.directive';
+import { ModifyUsernameDirective } from './modify-username.directive';
 //guards
 import { AuthGuard } from './auth.guard';
 //store
@@ -33,13 +36,10 @@ import { WomenComponent } from './women/women.component';
 import { KidsComponent } from './kids/kids.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { UserService } from './user.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { NotificationService } from './notification.service';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { OrdersComponent } from './orders/orders.component';
 import { DashLinksComponent } from './dash-links/dash-links.component';
-import { ModifyUsernameDirective } from './modify-username.directive';
 
 @NgModule({
     declarations: [

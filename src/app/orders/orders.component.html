@@ -2,6 +2,9 @@
     <app-dash-links></app-dash-links>
     
     <section *ngIf="orderList?.length > 0; else noorders" class="order-section row">
+        <div class="col-xs-12">
+            <span class="dashboard-title">order status</span>
+        </div>
         <ng-container *ngFor="let instance of orderList; let ind = index;">
             <div class="col-lg-6">
                 <div class="order-list">
@@ -15,6 +18,15 @@
                     <div class="order-right">
                         <div class="ordered-on">Ordered on: {{ instance.dated }}</div>
                         <div class="total-price">total price: <em>{{ instance.totalPrice }}</em></div>
+                    </div>
+                    <div class="order-status">
+                        <div class="inner" [class.start-slider]="startSlider">
+                            <i></i>
+                            <span>order placed</span>
+                            <span>order confirmed</span>
+                            <span>order sent</span>
+                            <span>delivered</span>
+                        </div>
                     </div>
                 </div>
             </div>
