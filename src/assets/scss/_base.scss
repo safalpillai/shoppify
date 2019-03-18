@@ -13,28 +13,28 @@ $poweredby: mongodb, expressjs, angular7, nodejs, typescript, javascript, git, s
 $bg: cart, wishlist, order, logout;
 
 @font-face{
-    font-family: 'Open Sans';
+    font-family: 'Opensans';
     font-weight: 300;
     src: url(assets/fonts/OpenSans-Light.ttf) format("truetype");
 }
 @font-face{
-    font-family: 'Open Sans';
+    font-family: 'Opensans';
     font-weight: 400;
     src: url(assets/fonts/OpenSans-Regular.ttf) format("truetype");
 }
 @font-face{
-    font-family: 'Open Sans';
+    font-family: 'Opensans';
     font-weight: 700;
     src: url(assets/fonts/OpenSans-Bold.ttf) format("truetype");
 }
 @mixin light($size){
-    font: 300 #{$size}px 'Open Sans';
+    font: 300 #{$size}px 'Opensans';
 }
 @mixin reg($size){
-    font: 400 #{$size}px 'Open Sans';
+    font: 400 #{$size}px 'Opensans';
 }
 @mixin bold($size){
-    font: 700 #{$size}px 'Open Sans';
+    font: 700 #{$size}px 'Opensans';
 }
 @mixin transition{
     -webkit-transition: all .3s ease-out;
