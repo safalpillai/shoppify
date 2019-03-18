@@ -58,7 +58,7 @@ export class CardComponent implements OnInit {
                 price: product.price,
                 imgSrc: product.imgSrc
             }
-            console.log(`adding to cart`);
+            console.log(`adding to cart with size - ${parseInt(chosenSize.split(',')[0])}`);
             this.ngRedux.dispatch<any>(this.thunk.addToCart(model));
         } else if(status && this.userService.isAuthenticated()){
             console.log(`removing from cart - ${product.productId}`);
@@ -69,13 +69,13 @@ export class CardComponent implements OnInit {
     }
     
     //cart
-    toggleWishlist(product: IProduct, status: boolean) {
+    toggleWishlist(product: IProduct, status: boolean, chosenSize: string) {
         if(!status && this.userService.isAuthenticated()){
             console.log(`adding to wishlist`);
             let item: IWishlist = {
                 productId: product.productId,
                 title: product.title,
-                size: 8,
+                size: parseInt(chosenSize.split(',')[0]),
                 price: product.price,
                 imgSrc: product.imgSrc
             }
