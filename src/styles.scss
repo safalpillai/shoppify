@@ -1311,7 +1311,7 @@ header{
             height: 36px;
             overflow: hidden;
             
-            &:not(:last-child){
+            &:not(:last-of-type){
                 margin-right: 30px;
             }
             @each $item in $poweredby{
