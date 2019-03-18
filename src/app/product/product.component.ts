@@ -72,6 +72,9 @@ export class ProductComponent implements OnInit {
                     this.cartText = 'add to cart';
                 }
             });
+        } else {
+            this.cartStatus = false;
+            this.cartText = 'add to cart';
         }
     }
     

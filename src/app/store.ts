@@ -5,6 +5,7 @@ import { createLogger } from 'redux-logger';
 import { IAppState, Action, IProduct, ICartProduct, IWishlist, IOrder } from './models';
 import axios from 'axios';
 import * as Actions from './actions';
+import { NotificationService } from './notification.service';
 
 //initial state
 export const initialState: IAppState = {
@@ -177,25 +178,28 @@ const utilityReducer = (oldState: IAppState): IAppState => {
 export class ThunkWrapper{
     static api_url = 'http://localhost:4000/user/';
     
+    constructor(private notify: NotificationService){
+
+    }
+
     //initialize store
     initializeStore(username: string) {
         console.log('store initialized with - ', username);
         store.dispatch(Actions.initStore(username));
         return dispatch => {
-            setTimeout(() => {
-                axios.get(`${ThunkWrapper.api_url}/initializestore?user=${username}`)
-                .then(res => {
-                    if(!res) console.log(`thunk initializeStore() - response error`);
-                    else {
-                        // console.log(`thunk initializeStore() - response received - ${JSON.stringify(res.data, null, 2)}`);
-                        dispatch(Actions.initStoreSuccess(res.data));
-                    }
-                })
-                .catch(err => {
-                    console.log(`initialize store error caught - ${err}`);
-                    dispatch(Actions.initStoreFailed());
-                });
-            }, 3000);
+            axios.get(`${ThunkWrapper.api_url}/initializestore?user=${username}`)
+            .then(res => {
+                if(!res) console.log(`thunk initializeStore() - response error`);
+                else {
+                    // console.log(`thunk initializeStore() - response received - ${JSON.stringify(res.data, null, 2)}`);
+                    dispatch(Actions.initStoreSuccess(res.data));
+                    this.notify.showSuccess('See dashboard for details', 'Logged in successfully');
+                }
+            })
+            .catch(err => {
+                console.log(`initialize store error caught - ${err}`);
+                dispatch(Actions.initStoreFailed());
+            });
         }
     }
     
@@ -209,6 +213,7 @@ export class ThunkWrapper{
                 if(res){
                     console.log(`thunk addToCart() - added to cart - ${res}`);
                     dispatch(Actions.addToCartSuccess(cartProduct));
+                    this.notify.showSuccess('to cart', 'Item added');
                 } else {
                     console.log(`thunk addToCart() - add to cart failed - ${res}`);
                     dispatch(Actions.addToCartFailed());
@@ -230,6 +235,7 @@ export class ThunkWrapper{
                 if(res) {
                     console.log(`thunk removeFromCart() - product removal failed - ${res}`);
                     dispatch(Actions.removeCartSuccess(product.productId));
+                    this.notify.showError('from cart', 'Item removed');
                 } else {
                     console.log(`thunk removeFromCart() - decrement failed - ${res}`);
                     dispatch(Actions.removeCartFailed());
@@ -252,6 +258,7 @@ export class ThunkWrapper{
                 if(res) {
                     console.log(`thunk incrementCart() - quantity updated - ${res}`);
                     dispatch(Actions.incrementSuccess(product.productId));
+                    this.notify.showSuccess('increased', 'Item quantity');
                 } else {
                     console.log(`thunk incrementCart() - error received while updating product quantity`);
                     dispatch(Actions.quantityUpdateFailed());
@@ -273,6 +280,7 @@ export class ThunkWrapper{
                 if(res) {
                     console.log(`thunk decrementCart() - decrement done successfully - ${res}`);
                     dispatch(Actions.decrementSuccess(product.productId));
+                    this.notify.showError('decreased', 'Item quantity');
                 } else {
                     console.log(`thunk decrementCart() - decrement failed - ${res}`);
                     dispatch(Actions.quantityUpdateFailed());
@@ -311,6 +319,7 @@ export class ThunkWrapper{
                 if(res){
                     console.log(`thunk addToWishlist() - wishlist updated successfully - ${res}`);
                     dispatch(Actions.addWishlistSuccess(item));
+                    this.notify.showSuccess('to wishlist', 'Item added');
                 } else {
                     console.log(`thunk addToWishlist() - wishlist update failed - ${res}`);
                     dispatch(Actions.wishlistFailed());
@@ -337,6 +346,7 @@ export class ThunkWrapper{
                 } else {
                     console.log(`thunk removeWishlist() - removing wishlist returned - ${res}`);
                     dispatch(Actions.removeWishlistSuccess(productId));
+                    this.notify.showError('from wishlist', 'Item removed');
                 }
             })
             .catch(err => console.log(`thunk removeWishlist() - error caught while removing wishlist - ${err}`));
@@ -353,6 +363,7 @@ export class ThunkWrapper{
                 if(res) {
                     console.log(`thunk orderPlaced() - order added successfully - ${res}`);
                     dispatch(Actions.orderDone());
+                    this.notify.showSuccess('See my orders for details', 'Order placed');
                 } else {
                     console.log(`thunk orderPlaced() - oreder failed from server - ${res}`);
                     dispatch(Actions.orderFailed());

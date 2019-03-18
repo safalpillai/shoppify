@@ -13,7 +13,7 @@ export class NotificationService {
         showCloseButton: false,
         fadeIn: 800,
         fadeOut: 800,
-        maxShown: 3,
+        maxShown: 2,
     };
 
     constructor(private toastr: ToastrManager) { }

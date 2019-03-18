@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
         this.storeInitialized.subscribe(loginStatus => {
             if(loginStatus) {
                 console.log('init store subscription returned true'); 
-                this.notify.showSuccess('Check user dashboard for account details', 'Login successful');
+                // this.notify.showSuccess('Check user dashboard for account details', 'Login successful');
                 this.router.navigate(['/home/men']);
             }
         });
