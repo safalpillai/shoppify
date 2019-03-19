@@ -328,7 +328,7 @@ header{
 
             .title{
                 @include bold(16);
-                padding: 15px 0;
+                padding: 0 0 15px;
                 color: $text2;
                 margin-bottom: 10px;
                 text-transform: uppercase;
@@ -635,7 +635,7 @@ header{
 
     a, div{
         @include material;
-        @include light(18);
+        @include reg(14);
         @include radius(3px);
         display: block;
         margin-bottom: 20px;
@@ -644,7 +644,7 @@ header{
         border: 1px solid $t;
         text-transform: capitalize;
         text-align: center;
-        padding: 30px 0;
+        padding: 5px 0;
     }
     a.active{
         background: darken($yellow, 15%);
@@ -1190,9 +1190,11 @@ header{
         justify-content: space-between;
 
         a, div{
+            @include light(18);
             width: calc((100% - 90px) / 4);
             margin-bottom: 0;
             position: relative;
+            padding: 30px 0;
         }
     }
     #cart-table{
@@ -1756,5 +1758,8 @@ header{
         span:hover{
             @include transform(rotateY(360deg));
         }
+    }
+    #cart-table, .order-section{
+        margin-bottom: 120px !important;
     }
 }
