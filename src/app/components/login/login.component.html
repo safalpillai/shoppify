@@ -1,0 +1,20 @@
+<div class="profile-children form-wrapper">
+    <div class="title">login</div>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+        <div class="relative text-box">
+            <em class="caption">username</em>
+            <input appCustomTextbox appModifyUsername type="text" [formControl]="loginForm.controls['username']">
+        </div>
+        <div class="relative text-box">
+            <em class="caption">password</em>
+            <input appCustomTextbox type="password" [formControl]="loginForm.controls['password']">
+        </div>
+        <div class="text-center">
+            <input [class.disabled]="!loginForm.valid" type="submit" value="login" class="action">
+        </div>
+        <div class="switch">
+            If you don't have an account, <a [routerLink]="['/profile/register']">register here</a>.
+        </div>
+    </form>
+    <div *ngIf="isLoading" class="loader"></div>
+</div>

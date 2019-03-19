@@ -1060,6 +1060,32 @@ header{
 .order-status{
     display: none;
 }
+.password-icon{
+    position: relative;
+    
+    input[type="text"], input[type="password"]{
+        padding-right: 50px;
+    }
+    i{
+        @include tr(20px, 0);
+        content: '';
+        width: 40px;
+        height: 40px;
+        display: inline-block;
+        cursor: pointer;
+
+        &[data-status="0"]{
+            @include svg(password-open);
+            background-size: 20px;
+            background-position: center;
+        }
+        &[data-status="1"]{
+            @include svg(password-close);
+            background-size: 18px;
+            background-position: center;
+        }
+    }
+}
 //responsive
 @media only screen and (min-width: 480px){
     #cart-table{
@@ -1219,7 +1245,8 @@ header{
         }
         .search-content{
             width: 600px;
-
+            overflow: hidden;
+            
             input[type="text"]{
                 height: 45px;
                 padding-left: 45px;
@@ -1271,9 +1298,39 @@ header{
             a, a:hover, a:visited{
                 color: #333333;
             }
-            em{
+            em , i{
                 font-style: normal;
-                margin-right: 30px;
+            }
+            i{
+                display: inline-block;
+                position: relative;
+                padding-right: 30px;
+
+                &:first-child{
+                    margin-right: 30px;
+                }
+                &:before, &:after{
+                    position: absolute;
+                    content: '';
+                    right: 0;
+                }
+                &:before{
+                    @include radius(50%);
+                    top: 50%;
+                    margin-top: -4px;
+                    border: 1px solid rgba(0, 0, 0, 0.17);
+                    background: rgba(0, 0, 0, 0.3);
+                    width: 8px;
+                    height: 8px;
+                    z-index: 10;
+                }
+                &:after{
+                    right: 9px;
+                    top: 9px;
+                    width: 17px;
+                    height: 1px;
+                    background: rgba(0, 0, 0, 0.17);
+                }
             }
             em, a{
                 display: inline-block;

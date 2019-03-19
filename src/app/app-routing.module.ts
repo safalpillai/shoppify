@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { CartComponent } from './cart/cart.component';
-import { ProfileComponent } from './profile/profile.component';
-import { ProductComponent } from './product/product.component';
-import { CategoryComponent } from './category/category.component';
-import { MenComponent } from './men/men.component';
-import { WomenComponent } from './women/women.component';
-import { KidsComponent } from './kids/kids.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { AuthGuard } from './auth.guard';
-import { WishlistComponent } from './wishlist/wishlist.component';
-import { OrdersComponent } from './orders/orders.component';
+import { HomeComponent } from './components/home/home.component';
+import { CartComponent } from './components/cart/cart.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { ProductComponent } from './components/product/product.component';
+import { CategoryComponent } from './components/category/category.component';
+import { MenComponent } from './components/men/men.component';
+import { WomenComponent } from './components/women/women.component';
+import { KidsComponent } from './components/kids/kids.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { AuthGuard } from './guards/auth.guard';
+import { WishlistComponent } from './components/wishlist/wishlist.component';
+import { OrdersComponent } from './components/orders/orders.component';
 
 //category routes
 const categoryRoutes: Routes = [

@@ -4,7 +4,7 @@ import { Router, Event, NavigationStart, NavigationEnd, NavigationCancel, Naviga
 import { select } from '@angular-redux/store';
 import { Observable, fromEvent } from 'rxjs';
 import { map, filter, tap, debounceTime, switchAll, distinctUntilChanged } from 'rxjs/operators';
-import { ProductService } from './product.service';
+import { ProductService } from './services/product.service';
 
 @Component({
     selector: 'app-root',

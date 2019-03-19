@@ -10,36 +10,36 @@ import { ToastrModule } from 'ng6-toastr-notifications';
 //routing
 import { AppRoutingModule } from './app-routing.module';
 //services
-import { ProductService } from './product.service';
-import { NotificationService } from './notification.service';
-import { UserService } from './user.service';
+import { ProductService } from './services/product.service';
+import { NotificationService } from './services/notification.service';
+import { UserService } from './services/user.service';
 //directives
-import { CustomTextboxDirective } from './custom-textbox.directive';
-import { NumbersOnlyDirective } from './numbers-only.directive';
-import { ModifyUsernameDirective } from './modify-username.directive';
+import { CustomTextboxDirective } from './directives/custom-textbox.directive';
+import { NumbersOnlyDirective } from './directives/numbers-only.directive';
+import { ModifyUsernameDirective } from './directives/modify-username.directive';
 //guards
-import { AuthGuard } from './auth.guard';
+import { AuthGuard } from './guards/auth.guard';
 //store
 import { NgReduxModule, NgRedux } from '@angular-redux/store';
-import { IAppState } from './models';
-import { store, ThunkWrapper } from './store';
+import { IAppState } from './models/models';
+import { store, ThunkWrapper } from './redux-store/store';
 //components
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { CartComponent } from './cart/cart.component';
-import { ProfileComponent } from './profile/profile.component';
-import { CardComponent } from './card/card.component';
-import { ProductComponent } from './product/product.component';
-import { CategoryComponent } from './category/category.component';
-import { MenComponent } from './men/men.component';
-import { WomenComponent } from './women/women.component';
-import { KidsComponent } from './kids/kids.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { WishlistComponent } from './wishlist/wishlist.component';
-import { OrdersComponent } from './orders/orders.component';
-import { DashLinksComponent } from './dash-links/dash-links.component';
+import { HomeComponent } from './components/home/home.component';
+import { CartComponent } from './components/cart/cart.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { CardComponent } from './components/card/card.component';
+import { ProductComponent } from './components/product/product.component';
+import { CategoryComponent } from './components/category/category.component';
+import { MenComponent } from './components/men/men.component';
+import { WomenComponent } from './components/women/women.component';
+import { KidsComponent } from './components/kids/kids.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { WishlistComponent } from './components/wishlist/wishlist.component';
+import { OrdersComponent } from './components/orders/orders.component';
+import { DashLinksComponent } from './components/dash-links/dash-links.component';
 
 @NgModule({
     declarations: [
