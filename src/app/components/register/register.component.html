@@ -14,7 +14,10 @@
                     <em class="caption">username</em>
                     <input #usernameInput appCustomTextbox appModifyUsername type="text" [formControl]="registerForm.controls['username']">
                     <div *ngIf="registerForm.controls['username'].dirty && registerForm.controls['username'].hasError('minlength')" class="field-error">
-                        username must hava a min. length of 5 characters
+                        username must have 5 or more characters
+                    </div>
+                    <div *ngIf="registerForm.controls['username'].dirty && registerForm.controls['username'].hasError('maxlength')" class="field-error">
+                        username must be under 26 characters
                     </div>
                     <div *ngIf="usernameLoader" class="username-loader">Checking username availability...</div>
                     <div *ngIf="usernameNotAvailable" class="field-error username-check not-available">username already in use</div>

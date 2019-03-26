@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
         this.registerForm = this.formBuilder.group({
             'name': ['', Validators.required],
             'username': ['', Validators.compose([
-                Validators.required, Validators.minLength(5)
+                Validators.required, Validators.minLength(5), Validators.maxLength(25)
             ])],
             'email': ['', Validators.required],
             'contactNumber': ['', Validators.compose([
@@ -57,13 +57,13 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
             map((e: any) => e.target.value),
             tap((query: string) => {
                 this.registerForm.setErrors({'invalid': true});
-                if(query.length <= 4) {
+                if(query.length <= 4 || query.length > 25) {
                     this.usernameLoader = false;
                     this.usernameNotAvailable = false;
                     this.usernameAvailable = false;
                 }
             }),
-            filter((text: string) => text.length > 4),
+            filter((text: string) => text.length > 4 && text.length <= 25),
             debounceTime(300),
             tap(() => {
                 this.usernameLoader = true;

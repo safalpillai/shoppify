@@ -1,6 +1,5 @@
 <div class="default-content">
     <app-dash-links></app-dash-links>
-    
     <section *ngIf="orderList?.length > 0; else noorders" class="order-section row">
         <div class="col-xs-12">
             <span class="dashboard-title">orders</span>
@@ -32,8 +31,8 @@
             </div>
             <div class="clearfix" *ngIf="((ind + 1) % 2 === 0) && windowWidth >= 1200"></div>
         </ng-container>
+        <ng-template #noorders>
+            <div class="no-data"><span>No orders to show!</span></div>
+        </ng-template>
     </section>
-    <ng-template #noorders>
-        <div class="no-data"><span>No orders to show!</span></div>
-    </ng-template>
 </div>
