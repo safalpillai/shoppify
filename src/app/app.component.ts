@@ -32,6 +32,12 @@ export class AppComponent implements OnInit, AfterViewInit{
     ngAfterViewInit() {
         const searchInputEntries$ = fromEvent(this.searchBox.nativeElement, 'keyup').pipe(
             map((e: any) => e.target.value),
+            tap((text) => {
+                if(text.length <= 1) {
+                    this.searchLoader = false;
+                    this.searchResults = null;
+                }
+            }),
             filter((text: string) => text.length > 1),
             debounceTime(250),
             distinctUntilChanged(),

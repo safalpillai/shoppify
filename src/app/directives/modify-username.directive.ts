@@ -7,7 +7,7 @@ export class ModifyUsernameDirective {
     //disable space & uppercase letters
     constructor(private el: ElementRef) { }
     
-    @HostListener('keyup') onInput() {
+    @HostListener('input') onInput() {
         this.el.nativeElement.value = this.el.nativeElement.value.toLowerCase().trim();
     }
 }

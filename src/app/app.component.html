@@ -22,25 +22,25 @@
     <router-outlet></router-outlet>
     <!-- SEARCH -->
     <section class="search-section" [hidden]="hideSearchContainer">
-            <div class="search-content">
-                <div class="search-textbox">
-                    <input type="text" placeholder="Eg. adidas, nike, puma" #searchBox>
-                    <a (click)="hideSearch()" class="close-search" href="javascript:void(0)"></a>
-                </div>
-                <div *ngIf="searchLoader" class="search-loader"></div>
-                <div *ngIf="noResults" class="no-data"><span>no results found!</span></div>
-                <div *ngIf="searchResults" class="search-scroll">
-                    <a *ngFor="let item of searchResults" (click)="toProduct(item.productId)" class="search-results">
-                        <div class="inner">
-                            <img [src]="item.imgSrc" alt="">
-                            <div>
-                                <div class="title">product: {{ item.title }}</div>
-                                <div class="brand">{{ item.brand }}</div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+        <div class="search-content">
+            <div class="search-textbox">
+                <input type="text" placeholder="Eg. adidas, nike, puma" #searchBox>
+                <a (click)="hideSearch()" class="close-search" href="javascript:void(0)"></a>
             </div>
+            <div *ngIf="searchLoader" class="search-loader"></div>
+            <div *ngIf="noResults" class="no-data"><span>no results found!</span></div>
+            <div *ngIf="searchResults" class="search-scroll">
+                <a *ngFor="let item of searchResults" (click)="toProduct(item.productId)" class="search-results">
+                    <div class="inner">
+                        <img [src]="item.imgSrc" alt="">
+                        <div class="result-desc">
+                            <div class="title">product: {{ item.title }}</div>
+                            <div class="brand">{{ item.brand }}</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
     </section>
 </div>
 <footer>

@@ -35,7 +35,7 @@
             <div class="col-lg-6">
                 <div class="relative text-box">
                     <em class="caption">contact no.</em>
-                    <input appCustomTextbox appNumbersOnly pattern="\d+" type="text" [formControl]="registerForm.controls['contactNumber']" maxlength="10">
+                    <input appCustomTextbox appNumbersOnly type="text" [formControl]="registerForm.controls['contactNumber']" maxlength="10">
                     <div *ngIf="registerForm.controls['contactNumber'].dirty && registerForm.controls['contactNumber'].hasError('numberValidation')" class="field-error">
                         only numbers allowed
                     </div>
@@ -49,7 +49,7 @@
             <div class="col-xs-12">
                 <div class="relative text-box">
                     <em class="caption">address</em>
-                    <input appCustomTextbox type="text" [formControl]="registerForm.controls['address']">
+                    <textarea appCustomTextbox [formControl]="registerForm.controls['address']"></textarea>
                 </div>
             </div>
         </div>
