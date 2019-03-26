@@ -347,7 +347,7 @@ header{
             p{
                 @include reg(14);
                 color: #484848;
-                line-height: 26px;
+                line-height: 28px;
 
                 span{
                     color: $border;
@@ -360,6 +360,9 @@ header{
                     font-style: normal;
                     text-transform: capitalize;
                     display: inline-block;
+                }
+                &:last-of-type{
+                    line-height: 44px;
                 }
             }
         }
@@ -384,7 +387,7 @@ header{
 }
 .size{
     background: #f5f5f5;
-    padding: 35px 20px;
+    padding: 28px 20px 35px;
 
     .size-flex{
         display: flex;
@@ -1633,7 +1636,7 @@ header{
         }
     }
     .size{
-        padding: 40px;
+        padding: 30px 40px 40px;
     }
     .form-wrapper{
         .action:hover{
