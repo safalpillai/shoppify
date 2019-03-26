@@ -10,6 +10,7 @@ export class OrdersComponent implements AfterViewInit {
     orderList: any;
     windowWidth: any;
     startSlider: boolean = false;
+    loading: boolean;
 
     @HostListener('window: resize') onresize() {
         this.windowWidth = window.innerWidth;
@@ -17,8 +18,10 @@ export class OrdersComponent implements AfterViewInit {
     }
     
     constructor(private userService: UserService) {
+        this.loading = true;
         this.userService.getOrders(this.userService.getUser()).subscribe(res => {
             this.orderList = res[0].orders;
+            this.loading = false;
             // console.log(`orders.component - order list received - ${JSON.stringify(this.orderList, null, 2)}`);
         });
     }

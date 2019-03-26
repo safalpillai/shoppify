@@ -461,6 +461,9 @@ header{
     background-color: $w;
     z-index: 100;
 }
+.order-wrapper{
+    position: relative;
+}
 .search-loader{
     @include svg(loader);
     width: 100%;
