@@ -89,6 +89,6 @@ export class CardComponent implements OnInit {
 
     sendToLogin() {
         this.router.navigate(['/profile/login']);
-        this.notify.showInfo('Login to continue', 'Info');
+        this.notify.showError('Login to continue', 'Info');
     }
 }
