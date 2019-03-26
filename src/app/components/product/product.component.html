@@ -31,7 +31,7 @@
                     <div class="title">product details</div>
                     <p><span>color</span><i>{{ productDetails.color }}</i></p>
                     <p><span>material</span><i>{{ productDetails.material }}</i></p>
-                    <p><span>category</span>{{ productDetails.category }}</p>
+                    <p><span>category</span><i>{{ productDetails.category }}</i></p>
                     <p><span>description</span>{{ productDetails.description }}</p>
                     <button #cartButton (click)="toggleCart(productDetails, cartStatus, setSize)" class="cart">
                         {{ cartText }}

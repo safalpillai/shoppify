@@ -346,9 +346,8 @@ header{
             }
             p{
                 @include reg(14);
-                color: $text2;
+                color: #484848;
                 line-height: 26px;
-                text-align: justify;
 
                 span{
                     color: $border;
@@ -360,6 +359,7 @@ header{
                 i{
                     font-style: normal;
                     text-transform: capitalize;
+                    display: inline-block;
                 }
             }
         }
@@ -887,13 +887,17 @@ header{
         @include reg(13);
         text-transform: capitalize;
         display: block;
-        margin-bottom: 5px;
+        margin-bottom: 8px;
     }
     a{
         text-decoration: underline;
     }
     span{
         font-weight: 700;
+
+        &:last-child{
+            margin-bottom: 0;
+        }
     }
 }
 .order-list{
@@ -1128,6 +1132,7 @@ header{
         a, span{
             display: inline-block;
             vertical-align: middle;
+            margin-bottom: 2px;
         }
         a{
             padding-right: 20px;
