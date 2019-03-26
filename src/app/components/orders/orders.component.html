@@ -3,11 +3,11 @@
     
     <section *ngIf="orderList?.length > 0; else noorders" class="order-section row">
         <div class="col-xs-12">
-            <span class="dashboard-title">order status</span>
+            <span class="dashboard-title">orders</span>
         </div>
         <ng-container *ngFor="let instance of orderList; let ind = index;">
             <div class="col-lg-6">
-                <div class="order-list">
+                <a [routerLink]="['/product', instance.productId]" class="order-list">
                     <div class="img-holder"><img [src]="instance.imgSrc" alt=""></div>
                     <div class="order-left">
                         <div class="title">{{ instance.title }}</div>
@@ -28,7 +28,7 @@
                             <span>delivered</span>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="clearfix" *ngIf="((ind + 1) % 2 === 0) && windowWidth >= 1200"></div>
         </ng-container>

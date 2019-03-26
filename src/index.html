@@ -1,14 +1,209 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Shoppify</title>
-  <base href="/">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-</head>
-<body>
-  <app-root></app-root>
-</body>
+    <head>
+        <meta charset="utf-8">
+        <title>Shoppify</title>
+        <base href="/">
+        <!-- chrome, firefox os & opera -->
+        <meta name="theme-color" content="#448ef6">
+        <!-- windows phone -->
+        <meta name="msapplication-navbutton-color" content="#448ef6">
+        <!-- ios safari -->
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <link rel="icon" type="image/x-icon" href="favicon.ico">
+        <!-- pre loader -->
+        <style>
+            .cssload-loader-inner {
+                bottom: 0;
+                height: 55px;
+                left: 0;
+                margin: auto;
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: 92px;
+            }
+            .cssload-cssload-loader-line-wrap-wrap {
+                animation: cssload-spin 1700ms cubic-bezier(.175, .885, .32, 1.275) infinite;
+                -o-animation: cssload-spin 1700ms cubic-bezier(.175, .885, .32, 1.275) infinite;
+                -ms-animation: cssload-spin 1700ms cubic-bezier(.175, .885, .32, 1.275) infinite;
+                -webkit-animation: cssload-spin 1700ms cubic-bezier(.175, .885, .32, 1.275) infinite;
+                -moz-animation: cssload-spin 1700ms cubic-bezier(.175, .885, .32, 1.275) infinite;
+                box-sizing: border-box;
+                -o-box-sizing: border-box;
+                -ms-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                height: 46px;
+                left: 0;
+                overflow: hidden;
+                position: absolute;
+                top: 0;
+                transform-origin: 50% 100%;
+                -o-transform-origin: 50% 100%;
+                -ms-transform-origin: 50% 100%;
+                -webkit-transform-origin: 50% 100%;
+                -moz-transform-origin: 50% 100%;
+                width: 92px;
+            }
+            .cssload-loader-line-wrap {
+                border: 4px solid transparent;
+                border-radius: 100%;
+                -o-border-radius: 100%;
+                -ms-border-radius: 100%;
+                -webkit-border-radius: 100%;
+                -moz-border-radius: 100%;
+                box-sizing: border-box;
+                -o-box-sizing: border-box;
+                -ms-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                height: 92px;
+                left: 0;
+                margin: 0 auto;
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: 92px;
+            }
+            .cssload-cssload-loader-line-wrap-wrap:nth-child(1) {
+                animation-delay: -42.5ms;
+                -o-animation-delay: -42.5ms;
+                -ms-animation-delay: -42.5ms;
+                -webkit-animation-delay: -42.5ms;
+                -moz-animation-delay: -42.5ms;
+            }
+            .cssload-cssload-loader-line-wrap-wrap:nth-child(2) {
+                animation-delay: -85ms;
+                -o-animation-delay: -85ms;
+                -ms-animation-delay: -85ms;
+                -webkit-animation-delay: -85ms;
+                -moz-animation-delay: -85ms;
+            }
+            .cssload-cssload-loader-line-wrap-wrap:nth-child(3) {
+                animation-delay: -127.5ms;
+                -o-animation-delay: -127.5ms;
+                -ms-animation-delay: -127.5ms;
+                -webkit-animation-delay: -127.5ms;
+                -moz-animation-delay: -127.5ms;
+            }
+            .cssload-cssload-loader-line-wrap-wrap:nth-child(4) {
+                animation-delay: -170ms;
+                -o-animation-delay: -170ms;
+                -ms-animation-delay: -170ms;
+                -webkit-animation-delay: -170ms;
+                -moz-animation-delay: -170ms;
+            }
+            .cssload-cssload-loader-line-wrap-wrap:nth-child(5) {
+                animation-delay: -212.5ms;
+                -o-animation-delay: -212.5ms;
+                -ms-animation-delay: -212.5ms;
+                -webkit-animation-delay: -212.5ms;
+                -moz-animation-delay: -212.5ms;
+            }
+            .cssload-cssload-loader-line-wrap-wrap:nth-child(1) .cssload-loader-line-wrap {
+                border-color: rgb(234, 71, 71);
+                height: 83px;
+                width: 83px;
+                top: 6px;
+            }
+            .cssload-cssload-loader-line-wrap-wrap:nth-child(2) .cssload-loader-line-wrap {
+                border-color: rgb(234, 234, 71);
+                height: 70px;
+                width: 70px;
+                top: 13px;
+            }
+            .cssload-cssload-loader-line-wrap-wrap:nth-child(3) .cssload-loader-line-wrap {
+                border-color: rgb(71, 234, 71);
+                height: 57px;
+                width: 57px;
+                top: 19px;
+            }
+            .cssload-cssload-loader-line-wrap-wrap:nth-child(4) .cssload-loader-line-wrap {
+                border-color: rgb(71, 234, 234);
+                height: 44px;
+                width: 44px;
+                top: 26px;
+            }
+            .cssload-cssload-loader-line-wrap-wrap:nth-child(5) .cssload-loader-line-wrap {
+                border-color: rgb(71, 71, 234);
+                height: 31px;
+                width: 31px;
+                top: 32px;
+            }
+            @keyframes cssload-spin {
+                0%, 15% {
+                    transform: rotate(0);
+                    transform: rotate(0);
+                }
+                100% {
+                    transform: rotate(360deg);
+                    transform: rotate(360deg);
+                }
+            }
+            @-o-keyframes cssload-spin {
+                0%, 15% {
+                    -o-transform: rotate(0);
+                    transform: rotate(0);
+                }
+                100% {
+                    -o-transform: rotate(360deg);
+                    transform: rotate(360deg);
+                }
+            }
+            @-ms-keyframes cssload-spin {
+                0%, 15% {
+                    -ms-transform: rotate(0);
+                    transform: rotate(0);
+                }
+                100% {
+                    -ms-transform: rotate(360deg);
+                    transform: rotate(360deg);
+                }
+            }
+            @-webkit-keyframes cssload-spin {
+                0%, 15% {
+                    -webkit-transform: rotate(0);
+                    transform: rotate(0);
+                }
+                100% {
+                    -webkit-transform: rotate(360deg);
+                    transform: rotate(360deg);
+                }
+            }
+            @-moz-keyframes cssload-spin {
+                0%, 15% {
+                    -moz-transform: rotate(0);
+                    transform: rotate(0);
+                }
+                100% {
+                    -moz-transform: rotate(360deg);
+                    transform: rotate(360deg);
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <app-root>
+            <div class="cssload-loader-inner">
+                <div class="cssload-cssload-loader-line-wrap-wrap">
+                    <div class="cssload-loader-line-wrap"></div>
+                </div>
+                <div class="cssload-cssload-loader-line-wrap-wrap">
+                    <div class="cssload-loader-line-wrap"></div>
+                </div>
+                <div class="cssload-cssload-loader-line-wrap-wrap">
+                    <div class="cssload-loader-line-wrap"></div>
+                </div>
+                <div class="cssload-cssload-loader-line-wrap-wrap">
+                    <div class="cssload-loader-line-wrap"></div>
+                </div>
+                <div class="cssload-cssload-loader-line-wrap-wrap">
+                    <div class="cssload-loader-line-wrap"></div>
+                </div>
+            </div>
+        </app-root>
+    </body>
 </html>
