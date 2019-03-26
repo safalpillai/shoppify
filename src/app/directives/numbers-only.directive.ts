@@ -7,7 +7,7 @@ export class NumbersOnlyDirective {
     //numbers only 
     constructor(private el: ElementRef) { }
     
-    @HostListener('input', ['$event']) onKeyDown(e) {
+    @HostListener('keydown', ['$event']) onKeyDown(e) {
         if ([46, 8, 9, 27, 13, 110].indexOf(e.keyCode) !== -1 ||
             // Allow: Ctrl+A
             (e.keyCode === 65 && (e.ctrlKey || e.metaKey)) ||
