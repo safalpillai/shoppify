@@ -978,7 +978,7 @@ header{
         @include material;
         @include radius(3px);
         padding: 30px;
-        background: lighten(green, 5%);
+        background: #248424;
         color: $w;
         display: inline-block;
     }
