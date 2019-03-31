@@ -47,7 +47,13 @@
     <ng-template #nocart>
         <div class="no-data"><span>no products in cart!</span></div>
     </ng-template>
-    <div *ngIf="goToOrder" class="goto-order">
-        <p><span>Order placed successfully. Go to <a [routerLink]="['/orders']">my orders</a> page to see current orders.</span></p>
+</div>
+<div *ngIf="goToOrder" class="absolute goto-order">
+    <div class="tabled">
+        <div class="celled">
+            <p>
+                <span><em (click)="goToOrder = false"></em>Order placed successfully. Go to <a [routerLink]="['/orders']">my orders</a> page to see current orders.</span>
+            </p>
+        </div>
     </div>
 </div>

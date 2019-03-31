@@ -363,7 +363,7 @@ export class ThunkWrapper{
                 if(res) {
                     console.log(`thunk orderPlaced() - order added successfully - ${res}`);
                     dispatch(Actions.orderDone());
-                    this.notify.showSuccess('See my orders for details', 'Order placed');
+                    // this.notify.showSuccess('See my orders for details', 'Order placed');
                 } else {
                     console.log(`thunk orderPlaced() - oreder failed from server - ${res}`);
                     dispatch(Actions.orderFailed());
