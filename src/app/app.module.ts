@@ -43,43 +43,17 @@ import { DashLinksComponent } from './components/dash-links/dash-links.component
 
 @NgModule({
     declarations: [
-        AppComponent,
-        HomeComponent,
-        CartComponent,
-        ProfileComponent,
-        CardComponent,
-        ProductComponent,
-        CategoryComponent,
-        MenComponent,
-        WomenComponent,
-        KidsComponent,
-        LoginComponent,
-        RegisterComponent,
-        CustomTextboxDirective,
-        NumbersOnlyDirective,
-        DashboardComponent,
-        WishlistComponent,
-        OrdersComponent,
-        DashLinksComponent,
-        ModifyUsernameDirective,
+        AppComponent, HomeComponent, CartComponent, ProfileComponent, CardComponent, ProductComponent, 
+        CategoryComponent, MenComponent, WomenComponent, KidsComponent, LoginComponent, 
+        RegisterComponent, CustomTextboxDirective, NumbersOnlyDirective, DashboardComponent, 
+        WishlistComponent, OrdersComponent, DashLinksComponent, ModifyUsernameDirective,
     ],
     imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        SlimLoadingBarModule,
-        ReactiveFormsModule,
-        FormsModule,
-        BrowserAnimationsModule,
-        ToastrModule.forRoot(),
-        NgReduxModule,
+        BrowserModule, AppRoutingModule, HttpClientModule, SlimLoadingBarModule, ReactiveFormsModule, 
+        FormsModule, BrowserAnimationsModule, ToastrModule.forRoot(), NgReduxModule,
     ],
     providers: [
-        NotificationService,
-        ProductService,
-        UserService,
-        AuthGuard,
-        ThunkWrapper
+        NotificationService, ProductService, UserService, AuthGuard, ThunkWrapper
     ],
     bootstrap: [AppComponent]
 })
