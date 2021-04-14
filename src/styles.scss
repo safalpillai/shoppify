@@ -174,7 +174,7 @@ header{
     }
 }
 .wishlist-icon, .cart-icon{
-    @include boxshadow(0, 0, 10px, 0, 0, 0, 0.45);
+    @include boxshadow(0, 0, 4px, 0, 0, 0, 0.45);
     @include radius(50%);
     @include tr(25px, 25px);
     width: 40px;
@@ -212,7 +212,7 @@ header{
     padding: 20px;
 
     span{
-        @include reg(16);
+        @include reg(12);
         color: $text;
         display: block;
         text-transform: capitalize;
@@ -231,7 +231,7 @@ header{
             color: $border;
         }
         &.price{
-            @include light(24);
+            @include light(18);
             margin-bottom: 0;
         }
     }
@@ -239,12 +239,12 @@ header{
 .price{
     display: inline-block;
     position: relative;
-    padding-left: 25px;
+    padding-left: 15px;
 
     &:before{
-        @include basvg(rupee, 20px, 20px, 18px);
+        @include basvg(rupee, 14px, 14px, 14px);
         @include tl(50%, 0);
-        margin-top: -9px;
+        margin-top: -7px;
         background-position: center;
     }
 }
@@ -1526,7 +1526,7 @@ header{
         }
         tr{
             th{
-                font-size: 16px;
+                font-size: 14px;
             }
             th, td{
                 &:first-child{
@@ -1534,7 +1534,7 @@ header{
                 }
             }
             td{
-                @include reg(16);
+                @include reg(14);
             }
         }
         img{
@@ -1653,7 +1653,7 @@ header{
         @include transition;
 
         &:hover{
-            @include boxshadow(0, 0, 12px, 0, 0, 0, 0.45);
+            @include boxshadow(0, 0, 8px, 0, 0, 0, 0.45);
         }
         .wishlist{
             @include transition;

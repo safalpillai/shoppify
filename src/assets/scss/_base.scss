@@ -137,7 +137,7 @@ $bg: cart, wishlist, order, logout;
     background: url('assets/images/#{$png}.png') no-repeat;
 }
 @mixin material{
-    @include boxshadow(0, 0, 8px, 0, 0, 0, 0.2);
+    @include boxshadow(0, 0, 6px, 0, 0, 0, 0.2);
 }
 .full-width{
     width: 100%;
