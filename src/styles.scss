@@ -9,7 +9,7 @@ body{
     width: 10px;
 }
 ::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     -moz-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 }
@@ -41,7 +41,7 @@ button::-moz-focus-inner {
 }
 .desktop, footer{
     display: none;
-}  
+}
 a{
     outline: 0;
 
@@ -200,7 +200,7 @@ header{
     background-size: 18px;
     background-color: $w;
     background-position: center;
-    
+
     &.true{
         @include svg(heart-true);
         background-size: 18px;
@@ -407,7 +407,7 @@ header{
             line-height: 38px;
             text-align: center;
             margin-right: 10px;
-    
+
             &:last-child{
                 margin-right: 0;
             }
@@ -504,7 +504,7 @@ header{
         padding: 10px 80px;
         text-transform: capitalize;
         margin-top: 20px;
-        
+
         &.disabled{
             background: #ccc;
             pointer-events: none;
@@ -617,7 +617,7 @@ header{
             content: '*';
         }
         &.username-check{
-            padding-left: 25px;
+            padding-left: 20px;
 
             &:before{
                 @include tl(-2px, 2px);
@@ -627,7 +627,7 @@ header{
             }
             &.not-available:before{
                 @include svg(not-available);
-                background-size: 12px;
+                background-size: 10px;
                 background-position: left center;
             }
             &.available{
@@ -635,7 +635,7 @@ header{
 
                 &:before{
                     @include svg(available);
-                    background-size: 16px;
+                    background-size: 12px;
                     background-position: left center;
                 }
             }
@@ -683,7 +683,6 @@ header{
         font-size: 14px;
         color: $text2 !important;
         background: #eeeeee;
-        color: $blue;
         padding: 100px 30px 50px !important;
         position: relative;
 
@@ -717,7 +716,7 @@ header{
 #cart-table{
     table-layout: fixed;
     word-break: break-all;
-    
+
     &.table{
         @include radius(4px);
         border-color: #ccc;
@@ -765,7 +764,7 @@ header{
         background-position: center;
         width: 20px;
         height: 20px;
-        border: none;   
+        border: none;
     }
     tr{
         th{
@@ -952,7 +951,7 @@ header{
             @include reg(14);
             text-transform: capitalize;
             color: #888;
-            
+
             em{
                 font-size: 20px;
                 font-style: normal;
@@ -1115,7 +1114,7 @@ header{
 }
 .password-icon{
     position: relative;
-    
+
     input[type="text"], input[type="password"]{
         padding-right: 50px;
     }
@@ -1210,7 +1209,6 @@ header{
                 color: $w;
                 display: inline-block;
                 vertical-align: middle;
-                color: $w;
                 text-transform: uppercase;
                 margin-left: 10px;
             }
@@ -1226,7 +1224,7 @@ header{
         padding: 45px;
     }
     .profile-children{
-        width: 650px;
+        width: 500px;
         margin: auto;
     }
     .user-registered{
@@ -1260,7 +1258,7 @@ header{
         .cart-status{
             width: 34px;
             height: 34px;
-    
+
             &[data-cart="remove"]{
                 background-size: 28px;
             }
@@ -1281,7 +1279,7 @@ header{
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        
+
         .img-holder, .order-left{
             margin-bottom: 0;
         }
@@ -1307,7 +1305,7 @@ header{
         .search-content{
             width: 600px;
             overflow: hidden;
-            
+
             input[type="text"]{
                 height: 45px;
                 padding-left: 45px;
@@ -1338,11 +1336,10 @@ header{
         left: 0;
         right: 0;
         z-index: 1;
-        bottom: 0;
         width: 100%;
         height: 170px;
         background: rgba(0, 0, 0, 0.17);
-        
+
         .tech{
             @include tl(47px, 0);
             width: 100%;
@@ -1356,7 +1353,7 @@ header{
             text-align: center;
             margin-top: 16px;
             position: relative;
-            
+
             a, a:hover, a:visited{
                 color: #333333;
             }
@@ -1448,7 +1445,7 @@ header{
             width: 36px;
             height: 36px;
             overflow: hidden;
-            
+
             &:not(:last-of-type){
                 margin-right: 30px;
             }
@@ -1503,7 +1500,7 @@ header{
             .desktop-block{
                 width: 58%;
                 border-left: 1px solid #ddd;
-                
+
                 .card-inner{
                     padding: 40px;
                 }
@@ -1801,7 +1798,7 @@ header{
                 margin: 0 -30px 40px;
                 padding: 0 30px;
                 background: #eeeeee;
-                
+
                 &:after{
                     display: none;
                 }
